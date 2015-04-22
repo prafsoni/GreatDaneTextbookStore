@@ -5,7 +5,9 @@
 # Home page
 GET         /                    controllers.Application.index()
 GET         /register            controllers.Account.register()
-POST        /register            controllers.Account.createuser()
+POST        /register            controllers.Account.doregister()
+GET         /login               controllers.Account.login()
+POST        /login               controllers.Account.dologin()
 
 
 # Map static resources from the /public folder to the /assets URL path

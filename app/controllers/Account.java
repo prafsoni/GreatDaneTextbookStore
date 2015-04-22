@@ -7,6 +7,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.login;
 import views.html.register;
 
 import java.security.Timestamp;
@@ -23,7 +24,7 @@ public class Account extends Controller {
         return ok(register.render("SignUp"));
     }
 
-    public static Result createuser(){
+    public static Result doregister(){
         DynamicForm requestData = Form.form().bindFromRequest();
         Users user = new Users();
         user.fname = requestData.get("frstName");
@@ -35,6 +36,23 @@ public class Account extends Controller {
         user.cdate = null;
         UserOperations useroperations = new UserOperations();
         Boolean result = useroperations.createuser(user);
+        if(result){
+            return redirect("/");
+        }else {
+            return badRequest();
+        }
+    }
+
+    public static Result login(){
+        return ok(login.render("Login"));
+    }
+
+    public static Result dologin(){
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String uname = requestData.get("uname");
+        String pwd = requestData.get("pwd");
+        UserOperations useroperations = new UserOperations();
+        Boolean result = useroperations.checkuserpass(uname, pwd);
         if(result){
             return redirect("/");
         }else {
