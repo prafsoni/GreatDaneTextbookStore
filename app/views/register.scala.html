@@ -1,0 +1,33 @@
+@(message: String)
+@main("Register") {
+
+
+
+}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <form action="@routes.Account.register()" method="post">
+    First Name
+    <input type="text" name="firstName" /><br>
+    Last Name
+    <input type="text" name="lastName" /><br>
+    E-mail
+    <input type="email" name="email" /><br>
+    Mobile
+    <input type="number" name="mob" /><br>
+    User Name
+    <input type="text" name="userName" /><br>
+    Password
+    <input type="password" name="pwd" /><br>
+    Confirm Password
+    <input type="password" name="cpwd" /><br>
+
+    <input type="submit" value="Register" /><br>
+  </form>
+</body>
+</html>
