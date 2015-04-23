@@ -19,7 +19,7 @@ public class Users {
     public String email;
     public String mob;
     public String[] address;
-    public String[] role;
+    public String role;
     public int status;
     public Date cdate;
     public String picid;

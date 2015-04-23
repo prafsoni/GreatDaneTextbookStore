@@ -5,6 +5,7 @@ import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
+//import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import play.db.ebean.Model;
 import static com.mongodb.client.model.Filters.*;
@@ -17,13 +18,17 @@ import java.util.Arrays;
  */
 public class UserOperations extends Model {
 
-    private MongoDatabase getdatabase(){
+    private com.mongodb.async.client.MongoDatabase getdatabaseasync(){
         MongoClient mongoClient = MongoClients.create();
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
+        com.mongodb.async.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
         return mongoDatabase;
     }
 
-    private Document result;
+    private com.mongodb.client.MongoDatabase getdatabase(){
+        com.mongodb.MongoClient mongoClient = new com.mongodb.MongoClient();
+        com.mongodb.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
+        return mongoDatabase;
+    }
 
     public Boolean createuser(Users user ){
         try {
@@ -39,7 +44,7 @@ public class UserOperations extends Model {
                     .append("cDate", user.cdate)
                     //.append("role", Arrays.asList(user.role))
                     .append("status", user.status);
-            MongoDatabase database = getdatabase();
+            com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Users");
             collection.insertOne(doc, (Void result, final Throwable t) -> System.out.println("Inserted!"));
             return true;
@@ -47,22 +52,13 @@ public class UserOperations extends Model {
             return false;
         }
     }
-    private void getresult(Document doc){
-         this.result = doc;
-    }
 
     public Boolean checkuserpass(String uname, String pwd){
-        MongoDatabase database = getdatabase();
-        MongoCollection<Document> collection = database.getCollection("Users");
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
 
-        SingleResultCallback<Document> printDocument = new SingleResultCallback<Document>() {
-            @Override
-            public void onResult(final Document document, final Throwable t) {
-                getresult(document);
-            }
-        };
-        collection.find(and(eq("uname", uname), eq("password", pwd))).first(printDocument);
-        if(this.result!=null){
+        Document result = collection.find(and(eq("uname", uname), eq("password", pwd))).first();
+        if(result!=null){
             return true;
         }
         else {

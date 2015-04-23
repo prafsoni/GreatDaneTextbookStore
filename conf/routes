@@ -8,6 +8,8 @@ GET         /register            controllers.Account.register()
 POST        /register            controllers.Account.doregister()
 GET         /login               controllers.Account.login()
 POST        /login               controllers.Account.dologin()
+GET         /addproduct          controllers.Products.add()
+POST        /addproduct          controllers.Products.doadd()
 
 
 # Map static resources from the /public folder to the /assets URL path

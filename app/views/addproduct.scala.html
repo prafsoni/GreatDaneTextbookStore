@@ -1,0 +1,29 @@
+@(message : String)
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Add Book</title>
+</head>
+<body>
+  <form action="@routes.Products.doadd()" method="post">
+    Title
+    <input type="text" name="title" /><br>
+    ISBN
+    <input type="text" name="isbn" /><br>
+    Authors
+    <input type="text" name="authors" /><br>
+      Price
+    <input type="number" name="price" /><br>
+    Stock
+    <input type="text" name="stock" /><br>
+    Discription
+    <input type="text" name="discription" /><br>
+    Edition
+    <input type="number" name="edition" /><br>
+      Year
+      <input type="number" name="year" /><br>
+    <input type="submit" value="LIST" /><br>
+  </form>
+</body>
+</html>

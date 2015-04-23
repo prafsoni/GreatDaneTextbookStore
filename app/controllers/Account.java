@@ -33,13 +33,14 @@ public class Account extends Controller {
         user.email = requestData.get("email");
         user.mob = requestData.get("mob");
         user.password = requestData.get("pwd");
+        user.role = "user";
         user.cdate = null;
         UserOperations useroperations = new UserOperations();
         Boolean result = useroperations.createuser(user);
         if(result){
             return redirect("/");
         }else {
-            return badRequest();
+            return redirect("/register");
         }
     }
 
@@ -56,7 +57,7 @@ public class Account extends Controller {
         if(result){
             return redirect("/");
         }else {
-            return badRequest();
+            return redirect("/login");
         }
     }
 }
