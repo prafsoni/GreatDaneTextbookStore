@@ -1,29 +1,284 @@
 @(message : String)
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title>Add Book</title>
-</head>
-<body>
-  <form action="@routes.Products.doadd()" method="post">
-    Title
-    <input type="text" name="title" /><br>
-    ISBN
-    <input type="text" name="isbn" /><br>
-    Authors
-    <input type="text" name="authors" /><br>
-      Price
-    <input type="number" name="price" /><br>
-    Stock
-    <input type="text" name="stock" /><br>
-    Discription
-    <input type="text" name="discription" /><br>
-    Edition
-    <input type="number" name="edition" /><br>
-      Year
-      <input type="number" name="year" /><br>
-    <input type="submit" value="LIST" /><br>
-  </form>
-</body>
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="UTF-8">
+    <title>Great Dane Online Textbook Store</title>
+
+    <meta name="description" content="">
+
+      <!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]--> <!-- This fixes some bugs in older versions of Internet Explorer -->
+
+      <!-- CSS STYLES -->
+    <link href="@routes.Assets.at("css/main.css")" rel="stylesheet" type="text/css" media="screen">
+    <link href="@routes.Assets.at("css/flexslider.css")" rel="stylesheet" type="text/css" media="screen">
+    <link href="@routes.Assets.at("css/less.css")" rel="stylesheet" type="text/css" media="screen">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+
+      <!-- FONTS from GOOGLE FONTS -->
+    <link href='http://fonts.googleapis.com/css?family=Stalemate|Merriweather|Marcellus' rel='stylesheet' type='text/css'>
+
+      <!-- FACEBOOK SCRIPT - remove if not linking facebook page-->
+    <style type="text/css">
+    .auto-style1 {
+    vertical-align: middle;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    }
+    </style>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script><!-- end FACEBOOK SCRIPT -->
+
+  </head>
+
+  <body lang="en">
+
+    <div class="wrapper1">
+
+      <header>
+
+        <div id="logo">
+          <img src="@routes.Assets.at("images/logo.png")" width="280" height="100" alt="LOGO">
+        </div><!-- end logo -->
+        <div class="contact-info">
+
+          <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
+            <div style="overflow: hidden;">
+              <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+              <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+            </div>
+            <div style="overflow: hidden;">
+              <button type="submit" name="login" value="Login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></button>
+              <input type="password" placeholder="password" name="pwd" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+            </div>
+          </form>
+          <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
+
+        </div><!-- end contact-info -->
+
+        <div class="clearfloat"></div>
+
+      </header>
+
+
+    </div><!-- end wrapper1 -->
+
+    <nav>
+      <ul class="menu" style="height: 31px" id="navmenu">
+        <li><a href="index.scala.html">HOME</a></li>
+        <li><a href="categories.html">CATEGORIES</a></li>
+
+        <li style="height: 21px">
+
+          <form name="search" action="searchbook.java" method="get" style="width: 348px; position: relative; left: 0px; top: 0px; height: 25px;">
+            <button type="submit" name="search" value="Find" style="float: right">
+              <img src="@routes.Assets.at("public/images/booksearch.png")" height="23" width="23" class="auto-style1" /></button>
+            <div style="overflow: hidden;">
+              <input type="text" placeholder="Find your textbook here!" name="booksearch" style="position: relative; left: 0px; right: 0px; top: 0px; height: 19px" />
+            </div>
+          </form>
+        </li>
+        <li style="float: right; position: relative; height: 31px"><a href="shoppingcart.html">MY CART</a></li>
+
+        <li style="float: right; position: relative; height: 31px; left: 0px; top: 0px; width: 130px;"><a href="account.html" class="current">MY ACCOUNT</a></li>
+        <div class="clearfloat"></div>
+      </ul>
+    </nav>
+
+    <div class="main" style="height: 800px; float:none;">
+
+
+      <div class="contact-column1">
+
+        <form method="post" action="@routes.Products.doadd()">
+
+          <h2 class="page-heading"><span>List Textbook</span></h2>
+          <fieldset>
+            <div style="float:left">
+              <label class="required"><span class="required_star"> * </span>Title</label>
+              <input type="text" name="title" maxlength="80">
+
+              <label class="required"><span class="required_star"> * </span>Authors</label>
+              <input type="text" name="authors" maxlength="40">
+
+              <label class="required"><span class="required_star"> * </span>ISBN</label>
+              <input type="text" name="isbn" maxlength="40">
+
+              <label class="required"><span class="required_star"> * </span>Price</label>
+              <input type="text" name="price" maxlength="40">
+            </div>
+            <div style="float:left">
+              <label class="required"><span class="required_star"> * </span>Stock</label>
+              <input type="text" name="stock" maxlength="20">
+
+              <label class="required"><span class="required_star"> * </span>Year</label>
+              <input type="text" name="year" maxlength="40">
+
+              <label class="required"><span class="required_star"> * </span>Edition</label>
+              <input type="text" name="edtion" maxlength="40">
+
+              <lable class="required">&nbsp;&nbsp; Book Picture</lable>
+              <input type="file" name="bookimage" accept="image/*" style="height: 30px">
+            </div>
+            <div class="clearfloat"></div>
+            <label for="Your_Message" class="required" ><span class="required_star"> * </span>Description</label>
+
+            <textarea name="discription" maxlength="2000" height="80"></textarea>
+
+            <input type="submit" class="submit" value="LIST" style="float:left">
+          </fieldset>
+        </form>
+
+      </div>
+
+
+    </div><!-- end main -->
+
+
+    <div class="wrapper2">
+
+      <footer>
+
+        <div class="footer-column">
+          <h4>LINKS</h4>
+          <div id="tweets" class="footer-col tweet">
+
+            <a href="https://twitter.com/esksidedesign" title="Follow us on Twitter"><img src="@routes.Assets.at("images/_icons/twitter.png")" width="32" height="32" alt="ALT TEXT HERE"></a>
+            <a href="https://www.facebook.com/esksidewebdesign" title="Like our Facebook Page"><img src="@routes.Assets.at("images/_icons/facebook.png")" width="32" height="32" alt="ALT TEXT HERE"></a>
+            <a href="https://plus.google.com/106955806245449786793" title="Follow us on Google+"><img src="@routes.Assets.at("images/_icons/googleplus.png")" width="32" height="32" alt="ALT TEXT HERE"></a>
+            <a href="http://www.linkedin.com/pub/eskside-design/51/208/b7b" title="Follow us on Linkedin"><img src="@routes.Assets.at("images/_icons/linkedin.png")" width="32" height="32" alt="ALT TEXT HERE"></a><br/>
+
+          </div>
+          <div class="clearfloat"></div>
+        </div><!-- end footer-column1 -->
+
+        <div class="footer-column">
+          <h4>SITE MAP</h4>
+            <!-- SOCIAL MEDIA SHARE BUTTONS -->
+          <div class="social">
+              <!-- GOOGLE +1 -->
+            <div class="gplus">
+              <g:plusone></g:plusone>
+            </div>
+              <!-- TWEET BUTTON -->
+            <div class="tweet">
+
+            </div>
+              <!-- TWITTER FOLLOW BUTTON -->
+            <div class="tweet">
+
+            </div>
+              <!-- FACEBOOK LIKE BUTTON -->
+            <div class="fb-like"> </div>
+
+            <div class="clearfloat"> </div>
+
+          </div><!-- end social -->
+        </div>
+          <!-- end footer-column2 -->
+
+        <div class="footer-column last">
+          <h4>CONTACT WEBSITE ADMIN</h4>
+          <p>Telephone: +1 518-123-4567</p>
+          <p><a href="contact.html">Send E-mail &#8594;</a></p>
+          <p>ADDRESS</p>
+          <p>1400 Washington Ave<br/>
+            Computer Science Department<br/>
+            Albany, NY 12203 </p>
+
+        </div><!-- end footer-column3 -->
+
+        <div class="clearfloat"></div>
+
+        <div class="left">
+          Copyrights &copy; ESKSIDE DESIGN Edinburgh 2013
+        </div><!-- end left -->
+
+        <div class="right">
+          <li><a href="http://www.esksidedesign.co.uk" title="Website Design and Optimisation by Eskside Design" target="_blank">Designed by Eskside Design</a> </li>
+          <li> Modified by SE2015 L1T7 </li>
+        </div><!-- end right -->
+
+        <div class="clearfloat"></div>
+
+      </footer>
+    </div><!-- end wrapper2 -->
+
+  </body>
+    <!-- SCRIPTS -->
+  <script src="@routes.Assets.at("javascripts/jquery 1.8.3.js")"></script>
+  <script src="@routes.Assets.at("javascripts/css3-mediaqueries.js")"></script>
+  <script src="@routes.Assets.at("javascripts/jquery.tweet.js")" ></script>
+  <script src="@routes.Assets.at("javascripts/jquery.flexslider-min.js")"></script>
+  <script src="@routes.Assets.at("javascripts/modernizr.js")"></script>
+    <!-- GOOGLE+1 -->
+  <script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+  <script>
+jQuery(document).ready(function($) {
+
+	// Prepend combo nav holder
+    $('nav').append('<div class="mobile-nav"></div>');
+
+    // Create the dropdown base
+	$("<select id='comboNav' />").appendTo(".mobile-nav");
+
+	// Create default option "Go to..."
+	$("<option />", {
+		"selected": "selected",
+		"value"   : "",
+		"text"    : "MENU"
+	}).appendTo(".mobile-nav select");
+
+	// Populate dropdown with menu items
+	$(".menu a").each(function() {
+		var el = $(this);
+		var label = $(this).parent().parent().attr('id');
+		var sub = (label == 'nav') ? '' : '- ';
+
+		$("<option />", {
+		 "value"   : el.attr("href"),
+		 "text"    :  sub + el.text()
+		}).appendTo(".mobile-nav select");
+	});
+
+	/* Combo navigation action ----------------------------------------------------*/
+
+	$("#comboNav").change(function() {
+	  location = this.options[this.selectedIndex].value;
+	});
+
+	// FLEXSLIDER //
+	$('.flexslider').flexslider({
+    	animation: "fade",
+    	controlNav: false,
+    	keyboardNav: true,
+		directionNav: false
+    });
+
+	// TWITTER WIDGET //
+	$("#tweets").tweet({
+        count: 3,
+        username: "esksidedesign"//REPLACE WITH YOUR TWITTER ID //
+    });
+
+//close
+});
+</script>
 </html>
