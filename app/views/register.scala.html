@@ -65,7 +65,7 @@
               <input type="password" placeholder="password" name="pwd" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
             </div>
           </form>
-          <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
+          <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a> </div>
 
         </div><!-- end contact-info -->
 
@@ -101,32 +101,38 @@
     <div class="main" style="height: 800px; float:none;">
 
       <div class="contact-column1">
-        <form name="register" method="post" action="@routes.Account.register()" style="float:left" >
+        <form name="register" method="post" action="@routes.Account.register()" style="float:left" enctype="application/x-www-form-urlencoded" >
 
           <h2 class="page-heading"><span>Register</span></h2>
           <fieldset>
             <fieldset1>
               <label class="required"><span class="required_star"> * </span>Username</label>
-              <input type="text" name="userName"maxlength="40">
+              <input type="text" name="uname"maxlength="40" required>
 
               <label class="required"><span class="required_star"> * </span>Password</label>
-              <input type="password" name="pwd"maxlength="40">
+              <input type="password" name="password"maxlength="40" required>
 
               <label class="required"><span class="required_star"> * </span>Confirm Password</label>
-              <input type="password" name="cpwd" maxlength="40">
+              <input type="password" name="cpwd" maxlength="40" required>
             </fieldset1>
 
             <fieldset1>
               <label class="required"><span class="required_star"> * </span>First Name</label>
-              <input type="text" name="firstName" maxlength="40">
+              <input type="text" name="fname" maxlength="40">
 
               <label class="required"><span class="required_star"> * </span>Last Name</label>
-              <input type="text" name="firstName"maxlength="40">
+              <input type="text" name="lname"maxlength="40">
 
               <label class="required"><span class="required_star"> * </span>Phone Number</label>
-              <input type="text" name="phone" title="phone" id="phone" maxlength="40">
+              <input type="tel" name="mob" title="phone" id="phone" maxlength="40" required>
               <label class="required"><span class="required_star"> * </span>E-mail</label>
-              <input type="text" name="email" title="email" id="email" maxlength="40">
+              <input type="email" name="email" title="email" id="email" maxlength="40" required>
+              <label class="required"><span class="required_star"> * </span>User-Type</label>
+              <select name ="utype" title="utype" id="usertype" maxlength="40">
+                <option value="1">User</option>
+                <option value="2">Seller</option>
+                <option value="3">Admin</option>
+              </select><br>
             </fieldset1>
             <input type="submit" class="submit" value="Register" style="float:left">
 

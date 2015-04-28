@@ -19,17 +19,7 @@ public class Products extends Controller {
     }
 
     public static Result doadd(){
-        DynamicForm requestData = Form.form().bindFromRequest();
-        Books book = new Books();
-        book.title = requestData.get("title");
-        book.authors= requestData.get("authors");
-        //book.edition = requestData.get("edition");
-        book.isbn = requestData.get("isbn");
-        book.picid = requestData.get("picid");
-        //book.price = requestData.get("price");
-        //book.year = requestData.get("year");
-        //book.stock = requestData.get("stock");
-        book.seller = "greatdanebookstore";
+        Books book = Form.form(Books.class).bindFromRequest().get();
         BookOperations bo = new BookOperations();
         boolean result = bo.addbook(book);
         if(result){
