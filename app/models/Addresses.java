@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 public class Addresses {
     public String id;
     public String addr;
-    public String stat;
+    public String state;
     public String addrtype;
     public int zip;
     public String userid;
