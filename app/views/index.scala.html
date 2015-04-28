@@ -62,11 +62,11 @@
                             <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
                         </div>
                         <div style="overflow: hidden;">
-                            <button type="submit" name="register" value="register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></button>
+                            <button type="submit" name="login" value="Login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></button>
                             <input type="password" placeholder="password" name="pwd" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
                         </div>
                     </form>
-                    <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a> </div>
+                    <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
 
                 </div><!-- end contact-info -->
 
