@@ -1,0 +1,55 @@
+@(message: String)
+@loginbox = {
+  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
+    <div style="overflow: hidden;">
+      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+    <div style="overflow: hidden;">
+      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+  </form>
+  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
+}
+@main(title = "Welcome to Store")(loginbox){
+  <div class="side-left">
+    <h4><a href="account_bank.html">Bank Account</a></h4>
+    <h4><a href="account_cc.html">Credit Card</a></h4>
+    <h4><a href="account_paypal.html">Paypal</a></h4>
+  </div>
+
+  <div class="column-large">
+    <br><h2 class="page-heading"><span>Add Bank Account</span></h2>
+
+    <form name="addbank" method="post" action="@routes.Banks.doadd()" >
+      <div class="contact-column1">
+        <fieldset>
+          <label class="required"><span class="required_star"> * </span>Name on Account</label>
+          <input type="text" name="name" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>Account Type</label>
+          <select name="acctype" style="margin-left:5%; width: 280px; height: 30px">
+            <option value="checking">Checking Account</option>
+            <option value="saving">Saving Account</option>
+          </select>
+          <label class="required"><span class="required_star"> * </span>Routing Number</label>
+          <input type="number" name="routing" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>Account Number</label>
+          <input type="number" name="acc" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>Flow</label>
+          <input type="number" name="flow" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>Billing Address</label>
+          <input type="text" name="billaddr" maxlength="255">
+
+          <input type="submit" class="submit" value="ADD" style="float:left">
+        </fieldset>
+      </div><!-- end freecontactform -->
+
+    </form>
+    <div lass="clearfloat"></div>
+  </div><!-- end column-large -->
+}
