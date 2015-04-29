@@ -6,8 +6,8 @@
             <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
         </div>
         <div style="overflow: hidden;">
-            <a href="register.scala.html" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
-            <input type="password" placeholder="password" name="pwd" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+            <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+            <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
         </div>
     </form>
     <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
@@ -21,16 +21,17 @@
                 <fieldset>
                     <fieldset1>
                         <label class="required"><span class="required_star"> * </span>User Type</label>
-                        <select name="mob" style="width: 280px; height: 30px">
-                            <option value="buyer">Register as a buyer</option>
-                            <option value="seller">Register as a seller</option>
+                        <select name="utype" style="margin-left:5%; width: 280px; height: 30px">
+                            <option value="1">Register as a Buyer</option>
+                            <option value="2">Register as a Seller</option>
+                            <option value="3">Register as a Admin</option>
                         </select>
 
                         <label class="required"><span class="required_star"> * </span>Username</label>
-                        <input type="text" name="userName"maxlength="40">
+                        <input type="text" name="uname"maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>Password</label>
-                        <input type="password" name="pwd"maxlength="40">
+                        <input type="password" name="password"maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>Confirm Password</label>
                         <input type="password" name="cpwd" maxlength="40">
@@ -38,15 +39,15 @@
 
                     <fieldset1>
                         <label class="required"><span class="required_star"> * </span>First Name</label>
-                        <input type="text" name="firstName" maxlength="40">
+                        <input type="text" name="fname" maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>Last Name</label>
-                        <input type="text" name="firstName"maxlength="40">
+                        <input type="text" name="lname"maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>Phone Number</label>
-                        <input type="text" name="phone" maxlength="40">
+                        <input type="tel" name="mob" maxlength="40">
                         <label class="required"><span class="required_star"> * </span>E-mail</label>
-                        <input type="text" name="email" maxlength="40">
+                        <input type="email" name="email" maxlength="40">
                     </fieldset1>
                     <input type="submit" class="submit" value="Register" style="float:left">
 

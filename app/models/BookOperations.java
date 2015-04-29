@@ -33,6 +33,7 @@ public class BookOperations extends Model {
                     .append("stock", book.stock)
                     .append("seller", book.seller)
                     .append("pic", book.picid)
+                    //.append("description", book.description);
                     .append("year", book.year);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Books");
