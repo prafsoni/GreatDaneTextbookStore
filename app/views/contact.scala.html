@@ -1,0 +1,74 @@
+@(message: String)
+@loginbox = {
+  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
+    <div style="overflow: hidden;">
+      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+    <div style="overflow: hidden;">
+      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+  </form>
+  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
+}
+@main(title = "Contact")(loginbox){
+  <div class="main">
+
+    <div class="contact-column2">
+        <!-- Map -->
+      <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true" />
+      </script>
+	<script type="text/javascript">
+		function initialize() {
+			var latlng = new google.maps.LatLng(42.686663, -73.822982);
+			var myOptions = {
+			  zoom: 8,
+			  center: latlng,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map_canvas"),
+		    myOptions);
+		}
+	</script>
+      <div id="map_canvas"></div><!-- ENDS Map -->
+
+      <h4>ADDRESS</h4>
+
+      <p>1400 Washington Ave<br/>
+        Department of Computer Science<br/>
+        Albany, NY 12203<br/><br/>
+        TELEPHONE - +1 518-123-4567<br/><br/></p>
+
+    </div><!-- end column2 -->
+
+    <div class="contact-column1" style="width:500px">
+
+      <form name="contact" method="post" action="contact.java">
+
+        <h2 class="page-heading"><span>Contact User or Administrator</span></h2>
+        <fieldset>
+          <label for="Reason" class="required"><span class="required_star"> * </span>Reason</label>
+          <select name="reason" style="width: 280px; height: 30px; margin-bottom: 2%; margin-left:2%;">
+            <option value="bookinformation">Questions for book information</option>
+            <option value="existingorders">Questions for existing orders</option>
+            <option value="ordershipment">Questions for order shipment</option>
+            <option value="otherquestions">Other questions</option>
+          </select>
+          <label for="userID" class="required"><span class="required_star"> * </span>Username</label>
+          <input type="text" name="username" maxlength="40">
+
+          <label for="Title"> <span class="required_star"> * </span>Title</label>
+          <input type="text" name="title" maxlength="60" style="width: 280px">
+          <label for="Your_Message" class="required" ><span class="required_star"> * </span>Message</label>
+          <textarea title="message" name="message" id="message" maxlength="2000" height="80"></textarea>
+          <input type="submit" class="submit" value="SEND">
+        </fieldset>
+      </form><!-- ENDS form -->
+
+      <div class="clearfloat"></div>
+    </div>
+
+  </div><!-- end main -->
+
+}

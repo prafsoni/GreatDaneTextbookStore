@@ -1,0 +1,55 @@
+@(message: String)
+@loginbox = {
+  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
+    <div style="overflow: hidden;">
+      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+    <div style="overflow: hidden;">
+      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+  </form>
+  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
+}
+@main(title = "Bank Accounts")(loginbox){
+  <div class="main">
+
+
+    <form name="search" method="post" action="searchbook.java" style="float:left" >
+      <div class="freecontactform">
+        <h2 class="page-heading"><span>Search Books</span></h2>
+        <fieldset>
+          <label for="Catetory" class="required"><span class="required_star"> * </span>Catetory</label>
+          <select name="catetory" title="catetory" id="catetory" style="width: 280px; height: 30px;">
+            <option value="all">All Catetories</option>
+            <option value="catetory1">Catetory 1</option>
+            <option value="catetory2">Catetory 2</option>
+            <option value="catetory3">Catetory 3</option>
+          </select>
+
+          <label class="required"><span class="required_star"> * </span>Title</label>
+          <input type="text" name="title" title="title" id="title" maxlength="80">
+
+          <label class="required"><span class="required_star"> * </span>Author</label>
+          <input type="text" name="author" title="author" id="author" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>ISBN</label>
+          <input type="text" name="isbn" title="isbn" id="isbn" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>Price</label>
+          <input type="text" name="price" title="price" id="price" maxlength="40">
+
+          <input type="submit" class="submit" value="Search" style="float:left;">
+        </fieldset>
+
+      </div><!-- end freecontactform -->
+
+    </form>
+
+
+
+    <div class="clearfloat"></div>
+  </div><!-- end main -->
+
+}

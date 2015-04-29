@@ -13,6 +13,7 @@
   <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
 }
 @main(title = "Welcome to Store")(loginbox){
+  <div class="main" style="height: 600px; float:none;">
   <div class="side-left">
     <h4><a href="account_bank.html">Bank Account</a></h4>
     <h4><a href="account_cc.html">Credit Card</a></h4>
@@ -22,7 +23,7 @@
   <div class="column-large">
     <br><h2 class="page-heading"><span>Add Bank Account</span></h2>
 
-    <form name="addbank" method="post" action="@routes.Banks.doadd()" >
+    <form name="addbank" method="post" action="" >
       <div class="contact-column1">
         <fieldset>
           <label class="required"><span class="required_star"> * </span>Name on Account</label>
@@ -52,4 +53,5 @@
     </form>
     <div lass="clearfloat"></div>
   </div><!-- end column-large -->
+  </div><!-- end main -->
 }

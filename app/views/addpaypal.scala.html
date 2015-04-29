@@ -1,0 +1,44 @@
+@(message: String)
+@loginbox = {
+  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
+    <div style="overflow: hidden;">
+      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+    <div style="overflow: hidden;">
+      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
+    </div>
+  </form>
+  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
+}
+@main(title = "Bank Accounts")(loginbox){
+  <div class="main" style="height: 500px; float:none;">
+
+    <div class="side-left">
+      <h4><a href="account_bank.html">Bank Account</a></h4>
+      <h4><a href="account_cc.html">Credit Card</a></h4>
+      <h4><a href="account_paypal.html">Paypal</a></h4>
+    </div>
+
+    <div class="column-large">
+      <h2 class="page-heading"><span>Add Paypal</span></h2>
+
+      <form name="addpaypal" method="post" action="addpaypal.php" >
+        <div class="contact-column1">
+          <fieldset>
+            <label class="required"><span class="required_star"> * </span>Name on Account</label>
+            <input type="text" name="nameonpayment" title="nameonpayment" id="nameonpayment" maxlength="40">
+            <label class="required"><span class="required_star"> * </span>E-mail Address</label>
+            <input type="text" name="paypalemail" title="paypalemail" id="paypalemail" maxlength="40">
+            <input type="submit" class="submit" value="ADD" style="float:left">
+          </fieldset>
+        </div><!-- end freecontactform -->
+      </form>
+      <div lass="clearfloat"></div>
+    </div>
+
+
+  </div><!-- end main -->
+
+}
