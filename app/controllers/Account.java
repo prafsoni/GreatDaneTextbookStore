@@ -11,6 +11,7 @@ import views.html.login;
 import views.html.register;
 
 import java.security.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -26,15 +27,21 @@ public class Account extends Controller {
 
     public static Result doregister(){
         DynamicForm requestData = Form.form().bindFromRequest();
-        Users user = new Users();
-        user.fname = requestData.get("frstName");
-        user.lname = requestData.get("lastName");
-        user.uname = requestData.get("userName");
-        user.email = requestData.get("email");
-        user.mob = requestData.get("mob");
-        user.password = requestData.get("pwd");
-        user.role = "user";
-        user.cdate = null;
+        Users user = Form.form(Users.class).bindFromRequest().get();
+        Date date = new Date();
+        user.cdate = date;
+        ArrayList<String> role = new ArrayList<>();
+        if(requestData.get("utype").matches("1")){
+            role.add("user");
+        }else if(requestData.get("utype").matches("2")){
+            role.add("user");
+            role.add("seller");
+        }else if(requestData.get("utype").matches("3")){
+            role.add("user");
+            role.add("seller");
+            role.add("admin");
+        }
+        user.role = role;
         UserOperations useroperations = new UserOperations();
         Boolean result = useroperations.createuser(user);
         if(result){
@@ -50,14 +57,21 @@ public class Account extends Controller {
 
     public static Result dologin(){
         DynamicForm requestData = Form.form().bindFromRequest();
-        String uname = requestData.get("uname");
-        String pwd = requestData.get("pwd");
-        UserOperations useroperations = new UserOperations();
-        Boolean result = useroperations.checkuserpass(uname, pwd);
-        if(result){
-            return redirect("/");
+        if(requestData.get("login")!=null) {
+            String uname = requestData.get("uname");
+            String pwd = requestData.get("pwd");
+            UserOperations useroperations = new UserOperations();
+            Boolean result = useroperations.checkuserpass(uname, pwd);
+            if (result) {
+                request().setUsername(uname);
+                return redirect("/");
+            } else {
+                return redirect("/login");
+            }
+        }else if(requestData.get("register")!=null){
+            return redirect("/register");
         }else {
-            return redirect("/login");
+            return redirect("/");
         }
     }
 }

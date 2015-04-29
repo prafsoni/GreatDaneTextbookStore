@@ -1,5 +1,6 @@
 package models;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.async.SingleResultCallback;
 import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
@@ -32,8 +33,6 @@ public class UserOperations extends Model {
 
     public Boolean createuser(Users user ){
         try {
-            //user.address[0] = "";
-            //user.role[0]= "user";
             Document doc = new Document("fname", user.fname)
                     .append("lname", user.lname)
                     .append("uname", user.uname)
@@ -42,7 +41,7 @@ public class UserOperations extends Model {
                     .append("mob", user.mob)
                     //.append("address", Arrays.asList(user.address))
                     .append("cDate", user.cdate)
-                    //.append("role", Arrays.asList(user.role))
+                    .append("role", user.role)
                     .append("status", user.status);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Users");
