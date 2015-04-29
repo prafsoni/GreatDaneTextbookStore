@@ -1,5 +1,8 @@
 package models;
 
+import org.bson.types.ObjectId;
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 import java.util.List;
 
@@ -8,7 +11,7 @@ import java.util.List;
  */
 @Entity
 public class Courses {
-    public String id;
+    public ObjectId id;
     public String cname;
     public List<String> departments;
 }

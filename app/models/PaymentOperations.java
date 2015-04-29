@@ -2,11 +2,12 @@ package models;
 
 import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
+import play.db.ebean.Model;
 
 /**
  * Created by PKS on 4/28/15.
  */
-public class PaymentOperations {
+public class PaymentOperations extends Model {
     private com.mongodb.async.client.MongoDatabase getdatabaseasync(){
         MongoClient mongoClient = MongoClients.create();
         com.mongodb.async.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");

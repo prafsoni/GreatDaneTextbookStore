@@ -6,6 +6,7 @@ import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
+import play.db.ebean.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import static com.mongodb.client.model.Filters.*;
 /**
  * Created by PKS on 4/28/15.
  */
-public class AddressOperations {
+public class AddressOperations extends Model{
     private com.mongodb.async.client.MongoDatabase getdatabaseasync(){
         MongoClient mongoClient = MongoClients.create();
         com.mongodb.async.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
@@ -71,7 +72,7 @@ public class AddressOperations {
             Addresses addr = new Addresses();
             addr.addr = doc.getString("addr");
             addr.addrtype = doc.getString("addrtype");
-            addr.id = doc.getString("_id");
+            addr.id = doc.getObjectId("_id");
             addr.userid = doc.getString("userid");
             addr.state = doc.getString("state");
             addr.zip = doc.getInteger("zip");
@@ -89,7 +90,7 @@ public class AddressOperations {
             Addresses addr = new Addresses();
             addr.addr = doc.getString("addr");
             addr.addrtype = doc.getString("addrtype");
-            addr.id = doc.getString("_id");
+            addr.id = doc.getObjectId("_id");
             addr.userid = doc.getString("userid");
             addr.state = doc.getString("state");
             addr.zip = doc.getInteger("zip");
@@ -107,7 +108,7 @@ public class AddressOperations {
             Addresses addr = new Addresses();
             addr.addr = doc.getString("addr");
             addr.addrtype = doc.getString("addrtype");
-            addr.id = doc.getString("_id");
+            addr.id = doc.getObjectId("_id");
             addr.userid = doc.getString("userid");
             addr.state = doc.getString("state");
             addr.zip = doc.getInteger("zip");
@@ -123,7 +124,7 @@ public class AddressOperations {
         Addresses addr = new Addresses();
         addr.addr = result.getString("addr");
         addr.addrtype = result.getString("addrtype");
-        addr.id = result.getString("_id");
+        addr.id = result.getObjectId("_id");
         addr.userid = result.getString("userid");
         addr.state = result.getString("state");
         addr.zip = result.getInteger("zip");

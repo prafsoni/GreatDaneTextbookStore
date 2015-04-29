@@ -5,6 +5,7 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
+import play.db.ebean.Model;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import static com.mongodb.client.model.Filters.eq;
 /**
  * Created by PKS on 4/28/15.
  */
-public class BankOperations {
+public class BankOperations extends Model {
     private com.mongodb.async.client.MongoDatabase getdatabaseasync(){
         MongoClient mongoClient = MongoClients.create();
         com.mongodb.async.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
@@ -46,12 +47,12 @@ public class BankOperations {
         collection.deleteOne(result);
     }
 
-    public void Update(Banks banks){
+    public void update(Banks banks){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
-        Document doc = new Document("_id",banks.bankid)
+        Document doc = new Document("_id",banks.id)
                 .append("bankname", banks.bankname);
-        collection.updateOne(eq("_id", banks.bankid), doc);
+        collection.updateOne(eq("_id", banks.id), doc);
     }
 
     public ArrayList<Banks> getall(){
@@ -61,7 +62,7 @@ public class BankOperations {
         ArrayList<Banks> list = new ArrayList<>();
         for(Document result : results){
             Banks banks = new Banks();
-            banks.bankid = result.getString("_id");
+            banks.id = result.getObjectId("_id");
             banks.bankname = result.getString("bankname");
             list.add(banks);
         }

@@ -45,7 +45,7 @@ public class UserOperations extends Model {
                     .append("status", user.status);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Users");
-            collection.insertOne(doc, (Void result, final Throwable t) -> System.out.println("Inserted!"));
+            collection.insertOne(doc, (Void result, final Throwable t) -> System.out.println(user.id));
             return true;
         }catch(Exception ex){
             return false;

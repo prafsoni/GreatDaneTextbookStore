@@ -5,6 +5,7 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
+import play.db.ebean.Model;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import static com.mongodb.client.model.Filters.eq;
 /**
  * Created by PKS on 4/28/15.
  */
-public class BankInfoOperations {
+public class BankInfoOperations extends Model {
     private com.mongodb.async.client.MongoDatabase getdatabaseasync(){
         MongoClient mongoClient = MongoClients.create();
         com.mongodb.async.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
@@ -79,7 +80,7 @@ public class BankInfoOperations {
             bankInfo.flow = result.getInteger("flow");
             bankInfo.routing = result.getInteger("routing");
             bankInfo.userid = result.getString("userid");
-            bankInfo.id = result.getString("_id");
+            bankInfo.id = result.getObjectId("_id");
             list.add(bankInfo);
         }
         return list;

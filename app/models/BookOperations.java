@@ -3,8 +3,13 @@ package models;
 import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
+import com.mongodb.client.FindIterable;
 import org.bson.Document;
 import play.db.ebean.Model;
+
+import java.util.ArrayList;
+
+import static com.mongodb.client.model.Filters.eq;
 
 /**
  * Created by PKS on 4/22/15.
@@ -42,5 +47,97 @@ public class BookOperations extends Model {
         }catch(Exception ex){
             return false;
         }
+    }
+
+    public void delete(String id){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
+        Document result = collection.find(eq("_id",id)).first();
+        collection.deleteOne(result);
+    }
+
+    public Books getone(String id){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
+        Document result = collection.find(eq("_id",id)).first();
+        Books book = new Books();
+        book.authors = result.getString("authors");
+        book.edition = result.getInteger("edition");
+        book.isbn = result.getString("isbn");
+        book.picid = result.getString("picid");
+        book.price = result.getInteger("price");
+        book.seller = result.getString("seller");
+        book.stock = result.getInteger("stock");
+        book.title = result.getString("title");
+        book.year = result.getInteger("year");
+        return book;
+    }
+
+    public void updatestock(String id,int reduceby){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
+        Document result = collection.find(eq("_id",id)).first();
+        int stock = result.getInteger("stock");
+        result.replace("stock",stock,stock-reduceby);
+    }
+
+    public ArrayList<Books> getall(){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
+        FindIterable<Document> results = collection.find().limit(300);
+        ArrayList<Books> list = new ArrayList<>();
+        for(Document result: results){
+            Books book = new Books();
+            book.authors = result.getString("authors");
+            book.edition = result.getInteger("edition");
+            book.isbn = result.getString("isbn");
+            book.picid = result.getString("picid");
+            book.price = result.getInteger("price");
+            book.seller = result.getString("seller");
+            book.stock = result.getInteger("stock");
+            book.title = result.getString("title");
+            book.year = result.getInteger("year");
+            list.add(book);
+        }
+        return list;
+    }
+
+    public ArrayList<Books> search(String text){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
+        Document doc = new Document("text","Books").append("search", text);
+        Document result = database.runCommand(doc);
+        ArrayList<Books> list = new ArrayList<>();
+        //for(Document result: results) {
+            Books book = new Books();
+            book.authors = result.getString("authors");
+            book.edition = result.getInteger("edition");
+            book.isbn = result.getString("isbn");
+            book.picid = result.getString("picid");
+            book.price = result.getInteger("price");
+            book.seller = result.getString("seller");
+            book.stock = result.getInteger("stock");
+            book.title = result.getString("title");
+            book.year = result.getInteger("year");
+            list.add(book);
+        //}
+        return list;
+    }
+
+    public void update(Books book){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
+        Document doc = new Document("_id",book.id)
+                .append("title",book.title)
+                .append("isbn", book.isbn)
+                .append("edition", book.edition)
+                .append("price", book.price)
+                .append("authors", book.authors)
+                .append("stock", book.stock)
+                .append("seller", book.seller)
+                .append("pic", book.picid)
+                        //.append("description", book.description);
+                .append("year", book.year);
+        collection.updateOne(eq("_id", book.id), doc);
     }
 }

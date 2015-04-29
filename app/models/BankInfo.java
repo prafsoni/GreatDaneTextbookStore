@@ -1,5 +1,8 @@
 package models;
 
+import org.bson.types.ObjectId;
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 
 /**
@@ -12,7 +15,7 @@ public class BankInfo {
     public long acc;
     public String acctype;
     public int flow;
-    public String id;
+    public ObjectId id;
     public String userid;
     public String billaddr;
 }

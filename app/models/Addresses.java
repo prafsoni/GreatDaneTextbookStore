@@ -1,5 +1,8 @@
 package models;
 
+import org.bson.types.ObjectId;
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 
 /**
@@ -7,7 +10,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Addresses {
-    public String id;
+    public ObjectId id;
     public String addr;
     public String state;
     public String addrtype;

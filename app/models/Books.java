@@ -1,5 +1,7 @@
 package models;
 
+import org.bson.types.ObjectId;
+
 import javax.persistence.Entity;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Books {
+    public ObjectId id;
     public String title;
     public String isbn;
     public String authors;

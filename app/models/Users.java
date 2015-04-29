@@ -2,6 +2,7 @@ package models;
 
 import org.bson.types.ObjectId;
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
