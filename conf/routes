@@ -11,6 +11,8 @@ POST        /login               controllers.Account.dologin()
 GET         /addproduct          controllers.Products.add()
 POST        /addproduct          controllers.Products.doadd()
 GET         /contact             controllers.Contact.contact()
+GET         /search              controllers.Search.search()
+POST        /search              controllers.Search.dosearch()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
