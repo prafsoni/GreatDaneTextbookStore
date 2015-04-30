@@ -7,6 +7,8 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.cache.Cache;
+import play.mvc.Http.Session;
 import views.html.login;
 import views.html.register;
 
@@ -94,7 +96,7 @@ public class Account extends Controller {
         DynamicForm requestData = Form.form().bindFromRequest();
 
         // print
-        System.out.println(requestData.data());
+        //System.out.println(requestData.data());
 
         // Error case, should not get here. That means the POST'ed data isnt
         // what we expect
@@ -109,11 +111,17 @@ public class Account extends Controller {
         // Test if the username/pass were correct, if so
         // set the session username to the entered name and redirect to the homepage
         if (UserOperations.checkuserpass(uname, pwd)) {
-            // sets the session username to the username entered.
-            // session-level data gets carried around until the user logs out or
-            // the session expires.
-            request().setUsername(uname);
             System.out.println("Logging in user: " + uname);
+
+            String uuid = session("uuid");
+
+            if (uuid == null) {
+                uuid = java.util.UUID.randomUUID().toString();
+                session("uuid", uuid);
+            }
+
+            Cache.set(uuid+"username", uname);
+
             return redirect("/");
         }
         else {

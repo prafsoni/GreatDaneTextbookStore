@@ -19,7 +19,7 @@ public class Books {
     public int edition;
     public String seller;
     public String picid;
-    //public String description;
+    public String description;
 
     public Books(){}
 }
