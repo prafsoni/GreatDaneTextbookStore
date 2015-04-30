@@ -13,5 +13,4 @@ import java.util.List;
 public class Departments {
     public ObjectId id;
     public String dname;
-    public List<String> courseids;
 }

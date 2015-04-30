@@ -14,6 +14,7 @@ import play.db.ebean.Model;
 import static com.mongodb.client.model.Filters.*;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -32,7 +33,7 @@ public class UserOperations extends Model {
         com.mongodb.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
         return mongoDatabase;
     }
-
+    class a extends ArrayList<String>{}
     /**
      * Creates a user in the DB from a User instance
      * @param user The User instance used to construct a user document in the DB.
@@ -121,8 +122,8 @@ public class UserOperations extends Model {
         user.picid = result.getString("picid");
         user.status = result.getInteger("status");
         user.id = result.getObjectId("_id");
-        //user.role = result.
-        //user.address = result.
+        user.role = result.get("role", a.class);
+        user.address = result.get("role",a.class);
         user.uname = result.getString("uname");
         return user;
     }
@@ -141,8 +142,8 @@ public class UserOperations extends Model {
         user.picid = result.getString("picid");
         user.status = result.getInteger("status");
         user.id = result.getObjectId("_id");
-        //user.role = result.
-        //user.address = result.
+        user.role = result.get("role", a.class);
+        user.address = result.get("role",a.class);
         user.uname = result.getString("uname");
         return user;
     }

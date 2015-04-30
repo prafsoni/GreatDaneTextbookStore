@@ -9,8 +9,8 @@ import java.util.Date;
 @Entity
 public class ContactMsg {
     public Object id;
-    public String userid;
-    public String sellerid;
+    public String senderid;
+    public String receiverid;
     public String subject;
     public String msg;
     public Date sdate;
