@@ -38,7 +38,7 @@ public class BookOperations extends Model {
                     .append("stock", book.stock)
                     .append("seller", book.seller)
                     .append("pic", book.picid)
-                    //.append("description", book.description);
+                    .append("description", book.description)
                     .append("year", book.year);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Books");
@@ -69,6 +69,7 @@ public class BookOperations extends Model {
         book.seller = result.getString("seller");
         book.stock = result.getInteger("stock");
         book.title = result.getString("title");
+        book.description = result.getString("description");
         book.year = result.getInteger("year");
         return book;
     }
@@ -96,6 +97,7 @@ public class BookOperations extends Model {
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
             book.title = result.getString("title");
+            book.description = result.getString("description");
             book.year = result.getInteger("year");
             list.add(book);
         }
@@ -111,13 +113,14 @@ public class BookOperations extends Model {
         //for(Document result: results) {
             Books book = new Books();
             book.authors = result.getString("authors");
-            book.edition = result.getInteger("edition");
+        book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
             book.picid = result.getString("picid");
-            book.price = result.getInteger("price");
-            book.seller = result.getString("seller");
-            book.stock = result.getInteger("stock");
+        book.price = result.getInteger("price");
+        book.seller = result.getString("seller");
+        book.stock = result.getInteger("stock");
             book.title = result.getString("title");
+            book.description = result.getString("description");
             book.year = result.getInteger("year");
             list.add(book);
         //}
@@ -136,7 +139,7 @@ public class BookOperations extends Model {
                 .append("stock", book.stock)
                 .append("seller", book.seller)
                 .append("pic", book.picid)
-                        //.append("description", book.description);
+                .append("description", book.description)
                 .append("year", book.year);
         collection.updateOne(eq("_id", book.id), doc);
     }
