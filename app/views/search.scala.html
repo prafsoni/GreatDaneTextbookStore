@@ -14,31 +14,37 @@
 }
 @main(title = "Bank Accounts")(loginbox){
   <div class="main">
-
-
-    <form name="search" method="post" action="searchbook.java" style="float:left" >
+    <div class="contact-column1">
+    <form name="search" method="post" action="@routes.Search.dosearch()" style="float:left" >
       <div class="freecontactform">
         <h2 class="page-heading"><span>Search Books</span></h2>
         <fieldset>
           <label for="Catetory" class="required"><span class="required_star"> * </span>Catetory</label>
-          <select name="catetory" title="catetory" id="catetory" style="width: 280px; height: 30px;">
+          <select name="catetory" style="margin-left:2%; width: 280px; height: 30px;">
             <option value="all">All Catetories</option>
             <option value="catetory1">Catetory 1</option>
             <option value="catetory2">Catetory 2</option>
             <option value="catetory3">Catetory 3</option>
+            <option value="catetory4">Catetory 4</option>
+            <option value="catetory5">Catetory 5</option>
+            <option value="catetory6">Catetory 6</option>
+            <option value="catetory7">Catetory 7</option>
           </select>
 
           <label class="required"><span class="required_star"> * </span>Title</label>
-          <input type="text" name="title" title="title" id="title" maxlength="80">
+          <input type="text" name="title" maxlength="80">
 
           <label class="required"><span class="required_star"> * </span>Author</label>
-          <input type="text" name="author" title="author" id="author" maxlength="40">
+          <input type="text" name="author" maxlength="40">
 
           <label class="required"><span class="required_star"> * </span>ISBN</label>
-          <input type="text" name="isbn" title="isbn" id="isbn" maxlength="40">
+          <input type="text" name="isbn" maxlength="40">
 
-          <label class="required"><span class="required_star"> * </span>Price</label>
-          <input type="text" name="price" title="price" id="price" maxlength="40">
+          <label class="required"><span class="required_star"> * </span>Department</label>
+          <input type="text" name="department" maxlength="40">
+
+          <label class="required"><span class="required_star"> * </span>Description</label>
+          <input type="text" name="description" maxlength="40">
 
           <input type="submit" class="submit" value="Search" style="float:left;">
         </fieldset>
@@ -47,9 +53,8 @@
 
     </form>
 
-
-
     <div class="clearfloat"></div>
+   </div>
   </div><!-- end main -->
 
 }
