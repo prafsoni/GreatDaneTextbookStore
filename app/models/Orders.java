@@ -6,17 +6,20 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by PKS on 4/27/15.
  */
 @Entity
 public class Orders {
-    public ArrayList<String> Bookids;
+    public HashMap<String,Integer> Books;
     public ObjectId id;;
     public int quantity;
-    public float price;
+    public double price;
     public String status;
     public String Shippingid;
     public Date orderdate;
+    public String userid;
+    public String sellerid;
 }
