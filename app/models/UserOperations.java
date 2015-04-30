@@ -7,7 +7,9 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
 //import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import play.db.ebean.Model;
 import static com.mongodb.client.model.Filters.*;
 
@@ -69,5 +71,79 @@ public class UserOperations extends Model {
         Document result = collection.find(and(eq("uname", uname), eq("password", pwd))).first();
 
         return result == null ? false : true;
+    }
+    //this  method will check availability of username and will return true or false accordingly
+    public boolean checkunameavailability(String uname){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("uname", uname)).first();
+        if(result==null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    // this method will return objectid of user as a string
+    public String getuserid(String uname){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("uname", uname)).first();
+        return result.getObjectId("_id").toString();
+    }
+
+    //for changing the password for user
+    public boolean changepasswd(String userid, String password){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("_id", userid)).first();
+        Document r = result;
+        r.put("password",password);
+        UpdateResult re = collection.replaceOne(result,r);
+        if(re.wasAcknowledged()){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    // to get user by username
+    public Users getuserbyuname(String uname){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("uname", uname)).first();
+        Users user = new Users();
+        user.cdate = result.getDate("cdate");
+        user.email = result.getString("email");
+        user.fname = result.getString("fname");
+        user.lname = result.getString("lname");
+        user.mob = result.getInteger("mob");
+        user.picid = result.getString("picid");
+        user.status = result.getInteger("status");
+        user.id = result.getObjectId("_id");
+        //user.role = result.
+        //user.address = result.
+        user.uname = result.getString("uname");
+        return user;
+    }
+
+    // to get user by userid
+    public Users getuserbyid(String id){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("_id", id)).first();
+        Users user = new Users();
+        user.cdate = result.getDate("cdate");
+        user.email = result.getString("email");
+        user.fname = result.getString("fname");
+        user.lname = result.getString("lname");
+        user.mob = result.getInteger("mob");
+        user.picid = result.getString("picid");
+        user.status = result.getInteger("status");
+        user.id = result.getObjectId("_id");
+        //user.role = result.
+        //user.address = result.
+        user.uname = result.getString("uname");
+        return user;
     }
 }
