@@ -1,0 +1,20 @@
+@()
+    <ul class="menu" style="height: 31px" id="nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="categories.html">CATEGORIES</a></li>
+
+        <li style="height: 21px">
+
+            <form name="search" action="@routes.Search.dosearch()" method="get" style="width: 348px; position: relative; left: 0px; top: 0px; height: 25px;">
+                <button type="submit" name="search" value="Find" style="float: right">
+                    <img src="@routes.Assets.at("images/booksearch.png")" height="23" width="23" class="auto-style1" /></button>
+                <div style="overflow: hidden;">
+                    <input type="text" placeholder="Find your textbook here!" name="booksearch" style="position: relative; left: 0px; right: 0px; top: 0px; height: 19px" />
+                </div>
+            </form>
+        </li>
+        <li style="float: right; position: relative; height: 31px"><a href="shoppingcart.html">MY CART</a></li>
+
+        <li style="float: right; position: relative; height: 31px; left: 0px; top: 0px; width: 130px;"><a href="account.html">MY ACCOUNT</a></li>
+        <div class="clearfloat"></div>
+    </ul>

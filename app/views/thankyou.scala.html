@@ -1,18 +1,5 @@
 @(message: String)
-@loginbox = {
-  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
-    <div style="overflow: hidden;">
-      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
-      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
-    </div>
-    <div style="overflow: hidden;">
-      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
-      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
-    </div>
-  </form>
-  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
-}
-@main(title = "Bank Accounts")(loginbox){
+  @main(title = message)(loginbox = views.html.login_box.render()){
   <div class="main">
     <div class="thank-you-message">
       <h2 class="page-heading"><span>ORDER PLACED SUCCESSFULLY</span></h2>

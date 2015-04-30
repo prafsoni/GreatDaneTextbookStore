@@ -1,0 +1,67 @@
+@()
+<!-- SCRIPTS -->
+<script src="@routes.Assets.at("javascripts/jquery 1.8.3.js")"></script>
+<script src="@routes.Assets.at("javascripts/css3-mediaqueries.js")"></script>
+<script src="@routes.Assets.at("javascripts/jquery.tweet.js")" ></script>
+<script src="@routes.Assets.at("javascripts/jquery.flexslider-min.js")"></script>
+<script src="@routes.Assets.at("javascripts/modernizr.js")"></script>
+<!-- GOOGLE+1 -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'en-GB'};
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<script>
+jQuery(document).ready(function($) {
+
+	// Prepend combo nav holder
+    $('nav').append('<div class="mobile-nav"></div>');
+
+    // Create the dropdown base
+	$("<select id='comboNav' />").appendTo(".mobile-nav");
+
+	// Create default option "Go to..."
+	$("<option />", {
+		"selected": "selected",
+		"value"   : "",
+		"text"    : "MENU"
+	}).appendTo(".mobile-nav select");
+
+	// Populate dropdown with menu items
+	$(".menu a").each(function() {
+		var el = $(this);
+		var label = $(this).parent().parent().attr('id');
+		var sub = (label == 'nav') ? '' : '- ';
+
+		$("<option />", {
+		 "value"   : el.attr("href"),
+		 "text"    :  sub + el.text()
+		}).appendTo(".mobile-nav select");
+	});
+
+	/* Combo navigation action ----------------------------------------------------*/
+
+	$("#comboNav").change(function() {
+	  location = this.options[this.selectedIndex].value;
+	});
+
+	// FLEXSLIDER //
+	$('.flexslider').flexslider({
+    	animation: "fade",
+    	controlNav: false,
+    	keyboardNav: true,
+		directionNav: false
+    });
+
+	// TWITTER WIDGET //
+	$("#tweets").tweet({
+        count: 3,
+        username: "esksidedesign"//REPLACE WITH YOUR TWITTER ID //
+    });
+
+//close
+});
+</script>

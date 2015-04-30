@@ -1,18 +1,5 @@
 @(message: String)
-@loginbox = {
-  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
-    <div style="overflow: hidden;">
-      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
-      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
-    </div>
-    <div style="overflow: hidden;">
-      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
-      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
-    </div>
-  </form>
-  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a> </div>
-}
-@main(title = "Bank Accounts")(loginbox){
+  @main(title = message)(loginbox = views.html.login_box.render()){
   <div class="main">
 
     <div class="side-left">
@@ -31,16 +18,18 @@
 
     <div class="column-large">
 
-      <h2 class="page-heading"><span>BOOK DETAILS</span></h2>
+      <h3 class="page-heading"><span>BOOK DETAILS</span></h3>
 
-      <div class="postee">Author</div>
-      <div class="date">ISBN:</div>
+      <div class="postee">Author aaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="date">ISBN 5555555555</div>
+      <div class="date">Price</div>
+      <div class="date">Seller bbbbbbbbbbbbb</div>
       <div class="category"><img src="_img/_icons/icon-tags.png" width="20" height="20"><a href="#">Category 1</a></div>
 
       <div class="clearfloat"></div>
 
       <a href="#" class="thumbs"><img src="_img/_slides/5625_wpm_hires.jpg" alt="Book image"></a>
-      <h2>BOOK TITLE</h2>
+      <h3>BOOK TITLE</h3>
       <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
 
       <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.</p>
@@ -49,7 +38,13 @@
 
     </div>
 
-    <div class="clearfloat"></div>
+
+    <div class="clearfloat">
+      <form action="addToCart.java" method="post" >
+        <input type="submit" class="submit" value="BUY" style="">
+      </form>
+    </div>
   </div><!-- end main -->
+
 
 }

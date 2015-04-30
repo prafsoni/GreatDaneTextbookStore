@@ -1,64 +1,51 @@
 @(message: String)
-@loginbox = {
-  <form action="@routes.Account.login()" method="post" style="width: 250px; position: relative; left: 0px; top: 0px; height: 70px;">
-    <div style="overflow: hidden;">
-      <button type="submit" name="login" value="login" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
-      <input type="text" placeholder="username" name="uname" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
-    </div>
-    <div style="overflow: hidden;">
-      <a href="/register" style="float: right; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
-      <input type="password" placeholder="password" name="password" style="position: relative; left: 0px; right: 0px; top: 0px; height: 15px; width: 150px;" />
-    </div>
-  </form>
-  <div style="height: 20px"> <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("Forgot Password?")</a> </div>
-}
-@main(title = "Welcome to Store")(loginbox){
 
+@main(title = message)(loginbox = views.html.login_box.render()){
     <div class="main" style="height: 800px; float:none;">
 
 
-      <div class="contact-column1">
+        <div class="contact-column1">
 
-        <form method="post" action="@routes.Products.doadd()">
+            <form method="post" action="@routes.Products.doadd()">
 
-          <h2 class="page-heading"><span>List Textbook</span></h2>
-          <fieldset>
-            <div style="float:left">
-              <label class="required"><span class="required_star"> * </span>Title</label>
-              <input type="text" name="title" maxlength="80">
+                <h2 class="page-heading"><span>List Textbook</span></h2>
+                <fieldset>
+                    <div style="float:left">
+                        <label class="required"><span class="required_star"> * </span>Title</label>
+                        <input type="text" name="title" maxlength="80">
 
-              <label class="required"><span class="required_star"> * </span>Authors</label>
-              <input type="text" name="authors" maxlength="40">
+                        <label class="required"><span class="required_star"> * </span>Authors</label>
+                        <input type="text" name="authors" maxlength="40">
 
-              <label class="required"><span class="required_star"> * </span>ISBN</label>
-              <input type="text" name="isbn" maxlength="40">
+                        <label class="required"><span class="required_star"> * </span>ISBN</label>
+                        <input type="text" name="isbn" maxlength="40">
 
-              <label class="required"><span class="required_star"> * </span>Price</label>
-              <input type="number" name="price" maxlength="40">
-            </div>
-            <div style="float:left">
-              <label class="required"><span class="required_star"> * </span>Stock</label>
-              <input type="number" name="stock" maxlength="20">
+                        <label class="required"><span class="required_star"> * </span>Price</label>
+                        <input type="number" name="price" maxlength="40">
+                    </div>
+                    <div style="float:left">
+                        <label class="required"><span class="required_star"> * </span>Stock</label>
+                        <input type="number" name="stock" maxlength="20">
 
-              <label class="required"><span class="required_star"> * </span>Year</label>
-              <input type="number" name="year" maxlength="40">
+                        <label class="required"><span class="required_star"> * </span>Year</label>
+                        <input type="number" name="year" maxlength="40">
 
-              <label class="required"><span class="required_star"> * </span>Edition</label>
-              <input type="number" name="edtion" maxlength="40">
+                        <label class="required"><span class="required_star"> * </span>Edition</label>
+                        <input type="number" name="edtion" maxlength="40">
 
-              <lable class="required"><span class="required_star">&nbsp;&nbsp;  * </span>Book Picture</lable>
-              <input type="file" name="pic" accept="image/*" style="height: 30px">
-            </div>
-            <div class="clearfloat"></div>
-            <label class="required" ><span class="required_star"> * </span>Description</label>
+                        <lable class="required"><span class="required_star">&nbsp;&nbsp;  * </span>Book Picture</lable>
+                        <input type="file" name="pic" accept="image/*" style="height: 30px">
+                    </div>
+                    <div class="clearfloat"></div>
+                    <label class="required" ><span class="required_star"> * </span>Description</label>
 
-            <textarea name="description" maxlength="2000" height="80"></textarea>
+                    <textarea name="description" maxlength="2000" height="80"></textarea>
 
-            <input type="submit" class="submit" value="ADD" style="float:left">
-          </fieldset>
-        </form>
+                    <input type="submit" class="submit" value="ADD" style="float:left">
+                </fieldset>
+            </form>
 
-      </div>
+        </div>
 
 
     </div><!-- end main -->
