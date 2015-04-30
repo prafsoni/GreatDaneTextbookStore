@@ -21,13 +21,26 @@ public class Users {
     public String uname;
     public String password;
     public String email;
-    public long mob;
+    public long mob; // mobile phone?
     public ArrayList<String> address;
     public ArrayList<String> role;
     public int status;
     public Date cdate;
     public String picid;
 
+
     public Users(){}
+
+
+    public String toString()
+    {
+        String ret = "Adding User:";
+        ret += "id: " + id + ",";
+        ret += "fname: " + fname + ",";
+        ret += "lname: " + lname + ",";
+        ret += "uname: " + uname + ",";
+        ret += "email: " + email + ",";
+        return ret;
+    }
 
 }
