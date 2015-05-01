@@ -5,35 +5,34 @@
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 1">
-          <button class="linkbutton">Category 1</button>
+          <button type="submit" class="linkbutton">Category 1</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 2">
-          <button class="linkbutton">Category 2</button>
+          <button type="submit" class="linkbutton">Category 2</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 3">
-          <button class="linkbutton">Category 3</button>
+          <button type="submit" class="linkbutton">Category 3</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 4">
-          <button class="linkbutton">Category 4</button>
+          <button type="submit" class="linkbutton">Category 4</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 5">
-          <button class="linkbutton">Category 5</button>
+          <button type="submit" class="linkbutton">Category 5</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 6">
-          <button class="linkbutton">Category 6</button>
+          <button type="submit" class="linkbutton">Category 6</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+        <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 7">
-          <button class="linkbutton">Category 7</button>
+          <button type="submit" class="linkbutton">Category 7</button>
         </form>
-
 
       </div><!-- end archives -->
       <div class="submit-s" ><a href="/search"><h4>Search</h4></a></div>
@@ -48,9 +47,11 @@
           <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
           @book.description <br>
         </div>
-        <div class="column-button-s">
-          <a href="categories_book.html">Details</a>
-        </div><!-- end column-button-s -->
+        <form action="@routes.Search.dosearch()" method="post">
+          <input name="booksearch" type=hidden value=@book.id>
+          <button type="submit" style="float:left;margin-left:10%">Details</button>
+        </form>
+
       </div><!-- end column-book -->
       }
 
