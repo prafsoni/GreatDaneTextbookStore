@@ -1,118 +1,58 @@
-@(message: String)
+@(message: String)(booklist: java.util.ArrayList[Books])
 @main(title = message)(loginbox = views.html.login_box.render()){
   <div class="main">
 
     <div class="side-left">
-      <h4>CATEGORIES</h4>
+      <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
-        <a href="#">Category 1</a>
-        <a href="#">Category 2</a>
-        <a href="#">Category 3</a>
-        <a href="#">Category 5</a>
-        <a href="#">Category 6</a>
-        <a href="#">Category 7</a>
-        <a href="#">Category 8</a>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 1">
+          <button class="linkbutton">Category 1</button>
+        </form>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 2">
+          <button class="linkbutton">Category 2</button>
+        </form>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 3">
+          <button class="linkbutton">Category 3</button>
+        </form>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 4">
+          <button class="linkbutton">Category 4</button>
+        </form>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 5">
+          <button class="linkbutton">Category 5</button>
+        </form>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 6">
+          <button class="linkbutton">Category 6</button>
+        </form>
+        <form action="@routes.Search.dosearch()" method="post" target=_blank >
+          <input name="booksearch" type=hidden value="Category 7">
+          <button class="linkbutton">Category 7</button>
+        </form>
+
+
       </div><!-- end archives -->
-      <h4><a href="categories_search.html">ADVANCED SEARCH</a></h4>
+      <div class="submit-s" ><a href="/search"><h4>Search</h4></a></div>
     </div><!-- end side-left -->
 
     <div class="column-large">
 
+      @for(book <- booklist){
       <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
+        <h5>@book.title</h5>
         <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
+          <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
+          @book.description <br>
         </div>
         <div class="column-button-s">
-          <a href="categories_book.html" title="Portfolio">Details</a>
+          <a href="categories_book.html">Details</a>
         </div><!-- end column-button-s -->
       </div><!-- end column-book -->
-
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-      <div class="column-book">
-        <h5>Database Systems: The Complete Book</h5>
-        <div class="column-book-short">
-          <a href="project1.html" class="thumbs"><img src="_img/_slides/5640_wpm_hires.jpg" alt="ALT TEXT HERE"></a>
-          A short description of the textbook will be placed here. <br>
-        </div>
-        <div class="column-button-s">
-          <a href="project1.html" title="Portfolio">Details</a>
-        </div><!-- end column-button-s -->
-      </div><!-- end column-book -->
-
+      }
 
     </div> <!-- end column large -->
     <div class="clearfloat"></div>

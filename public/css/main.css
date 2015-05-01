@@ -79,6 +79,15 @@ header, .main, footer {
 .contact-info img {
 	margin:0 5px 10px 0;
 }
+.linkbutton {
+	background:none!important;
+	border:none;
+	padding:0!important;
+	font: inherit;
+	/*border is optional*/
+	border-bottom:0;
+	cursor: pointer;
+}
 
 
 /***** NAVIGATION *****/
@@ -544,7 +553,7 @@ textarea {
 }
 .side-left {
 	float:left;
-	width:20%;
+	width:10%;
 	margin-top:20px;
 	padding:10px 20px 10px;	
 	border:1px solid #d5d5d5;

@@ -19,15 +19,23 @@ public class Search extends Controller{
         return ok(search.render("search"));
     }
 
+    public static Result showall(){
+        String text = "";
+        BookOperations bo = new BookOperations();
+        ArrayList<Books> list = new ArrayList<>();//for temporary use due to DB failure, should be: bo.search(text);
+        return ok(categories.render("Categories", list));
+
+    }
+
     public static Result dosearch(){
         DynamicForm requestData = Form.form().bindFromRequest();
         String text = requestData.get("booksearch");
         BookOperations bo = new BookOperations();
-        ArrayList<Books> list = bo.search(text); //new ArrayList<>();
+        ArrayList<Books> list = bo.search(text);
         //list.addAll(BookOperations.search(text));
 
         if(text.length() > 0){
-            return redirect("/categories");
+            return ok(categories.render("Following books match your search", list));
         }else {
             return redirect("/search");
         }
