@@ -4,6 +4,7 @@ import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import play.db.ebean.Model;
 
@@ -113,5 +114,26 @@ public class OrderOperations extends Model {
             list.add(order);
         }
         return list;
+    }
+
+    public boolean update(Orders order){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Orders");
+        Document doc = collection.find(eq("_id", order.id)).first();
+        Document newdoc = new Document("Books", order.Books)
+                .append("orderdate", order.orderdate)
+                .append("price", order.price)
+                .append("quantity", order.quantity)
+                .append("status", order.status)
+                .append("userid",order.userid)
+                .append("sellerid", order.sellerid)
+                .append("Shippingid", order.Shippingid);
+        UpdateResult result = collection.updateOne(doc, newdoc);
+        if(result.wasAcknowledged()){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

@@ -10,9 +10,9 @@ import java.util.Date;
  */
 @Entity
 public class Payments {
-    public String paymentid;
+    public String id;
     public String orderid;
-    public float amount;
+    public double amount;
     public String status;
     public Date pdate;
     public String bankid;
