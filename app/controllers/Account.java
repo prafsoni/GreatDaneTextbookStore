@@ -10,6 +10,7 @@ import play.mvc.Result;
 import play.cache.Cache;
 import play.mvc.Http.Session;
 import views.html.login;
+import views.html.notverified;
 import views.html.register;
 
 import java.security.Timestamp;
@@ -74,7 +75,7 @@ public class Account extends Controller {
 
         // Assigne the above list of roles to the user
         user.role = role;
-
+        user.status = -1;
         // I can use the static function directly
         if (UserOperations.createuser(user))
         {
@@ -111,23 +112,30 @@ public class Account extends Controller {
         // Test if the username/pass were correct, if so
         // set the session username to the entered name and redirect to the homepage
         if (UserOperations.checkuserpass(uname, pwd)) {
-            System.out.println("Logging in user: " + uname);
+            if (UserOperations.getaccstatus(uname) != -1) {
+                System.out.println("Logging in user: " + uname);
 
-            String uuid = session("uuid");
+                String uuid = session("uuid");
 
-            if (uuid == null) {
-                uuid = java.util.UUID.randomUUID().toString();
-                session("uuid", uuid);
+                if (uuid == null) {
+                    uuid = java.util.UUID.randomUUID().toString();
+                    session("uuid", uuid);
+                }
+
+                Cache.set(uuid + "username", uname);
+
+                return redirect("/");
+            } else {
+                // check failed, let them try again
+                request().setUsername("");
+                return redirect("/login");
             }
-
-            Cache.set(uuid+"username", uname);
-
-            return redirect("/");
+        }else {
+            return redirect("/notverified");
         }
-        else {
-            // check failed, let them try again
-            request().setUsername("");
-            return redirect("/login");
-        }
+    }
+
+    public static Result accnotverified(){
+        return ok(notverified.render("Account not verified"));
     }
 }

@@ -147,4 +147,11 @@ public class UserOperations extends Model {
         user.uname = result.getString("uname");
         return user;
     }
+
+    public static int getaccstatus(String uname){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("uname", uname)).first();
+        return result.getInteger("status");
+    }
 }
