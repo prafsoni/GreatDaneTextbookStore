@@ -19,28 +19,30 @@ public class Search extends Controller{
         return ok(search.render("search"));
     }
 
-    public static Result showall(){
-        String text = "";
-        BookOperations bo = new BookOperations();
+    public static Result showAll(){
+//        String text = "";
+//        BookOperations bo = new BookOperations();
         ArrayList<Books> list = new ArrayList<>();//for temporary use due to DB failure, should be: bo.search(text);
-        return ok(categories.render("Categories", list));
-
+//        return ok(categories.render("Categories", list));
+        return ok(categories.render("test", list)); // TODO fix this
     }
 
-    public static Result dosearch(){
+    /**
+     * Searches the DB of Books based on form data
+     * @return the view render of the book list retrieved from the DB, or redirect back to /search
+     * @todo should redirect back to where the request originated
+     */
+    public static Result doSearch(){
+        // Retrieve the form from the POST
         DynamicForm requestData = Form.form().bindFromRequest();
+        // Get the "booksearch" field"
         String text = requestData.get("booksearch");
-        BookOperations bo = new BookOperations();
-        ArrayList<Books> list = bo.search(text);
-        //list.addAll(BookOperations.search(text));
 
-        if(text.length() > 0){
-            return ok(categories.render("Following books match your search", list));
-        }else {
-            return redirect("/search");
-        }
+        if (text.length() <= 0) return redirect("/search");
+
+        // Query the DB of books with the search text"
+        ArrayList<Books> list = BookOperations.search(text);
+
+        return ok(categories.render("test2", list)); // TODO fix this too... why cant we pass both args?
     }
-    //public static Result advancedsearch(){
-
-    //}
 }

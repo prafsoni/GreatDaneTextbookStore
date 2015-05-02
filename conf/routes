@@ -5,17 +5,17 @@
 # Home page
 GET         /                    controllers.Application.index()
 GET         /register            controllers.Account.register()
-POST        /register            controllers.Account.doregister()
+POST        /register            controllers.Account.doRegister()
 GET         /login               controllers.Account.login()
-POST        /login               controllers.Account.dologin()
+POST        /login               controllers.Account.doLogin()
 GET         /addproduct          controllers.Products.add()
-POST        /addproduct          controllers.Products.doadd()
+POST        /addproduct          controllers.Products.doAdd()
 GET         /contact             controllers.Contact.contact()
 GET         /search              controllers.Search.search()
-POST        /search              controllers.Search.dosearch()
+POST        /search              controllers.Search.doSearch()
 GET         /notverified         controllers.Account.accnotverified()
 GET         /admin               controllers.Administrator.index()
-GET         /categories          controllers.Search.showall()
+GET         /categories          controllers.Search.showAll()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

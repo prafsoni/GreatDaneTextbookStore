@@ -8,12 +8,13 @@ import views.html.*;
 public class Application extends Controller {
 
     public static Result index() {
-        // test, get uuid from cache
-        String uuid = session("uuid");
-        if (uuid != null) {
-            String currentUser = (String)Cache.get(uuid+"username");
-            System.out.println("Current user: " + currentUser);
+
+        String username = Util.getFromUserCache("uuid", "username");
+
+        if (username != null) {
+            System.out.println("Current user: " + username);
         }
+
         return ok(index.render("GreatDane BookStore."));
     }
 

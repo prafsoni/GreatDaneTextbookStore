@@ -16,19 +16,19 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class BookOperations extends Model {
 
-    private com.mongodb.async.client.MongoDatabase getdatabaseasync(){
+    private static com.mongodb.async.client.MongoDatabase getdatabaseasync(){
         MongoClient mongoClient = MongoClients.create();
         com.mongodb.async.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
         return mongoDatabase;
     }
 
-    private com.mongodb.client.MongoDatabase getdatabase(){
+    private static com.mongodb.client.MongoDatabase getdatabase(){
         com.mongodb.MongoClient mongoClient = new com.mongodb.MongoClient();
         com.mongodb.client.MongoDatabase mongoDatabase = mongoClient.getDatabase("BookStore");
         return mongoDatabase;
     }
 
-    public Boolean addbook(Books book){
+    public static Boolean addbook(Books book){
         try {
             Document doc = new Document("title", book.title)
                     .append("isbn", book.isbn)
@@ -49,6 +49,7 @@ public class BookOperations extends Model {
         }
     }
 
+    @Override
     public void delete(String id){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
@@ -56,7 +57,7 @@ public class BookOperations extends Model {
         collection.deleteOne(result);
     }
 
-    public Books getone(String id){
+    public static Books getone(String id){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
         Document result = collection.find(eq("_id",id)).first();
@@ -74,7 +75,7 @@ public class BookOperations extends Model {
         return book;
     }
 
-    public void updatestock(String id,int reduceby){
+    public static void updatestock(String id,int reduceby){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
         Document result = collection.find(eq("_id",id)).first();
@@ -82,7 +83,7 @@ public class BookOperations extends Model {
         result.replace("stock",stock,stock-reduceby);
     }
 
-    public ArrayList<Books> getall(){
+    public static ArrayList<Books> getall(){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
         FindIterable<Document> results = collection.find().limit(300);
@@ -104,7 +105,7 @@ public class BookOperations extends Model {
         return list;
     }
 
-    public ArrayList<Books> search(String text){
+    public static ArrayList<Books> search(String text){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
         Document doc = new Document("text","Books").append("search", text);
@@ -127,7 +128,7 @@ public class BookOperations extends Model {
         return list;
     }
 
-    public void update(Books book){
+    public static void update(Books book){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Banks");
         Document doc = new Document("_id",book.id)

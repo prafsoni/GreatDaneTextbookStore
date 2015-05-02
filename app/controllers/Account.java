@@ -2,18 +2,13 @@ package controllers;
 
 import models.UserOperations;
 import models.Users;
-import org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.cache.Cache;
-import play.mvc.Http.Session;
 import views.html.login;
 import views.html.notverified;
 import views.html.register;
-
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,8 +16,6 @@ import java.util.Date;
  * Created by PKS on 4/22/15.
  */
 public class Account extends Controller {
-
-    //private UserOperations useroperations = new UserOperations();
 
     public static Result register(){
         return ok(register.render("SignUp"));
@@ -37,7 +30,7 @@ public class Account extends Controller {
         return new Date();
     }
 
-    public static Result doregister(){
+    public static Result doRegister(){
         // create form object to represent the data from the
         // submitted form.
         DynamicForm requestData = Form.form().bindFromRequest();
@@ -91,7 +84,8 @@ public class Account extends Controller {
         return ok(login.render("Login"));
     }
 
-    public static Result dologin()
+
+    public static Result doLogin()
     {
         // Get the submitted form from the user
         DynamicForm requestData = Form.form().bindFromRequest();
@@ -114,20 +108,11 @@ public class Account extends Controller {
         if (UserOperations.checkuserpass(uname, pwd)) {
             if (UserOperations.getaccstatus(uname) != -1) {
                 System.out.println("Logging in user: " + uname);
-
-                String uuid = session("uuid");
-
-                if (uuid == null) {
-                    uuid = java.util.UUID.randomUUID().toString();
-                    session("uuid", uuid);
-                }
-
-                Cache.set(uuid + "username", uname);
-
+                // update the HTTP session to have this username
+                Util.createUserCache(uname);
                 return redirect("/");
             } else {
-                // check failed, let them try again
-                request().setUsername("");
+
                 return redirect("/login");
             }
         }else {

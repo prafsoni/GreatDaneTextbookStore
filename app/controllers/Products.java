@@ -18,13 +18,15 @@ public class Products extends Controller {
         return ok(addproduct.render("add"));
     }
 
-    public static Result doadd(){
+    public static Result doAdd(){
+        // Get a book from the form
         Books book = Form.form(Books.class).bindFromRequest().get();
-        BookOperations bo = new BookOperations();
-        boolean result = bo.addbook(book);
-        if(result){
-            return redirect("/");
+        // Try to add the book to the DB
+        if(BookOperations.addbook(book)){
+            return redirect("/"); // TODO redirect to where the request came from
         }else {
+            // if adding failed, redirect to the addproduct page
+            // TODO this can happen is A) the form is incorrect or B) the DB failed. How does the user know?
             return redirect("/addproduct");
         }
     }

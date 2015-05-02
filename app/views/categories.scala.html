@@ -5,31 +5,31 @@
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 1">
           <button type="submit" class="linkbutton">Category 1</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 2">
           <button type="submit" class="linkbutton">Category 2</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 3">
           <button type="submit" class="linkbutton">Category 3</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 4">
           <button type="submit" class="linkbutton">Category 4</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 5">
           <button type="submit" class="linkbutton">Category 5</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 6">
           <button type="submit" class="linkbutton">Category 6</button>
         </form>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value="Category 7">
           <button type="submit" class="linkbutton">Category 7</button>
         </form>
@@ -47,7 +47,7 @@
           <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
           @book.description <br>
         </div>
-        <form action="@routes.Search.dosearch()" method="post">
+        <form action="@routes.Search.doSearch()" method="post">
           <input name="booksearch" type=hidden value=@book.id>
           <button type="submit" style="float:left;margin-left:10%">Details</button>
         </form>
