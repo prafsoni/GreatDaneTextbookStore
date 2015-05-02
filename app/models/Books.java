@@ -1,6 +1,7 @@
 package models;
 
 import org.bson.types.ObjectId;
+import scala.Int;
 
 import javax.persistence.Entity;
 
