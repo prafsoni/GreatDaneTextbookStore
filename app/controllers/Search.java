@@ -40,7 +40,9 @@ public class Search extends Controller{
         if (text.length() <= 0) return redirect("/search");
 
         // Query the DB of books with the search text"
-        ArrayList<Books> list = BookOperations.search(text);
+        BookOperations bookOperations = new BookOperations();
+
+        ArrayList<Books> list = bookOperations.search(text);
 
         if (list.size() > 0) {
             return ok(categories.render("Following books match your search.", list)); // TODO fix this too... why cant we pass both args?

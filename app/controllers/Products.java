@@ -14,6 +14,7 @@ import views.html.productadded;
  */
 public class Products extends Controller {
 
+
     public static Result add(){
         return ok(addproduct.render("add"));
     }
@@ -22,7 +23,9 @@ public class Products extends Controller {
         // Get a book from the form
         Books book = Form.form(Books.class).bindFromRequest().get();
         // Try to add the book to the DB
-        if(BookOperations.addbook(book)){
+        BookOperations bookOperations = new BookOperations();
+
+        if(bookOperations.addbook(book)){
             return ok(productadded.render("You book was listed successfully!"));
         }else {
             // if adding failed, redirect to the addproduct page

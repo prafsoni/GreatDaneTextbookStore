@@ -5,9 +5,9 @@
 # Home page
 GET         /                    controllers.Application.index()
 GET         /register            controllers.Account.register()
-POST        /register            controllers.Account.doRegister()
+POST        /register            controllers.Account.doregister()
 GET         /login               controllers.Account.login()
-POST        /login               controllers.Account.doLogin()
+POST        /login               controllers.Account.dologin()
 GET         /addproduct          controllers.Products.add()
 POST        /addproduct          controllers.Products.doAdd()
 GET         /contact             controllers.Contact.contact()
