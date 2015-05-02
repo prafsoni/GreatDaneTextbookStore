@@ -77,7 +77,7 @@ public class Util {
         }
         // Insert a unique string-to-username mapping in the cache.
         // if `uuid` was "1234", and username was bob, then the cache would have 1234bob = bob
-        insertIntoCache("uuid", "username", username);
+        insertIntoCache(uuid, "username", username);
     }
 
     /**
