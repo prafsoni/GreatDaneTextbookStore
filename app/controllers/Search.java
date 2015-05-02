@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 import views.html.search;
 import views.html.categories;
+import views.html.product;
 import java.util.*;
 
 /**
@@ -20,11 +21,9 @@ public class Search extends Controller{
     }
 
     public static Result showAll(){
-//        String text = "";
-//        BookOperations bo = new BookOperations();
-        ArrayList<Books> list = new ArrayList<>();//for temporary use due to DB failure, should be: bo.search(text);
-//        return ok(categories.render("Categories", list));
-        return ok(categories.render("test", list)); // TODO fix this
+        BookOperations bo = new BookOperations();
+        ArrayList<Books> list = bo.getall();
+        return ok(categories.render("Categories", list));
     }
 
     /**
@@ -43,6 +42,29 @@ public class Search extends Controller{
         // Query the DB of books with the search text"
         ArrayList<Books> list = BookOperations.search(text);
 
-        return ok(categories.render("test2", list)); // TODO fix this too... why cant we pass both args?
+        if (list.size() > 0) {
+            return ok(categories.render("Following books match your search.", list)); // TODO fix this too... why cant we pass both args?
+        }
+        else{
+            return ok(categories.render("Not book found!", list));
+        }
     }
+    public static Result getone(){
+        DynamicForm requestData = Form.form().bindFromRequest();
+        String id = requestData.get("id");
+        System.out.println(id);
+        BookOperations bo = new BookOperations();
+        Books book = bo.getone(id);
+
+        System.out.println(book.title);
+        if(book.title.length() > 0){
+            return ok(product.render("Here are the books matching your search", book));
+        }else {
+            return redirect("/categories");
+        }
+    }
+    //public static Result advancedsearch(){
+
+    //}
 }
+

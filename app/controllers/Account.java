@@ -121,6 +121,6 @@ public class Account extends Controller {
     }
 
     public static Result accnotverified(){
-        return ok(notverified.render("Account not verified"));
+        return ok(notverified.render("Account not verified. Please register first!"));
     }
 }

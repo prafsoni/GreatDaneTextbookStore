@@ -8,7 +8,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Results;
 import views.html.addproduct;
-
+import views.html.productadded;
 /**
  * Created by PKS on 4/22/15.
  */
@@ -23,7 +23,7 @@ public class Products extends Controller {
         Books book = Form.form(Books.class).bindFromRequest().get();
         // Try to add the book to the DB
         if(BookOperations.addbook(book)){
-            return redirect("/"); // TODO redirect to where the request came from
+            return ok(productadded.render("You book was listed successfully!"));
         }else {
             // if adding failed, redirect to the addproduct page
             // TODO this can happen is A) the form is incorrect or B) the DB failed. How does the user know?

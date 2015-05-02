@@ -1,11 +1,15 @@
-@(messages: String)
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-  Your account has not been verified.
-</body>
-</html>
+@(message: String)
+
+@main(title = message)(loginbox = views.html.login_box.render()){
+  <div class="main" style="height:400px">
+  <h2>@message</h2>
+    <form action="@routes.Account.login()" method="post" style="width: 250px; height: 70px; float: none;">
+      <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+      <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+      <button type="submit" name="Login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <a href="/register" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <br>
+      <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a>
+    </form>
+  </div>
+}

@@ -152,6 +152,15 @@ public class UserOperations extends Model {
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
         Document result = collection.find(eq("uname", uname)).first();
-        return result.getInteger("status");
+
+        //return result.getInteger("status");
+        /*
+         * Joe: I changed the return values as the same with the checkuserapss method.
+         * Otherwise it doesn't for me.
+         */
+        if (result == null){
+            return -1;
+        }
+        else {return 1;}
     }
 }

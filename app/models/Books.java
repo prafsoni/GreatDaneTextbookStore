@@ -14,11 +14,12 @@ public class Books {
     public String isbn;
     public String authors;
     public int stock;
-    public float price;
+    public double price;
     public int year;
     public int edition;
     public String seller;
     public String picid;
+    public int category;
     public String description;
 
     public Books(){}

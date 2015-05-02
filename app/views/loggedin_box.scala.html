@@ -1,8 +1,9 @@
 @()
 
-    <form name="logout" action='LogoutServlet' method="post">
+<form name="logout" action='LogoutServlet' method="post">
     <div style="float: right">
     <h5> username is currently Logged in</h5>
-    <input type="submit" class="submit" value='Logout' style="float:right">
+        <input name="logout" type=hidden value="logout">
+        <button type="submit" class="linkbutton">Category 1</button>
     </div>
     </form>

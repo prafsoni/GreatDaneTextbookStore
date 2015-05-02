@@ -1,9 +1,9 @@
-@(message: String)(booklist: java.util.ArrayList[Books])
-@main(title = message)(loginbox = views.html.login_box.render()){
+@(message: String)(book: Books)
+  @main(title = message)(loginbox = views.html.login_box.render()){
   <div class="main">
 
     <div class="side-left">
-      <!--<h4>CATEGORIES</h4>-->
+        <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
         <form action="@routes.Search.dosearch()" method="post">
           <input name="booksearch" type=hidden value="Category 1">
@@ -40,23 +40,30 @@
 
     <div class="column-large">
 
-      @for(book <- booklist){
-      <div class="column-book">
-        <h5>@book.title</h5>
-        <div class="column-book-short">
-          <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
-          @book.description <br>
-        </div>
-        <form method="post" action="@routes.Search.getone()">
-          <input name="id" type=hidden value=@book.id>
-          <button type="submit" style="float:left;margin-left:10%">Details</button>
-        </form>
+      <h3 class="page-heading"><span>BOOK DETAILS</span></h3>
 
-      </div><!-- end column-book -->
-      }
+      <div class="postee">@book.authors</div>
+      <div class="date">@book.isbn</div>
+      <div class="date">@book.price</div>
+      <div class="date">@book.seller</div>
+      <div class="category"><img src="@routes.Assets.at("images/_slides/icon-tags.png")" width="20" height="20"><a href="#">Category 1</a></div>
 
-    </div> <!-- end column large -->
-    <div class="clearfloat"></div>
+      <div class="clearfloat"></div>
+
+      <a href="#" class="thumbs"><img src="@routes.Assets.at("images/_slides/icon-tags.png")" alt="Book image"></a>
+      <h3>BOOK TITLE</h3>
+      <p>@book.description</p>
+
+    </div>
+
+
+    <div class="clearfloat">
+      <form action="shoppingcard.java" method="post">
+        <input name="buy" type=hidden value=@book.id>
+        <button type="submit" class="linkbutton">Buy</button>
+      </form>
+    </div>
   </div><!-- end main -->
+
 
 }
