@@ -1,7 +1,7 @@
 @(message: String)(booklist: java.util.ArrayList[Books])
+
 @main(title = message)(loginbox = views.html.login_box.render()){
   <div class="main">
-
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
@@ -43,13 +43,13 @@
       @for(book <- booklist){
       <div class="column-book">
         <h5>@book.title</h5>
-        <div class="column-book-short">
+        <div class="column-book-short" style="overflow:hidden;">
           <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
           @book.description <br>
         </div>
-        <form method="post" action="@routes.Search.doSearch()">
-          <input name="id" type=hidden value=@book.id>
-          <button type="submit" style="float:left;margin-left:10%">Details</button>
+        <form method="post" action="@routes.Search.getone()">
+          <input name="id" type=hidden value=@book.id.toHexString()>
+          <button type="submit" style="float:left; margin-left:10%">Details</button>
         </form>
 
       </div><!-- end column-book -->

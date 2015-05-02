@@ -5,6 +5,7 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.client.FindIterable;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import play.db.ebean.Model;
 
 import java.util.ArrayList;
@@ -57,16 +58,18 @@ public class BookOperations extends Model {
         collection.deleteOne(result);
     }
 
-    public Books getone(String id){
+    public Books getone(String strid){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
+        ObjectId id = new ObjectId(strid);
         Document result = collection.find(eq("_id",id)).first();
         Books book = new Books();
+        book.id = result.getObjectId("_id");
         book.authors = result.getString("authors");
         book.edition = result.getInteger("edition");
         book.isbn = result.getString("isbn");
         book.picid = result.getString("picid");
-        book.price = result.getInteger("price");
+        book.price = result.getDouble("price");
         book.seller = result.getString("seller");
         book.stock = result.getInteger("stock");
         book.title = result.getString("title");
@@ -91,6 +94,7 @@ public class BookOperations extends Model {
         ArrayList<Books> list = new ArrayList<>();
         for(Document result: results){
             Books book = new Books();
+            book.id = result.getObjectId("_id");
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
@@ -121,11 +125,12 @@ public class BookOperations extends Model {
 
         //for(Document result: results) {
         Books book = new Books();
+        book.id = result.getObjectId("_id");
         book.authors = result.getString("authors");
         book.edition = result.getInteger("edition");
         book.isbn = result.getString("isbn");
         book.picid = result.getString("picid");
-        book.price = result.getInteger("price");
+        book.price = result.getDouble("price");
         book.seller = result.getString("seller");
         book.stock = result.getInteger("stock");
         book.title = result.getString("title");
@@ -140,7 +145,7 @@ public class BookOperations extends Model {
     public void update(Books book){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
-        Document doc = new Document("_id",book.id)
+        Document doc = new Document("_id", book.id)
                 .append("title",book.title)
                 .append("isbn", book.isbn)
                 .append("edition", book.edition)

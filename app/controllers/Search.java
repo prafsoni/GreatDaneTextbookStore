@@ -54,7 +54,7 @@ public class Search extends Controller{
     public static Result getone(){
         DynamicForm requestData = Form.form().bindFromRequest();
         String id = requestData.get("id");
-        System.out.println(id);
+        System.out.println("requested book's id is: " + id);
         BookOperations bo = new BookOperations();
         Books book = bo.getone(id);
 

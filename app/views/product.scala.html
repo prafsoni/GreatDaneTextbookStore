@@ -46,11 +46,11 @@
       <div class="date">@book.isbn</div>
       <div class="date">@book.price</div>
       <div class="date">@book.seller</div>
-      <div class="category"><img src="@routes.Assets.at("images/_slides/icon-tags.png")" width="20" height="20"><a href="#">Category 1</a></div>
+      <div class="category"><img src="@routes.Assets.at("images/_icons/icon-tags.png")" width="20" height="20"><a href="#">Category 1</a></div>
 
       <div class="clearfloat"></div>
 
-      <a href="#" class="thumbs"><img src="@routes.Assets.at("images/_slides/icon-tags.png")" alt="Book image"></a>
+      <a href="#" class="thumbs"><img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book image"></a>
       <h3>BOOK TITLE</h3>
       <p>@book.description</p>
 
@@ -60,7 +60,8 @@
     <div class="clearfloat">
       <form action="shoppingcard.java" method="post">
         <input name="buy" type=hidden value=@book.id>
-        <button type="submit" class="linkbutton">Buy</button>
+        <button type="submit" class="submit" style="float:left; margin-left:50%">Buy</button>
+
       </form>
     </div>
   </div><!-- end main -->

@@ -16,6 +16,7 @@ POST        /search              controllers.Search.doSearch()
 GET         /notverified         controllers.Account.accnotverified()
 GET         /admin               controllers.Administrator.index()
 GET         /categories          controllers.Search.showAll()
+POST         /categories          controllers.Search.getone()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
