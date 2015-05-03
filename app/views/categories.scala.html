@@ -5,32 +5,32 @@
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 1">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="1">
           <button type="submit" class="linkbutton">Category 1</button>
         </form>
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 2">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="2">
           <button type="submit" class="linkbutton">Category 2</button>
         </form>
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 3">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="3">
           <button type="submit" class="linkbutton">Category 3</button>
         </form>
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 4">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="4">
           <button type="submit" class="linkbutton">Category 4</button>
         </form>
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 5">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="5">
           <button type="submit" class="linkbutton">Category 5</button>
         </form>
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 6">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="6">
           <button type="submit" class="linkbutton">Category 6</button>
         </form>
-        <form action="@routes.Search.doSearch()" method="post">
-          <input name="booksearch" type=hidden value="Category 7">
+        <form action="@routes.Search.getbooks()" method="post">
+          <input name="category" type=hidden value="7">
           <button type="submit" class="linkbutton">Category 7</button>
         </form>
 
@@ -39,15 +39,15 @@
     </div><!-- end side-left -->
 
     <div class="column-large">
-
+      <h3 class="page-heading"><span>@message</span></h3>
       @for(book <- booklist){
       <div class="column-book">
         <h5>@book.title</h5>
-        <div class="column-book-short" style="overflow:hidden;">
+        <div class="column-book-short">
           <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
           @book.description <br>
         </div>
-        <form method="post" action="@routes.Search.getone()">
+        <form method="post" action="@routes.Search.getbooks()">
           <input name="id" type=hidden value=@book.id.toHexString()>
           <button type="submit" style="float:left; margin-left:10%">Details</button>
         </form>

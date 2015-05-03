@@ -23,7 +23,7 @@ public class Search extends Controller{
     public static Result showAll(){
         BookOperations bo = new BookOperations();
         ArrayList<Books> list = bo.getall();
-        return ok(categories.render("Categories", list));
+        return ok(categories.render("Books in all categories", list));
     }
 
     /**
@@ -51,20 +51,44 @@ public class Search extends Controller{
             return ok(categories.render("Not book found!", list));
         }
     }
-    public static Result getone(){
+    public static Result getbooks(){
         DynamicForm requestData = Form.form().bindFromRequest();
-        String id = requestData.get("id");
-        System.out.println("requested book's id is: " + id);
-        BookOperations bo = new BookOperations();
-        Books book = bo.getone(id);
+        String id;
+        String c;
+        id = requestData.get("id");
+        if (id == null){id = "";}
+        c = requestData.get("category");
+        if (c == null){c = "";}
+        if (id.length()>0){
+            BookOperations bo = new BookOperations();
+            Books book = bo.getone(id);
 
-        System.out.println(book.title);
-        if(book.title.length() > 0){
-            return ok(product.render("Here are the books matching your search", book));
-        }else {
-            return redirect("/categories");
+            System.out.println(book.title);
+            if(book.title.length() > 0){
+                return ok(product.render("Here are the books matching your search", book));
+            }else {
+                return ok(product.render("No book found!", book));
+            }
         }
+        else if(c.length() > 0){
+            System.out.println("requested book's category is: " + c);
+            BookOperations bo = new BookOperations();
+            ArrayList<Books> list = bo.getcategory(c);
+
+            if(list.size() > 0){
+                return ok(categories.render("Books in this category", list));
+            }else {
+                return ok(categories.render("No book found in this category!", list));
+            }
+        }
+        else {
+            ArrayList<Books> list = null;
+            return ok(categories.render("No book found", list));
+        }
+
     }
+
+
     //public static Result advancedsearch(){
 
     //}

@@ -542,6 +542,7 @@ textarea {
 	width:auto;
 	height:150px;
 	margin:0 5px 5px 0;
+	overflow: hidden;
 }
 .column-book button, .submit {
 	width:60px;

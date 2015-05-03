@@ -79,6 +79,31 @@ public class BookOperations extends Model {
         return book;
     }
 
+    public ArrayList<Books> getcategory(String category){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
+        int c = Integer.parseInt(category);
+        FindIterable<Document> results = collection.find(eq("category",c)).limit(300);
+        ArrayList<Books> list = new ArrayList<>();
+        for(Document result: results){
+            Books book = new Books();
+            book.id = result.getObjectId("_id");
+            book.authors = result.getString("authors");
+            book.edition = result.getInteger("edition");
+            book.isbn = result.getString("isbn");
+            book.picid = result.getString("picid");
+            book.price = result.getDouble("price");
+            book.seller = result.getString("seller");
+            book.stock = result.getInteger("stock");
+            book.title = result.getString("title");
+            book.description = result.getString("description");
+            book.year = result.getInteger("year");
+            book.category = result.getInteger("category");
+            list.add(book);
+        }
+        return list;
+    }
+
     public void updatestock(String id,int reduceby){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
