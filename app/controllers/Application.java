@@ -14,7 +14,9 @@ public class Application extends Controller {
 
     public static Result index() {
 
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         BookOperations bo = new BookOperations();
         ArrayList<Books> list = bo.getThree();
         Users user = new Users();
@@ -25,6 +27,7 @@ public class Application extends Controller {
             return ok(index.render("GreatDane BookStore.",list,user));
 
         }
+        System.out.println("Current user: " + username);
 
         return ok(index.render("GreatDane BookStore.",list,user));
     }

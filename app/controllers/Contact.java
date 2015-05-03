@@ -5,6 +5,7 @@ import models.Users;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
 import views.html.contact;
@@ -13,7 +14,9 @@ import views.html.contact;
  */
 public class Contact extends Controller{
     public static Result contact(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);

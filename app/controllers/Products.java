@@ -7,6 +7,7 @@ import models.Users;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
 import views.html.addproduct;
@@ -18,7 +19,9 @@ public class Products extends Controller {
 
 
     public static Result add(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);

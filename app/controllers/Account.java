@@ -8,6 +8,7 @@ import org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.cache.Cache;
 import play.mvc.Http.Session;
@@ -93,7 +94,9 @@ public class Account extends Controller {
     }
 
     public static Result login(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
@@ -102,7 +105,7 @@ public class Account extends Controller {
             return ok(account.render("Welcome back!", user));
         }
 
-        return ok(login.render("Please login first!", user));
+        return unauthorized(account.render("Please login first!", user));
     }
 
     public static Result dologin()
@@ -124,12 +127,12 @@ public class Account extends Controller {
         String pwd = requestData.get("password");
         Users user = new Users();
         UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(uname);
+
         if(uname.length()<=0){
-            return unauthorized(login.render("Please enter username!",user));
+            return unauthorized(account.render("Please enter username!",user));
         }
         else if(pwd.length()<=0){
-            return unauthorized(login.render("Please enter password!",user));
+            return unauthorized(account.render("Please enter password!",user));
         }
 
         // Test if the username/pass were correct, if so
@@ -145,18 +148,19 @@ public class Account extends Controller {
                     uuid = java.util.UUID.randomUUID().toString();
                     session("uuid", uuid);
                 }
-
+                user = uo.getuserbyuname(uname);
                 Cache.set(uuid + "username", uname);
-
+                Util.insertIntoSession("username", uname);
+                //System.out.println(user.uname);
                 return ok(account.render("Welcome back!",user));
             } else {
                 // check failed, let them try again
                 request().setUsername("");
-                return unauthorized(login.render("Login failed! Please try again.",user));
+                return unauthorized(account.render("Login failed! Please try again.",user));
             }
         }
         else {
-            return unauthorized(login.render("Account not verified. Please register first!",user));
+            return unauthorized(account.render("Account not verified. Please register first!",user));
         }
     }
 

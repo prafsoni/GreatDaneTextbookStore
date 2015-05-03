@@ -7,6 +7,7 @@ import models.Users;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
 import views.html.search;
@@ -19,7 +20,9 @@ import java.util.*;
  */
 public class Search extends Controller{
     public static Result search(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
@@ -27,7 +30,9 @@ public class Search extends Controller{
     }
 
     public static Result showAll(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
@@ -42,7 +47,9 @@ public class Search extends Controller{
      * @todo should redirect back to where the request originated
      */
     public static Result doSearch(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
@@ -66,7 +73,9 @@ public class Search extends Controller{
         }
     }
     public static Result getbooks(){
-        String username = Util.getFromUserCache("uuid", "username");
+        //String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);

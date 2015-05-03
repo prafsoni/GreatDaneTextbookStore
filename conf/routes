@@ -16,7 +16,7 @@ POST        /search              controllers.Search.doSearch()
 GET         /admin               controllers.Administrator.index()
 GET         /categories          controllers.Search.showAll()
 POST        /categories          controllers.Search.getbooks()
-POST         /logout              controllers.Application.logout()
+POST        /logout              controllers.Application.logout()
 
 
 # Map static resources from the /public folder to the /assets URL path

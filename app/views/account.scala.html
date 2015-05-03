@@ -3,60 +3,29 @@
     @main(title = message)(user = indexuser){
     <div class="main" style="height: 500px; float:none;">
 
-        <div class="side-left">
-            <h4><a href="account_profile.html">Profile</a></h4>
-            <h4><a href="account_order.html">Purchase History</a></h4>
-            <h4><a href="account_orderstatus.html">Order Status</a></h4>
-            <h4><a href="account_bank.htm.">Payment Options</a></h4>
-            <h4><a href="account_shippingaddress,html">Address</a></h4>
-        </div>
+        @if(indexuser.uname == null) {
 
-        <div class="column-large">
-            <h2 class="page-heading"><span>User Profile</span></h2>
-
-            <p style="height: 100px"><img src="@routes.Assets.at("images/user.png")" style="float:left; height:auto; width:100px" /></p>
-            <p><button type="submit" name="updateaccount" value="updateaccount"> Update </button></p>
-
-            <table class="clearfloat" style="text-align:left">
-                <tr>
-                    <td>First Name:</td>
-                    <td>@indexuser.fname</td>
-                </tr>
-
-                <tr>
-                    <td>Last Name:</td>
-                    <td>@indexuser.lname</td>
-                </tr>
-
-                <tr>
-                    <td>Username:</td>
-                    <td>@indexuser.uname</td>
-                </tr>
-
-                <tr>
-                    <td>Account created on:</td>
-                    <td>@indexuser.cdate</td>
-                </tr>
-
-                <tr>
-                    <td>Phone Number:</td>
-                    <td>@indexuser.mob</td>
-                </tr>
-
-                <tr>
-                    <td>E-mail Address:</td>
-                    <td>@indexuser.email</td>
-                </tr>
-
-                <tr>
-                    <td>Address:</td>
-                    <td>@indexuser.address</td>
-                </tr>
-
-            </table>
-            <div lass="clearfloat"></div>
-        </div>
-
+            <h2>@message</h2> <br>
+            <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+                <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+                <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+                <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+                <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+                <br>
+                <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a>
+            </form>
+        }else{
+            <div class="side-left">
+                <a href="@routes.Account.login()">Profile</a>
+                <a href="account_order.html">Purchase History</a>
+                <a href="account_orderstatus.html">Order Status</a>
+                <a href="account_bank.htm.">Payment Options</a>
+                <a href="account_shippingaddress,html">Address</a>
+            </div>
+            <div class="column-large">
+            @account_profile(indexuser)
+            </div>
+        }
     </div><!-- end main -->
 
 }
