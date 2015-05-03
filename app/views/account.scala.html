@@ -14,44 +14,43 @@
         <div class="column-large">
             <h2 class="page-heading"><span>User Profile</span></h2>
 
-            <p style="height: 100px"><img src="@routes.Assets.at("public/images/user.png") style="float:left; height:auto; width:100px" /></p>
+            <p style="height: 100px"><img src="@routes.Assets.at("images/user.png")" style="float:left; height:auto; width:100px" /></p>
             <p><button type="submit" name="updateaccount" value="updateaccount"> Update </button></p>
 
             <table class="clearfloat" style="text-align:left">
                 <tr>
                     <td>First Name:</td>
-                    <td>Mary</td>
+                    <td>@indexuser.fname</td>
                 </tr>
 
                 <tr>
                     <td>Last Name:</td>
-                    <td>Jane</td>
+                    <td>@indexuser.lname</td>
                 </tr>
 
                 <tr>
                     <td>Username:</td>
-                    <td>mary456</td>
+                    <td>@indexuser.uname</td>
                 </tr>
 
                 <tr>
-                    <td>Date of Birth:</td>
-                    <td>01/01/1990</td>
+                    <td>Account created on:</td>
+                    <td>@indexuser.cdate</td>
                 </tr>
 
                 <tr>
                     <td>Phone Number:</td>
-                    <td>518-123-4567</td>
+                    <td>@indexuser.mob</td>
                 </tr>
 
                 <tr>
                     <td>E-mail Address:</td>
-                    <td>mjane&#64;albany.edu</td>
+                    <td>@indexuser.email</td>
                 </tr>
 
                 <tr>
                     <td>Address:</td>
-                    <td>1400 Washington Ave<br>University at Albany<br>
-                        Chemistry Department<br>Albany, NY 12203</td>
+                    <td>@indexuser.address</td>
                 </tr>
 
             </table>
