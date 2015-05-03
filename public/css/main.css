@@ -191,14 +191,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0073b2', end
 	float: left;
 	text-align:center;
 	color:#FFF;
+
 }
 .flexslider h2 {
 	margin:40px 20px 60px;
 	font-size: 40px;
 }
-.flexslider-button a {
-	padding:10px 20px;
-	margin:40px auto;
+.flexslider-button button {
+	padding:5px 10px;
+	margin:20px auto;
 	background:#FFF;
 	color:#2b2b2d;
 	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.5);
@@ -206,7 +207,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0073b2', end
 		 -o-box-shadow: 0 1px 4px rgba(0,0,0,.5);
 			box-shadow: 0 1px 4px rgba(0,0,0,.5);
 }
-.flexslider-button a:hover {
+.flexslider-button button:hover {
 	box-shadow:none;	
 }
 .page-heading {

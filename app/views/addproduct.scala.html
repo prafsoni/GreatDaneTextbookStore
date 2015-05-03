@@ -1,6 +1,6 @@
-@(message: String)
+@(message: String)(implicit indexuser: Users)
 
-@main(title = message)(loginbox = views.html.login_box.render()){
+    @main(title = message)(user = indexuser){
     <div class="main" style="height: 800px; float:none;">
 
 

@@ -1,6 +1,6 @@
-@(message: String)(booklist: java.util.ArrayList[Books])
+@(message: String)(booklist: java.util.ArrayList[Books])(implicit indexuser: Users)
 
-@main(title = message)(loginbox = views.html.login_box.render()){
+  @main(title = message)(user = indexuser){
   <div class="main">
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->

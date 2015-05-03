@@ -21,7 +21,7 @@ public class Users {
     public String uname;
     public String password;
     public String email;
-    public long mob; // mobile phone?
+    public long mob; // mobile phone
     public ArrayList<String> address;
     public ArrayList<String> role;
     public int status;

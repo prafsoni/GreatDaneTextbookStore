@@ -1,17 +1,16 @@
-@(message: String)
-@main(title = message)(loginbox = views.html.login_box.render()){
+@(message: String)(implicit indexuser: Users)
 
-    <div class="main" style="height: 400px; ">
-      <h2>Please Login First!</h2> <br>
-      <form action="@routes.Account.login()" method="post" style="width: 250px; height: 70px; float: none;">
-        <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
-        <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
-        <button type="submit" name="Login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
-        <a href="/register" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
-        <br>
-        <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a>
-      </form>
+@main(title = message)(user = indexuser){
 
-    </div><!-- end main -->
-
+  <div class="main" style="height:400px">
+    <h2>@message</h2> <br>
+    <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+      <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+      <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+      <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <br>
+      <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("playauthenticate.login.forgot.password")</a>
+    </form>
+  </div>
 }

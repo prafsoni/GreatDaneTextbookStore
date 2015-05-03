@@ -135,6 +135,29 @@ public class BookOperations extends Model {
         }
         return list;
     }
+    public ArrayList<Books> getThree(){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
+        FindIterable<Document> results = collection.find().limit(3);
+        ArrayList<Books> list = new ArrayList<>();
+        for(Document result: results){
+            Books book = new Books();
+            book.id = result.getObjectId("_id");
+            book.authors = result.getString("authors");
+            book.edition = result.getInteger("edition");
+            book.isbn = result.getString("isbn");
+            book.picid = result.getString("picid");
+            book.price = result.getDouble("price");
+            book.seller = result.getString("seller");
+            book.stock = result.getInteger("stock");
+            book.title = result.getString("title");
+            book.description = result.getString("description");
+            book.year = result.getInteger("year");
+            book.category = result.getInteger("category");
+            list.add(book);
+        }
+        return list;
+    }
 
     public ArrayList<Books> search(String text){
         com.mongodb.client.MongoDatabase database = getdatabase();

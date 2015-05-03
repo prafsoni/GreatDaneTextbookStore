@@ -1,5 +1,6 @@
-@(message: String)
-  @main(title = message)(loginbox = views.html.login_box.render()){
+@(message: String)(implicit indexuser: Users)
+
+  @main(title = message)(user = indexuser){
   <div class="main">
     <div class="thank-you-message">
       <h2 class="page-heading"><span>YOUR EMAIL WAS SENT SUCCESSFULLY</span></h2>

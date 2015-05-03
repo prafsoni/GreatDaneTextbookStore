@@ -1,9 +1,8 @@
-@()
-
-<form name="logout" action='LogoutServlet' method="post">
-    <div style="float: right">
-    <h5> username is currently Logged in</h5>
-        <input name="logout" type=hidden value="logout">
-        <button type="submit" class="linkbutton">Category 1</button>
+@(implicit user: Users)
+    <div style="float: right" class="flexslider-button">
+    <h5> @user.uname is currently logged in</h5>
+        <form action="@routes.Application.logout()" method="post">
+          <input name="logout" type=hidden value="logout">
+          <button type="submit" class="column-button-s">Logout</button>
+        </form>
     </div>
-    </form>

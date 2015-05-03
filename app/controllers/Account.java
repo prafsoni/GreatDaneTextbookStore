@@ -1,5 +1,7 @@
 package controllers;
 
+import models.BookOperations;
+import models.Books;
 import models.UserOperations;
 import models.Users;
 import org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean;
@@ -9,9 +11,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.cache.Cache;
 import play.mvc.Http.Session;
-import views.html.login;
-import views.html.notverified;
-import views.html.register;
+import views.html.*;
+
 import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,11 @@ public class Account extends Controller {
     //private UserOperations useroperations = new UserOperations();
 
     public static Result register(){
-        return ok(register.render("SignUp"));
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
+        return ok(register.render("",user));
     }
 
     /**
@@ -76,18 +81,28 @@ public class Account extends Controller {
         user.role = role;
         user.status = -1;
         // I can use the static function directly
+
         if (UserOperations.createuser(user))
         {
             // When successful, redirect user to the homepage
-            return redirect("/");
+            return ok(login.render("Please login your account.", user));
         }else {
             // When unsuccessful, refresh the page and clear the form
-            return redirect("/register");
+            return ok(register.render("Creating account failed!",user));
         }
     }
 
     public static Result login(){
-        return ok(login.render("Login"));
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
+        if (username != null) {
+            System.out.println("Current user: " + username);
+            return ok(account.render("Welcome back!", user));
+        }
+
+        return ok(login.render("Please login first!", user));
     }
 
     public static Result dologin()
@@ -107,6 +122,15 @@ public class Account extends Controller {
         String uname = requestData.get("uname");
         // Get the password string from the `password` text field.
         String pwd = requestData.get("password");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(uname);
+        if(uname.length()<=0){
+            return unauthorized(login.render("Please enter username!",user));
+        }
+        else if(pwd.length()<=0){
+            return unauthorized(login.render("Please enter password!",user));
+        }
 
         // Test if the username/pass were correct, if so
         // set the session username to the entered name and redirect to the homepage
@@ -124,18 +148,17 @@ public class Account extends Controller {
 
                 Cache.set(uuid + "username", uname);
 
-                return redirect("/");
+                return ok(account.render("Welcome back!",user));
             } else {
                 // check failed, let them try again
                 request().setUsername("");
-                return redirect("/login");
+                return unauthorized(login.render("Login failed! Please try again.",user));
             }
-        }else {
-            return redirect("/notverified");
+        }
+        else {
+            return unauthorized(login.render("Account not verified. Please register first!",user));
         }
     }
 
-    public static Result accnotverified(){
-        return ok(notverified.render("Account not verified. Please register first!"));
-    }
+
 }

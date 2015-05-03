@@ -114,11 +114,12 @@ public class UserOperations extends Model {
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
         Document result = collection.find(eq("uname", uname)).first();
         Users user = new Users();
+        if(uname == null){return user;}
         user.cdate = result.getDate("cdate");
         user.email = result.getString("email");
         user.fname = result.getString("fname");
         user.lname = result.getString("lname");
-        user.mob = result.getInteger("mob");
+        user.mob = result.getLong("mob");
         user.picid = result.getString("picid");
         user.status = result.getInteger("status");
         user.id = result.getObjectId("_id");
@@ -138,7 +139,7 @@ public class UserOperations extends Model {
         user.email = result.getString("email");
         user.fname = result.getString("fname");
         user.lname = result.getString("lname");
-        user.mob = result.getInteger("mob");
+        user.mob = result.getLong("mob");
         user.picid = result.getString("picid");
         user.status = result.getInteger("status");
         user.id = result.getObjectId("_id");

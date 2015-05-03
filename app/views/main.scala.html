@@ -1,4 +1,4 @@
-@(title: String)(loginbox: Html = views.html.login_box.render())(content: Html)
+@(title: String)(user: Users)(content: Html)
 
 <!doctype html>
 <html class="no-js">
@@ -9,7 +9,7 @@
     <body lang="en">
         <div class="wrapper1">
             <header>
-            @header(loginbox = loginbox)
+            @header(user)
             </header>
         </div><!-- end wrapper1 -->
 

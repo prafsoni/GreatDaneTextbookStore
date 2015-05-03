@@ -13,10 +13,11 @@ POST        /addproduct          controllers.Products.doAdd()
 GET         /contact             controllers.Contact.contact()
 GET         /search              controllers.Search.search()
 POST        /search              controllers.Search.doSearch()
-GET         /notverified         controllers.Account.accnotverified()
 GET         /admin               controllers.Administrator.index()
 GET         /categories          controllers.Search.showAll()
 POST        /categories          controllers.Search.getbooks()
+POST         /logout              controllers.Application.logout()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

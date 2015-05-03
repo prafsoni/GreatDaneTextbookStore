@@ -1,11 +1,14 @@
-@(loginbox: Html = views.html.login_box.render())
+@(implicit user: Users)
+
 <div id= "header">
     <div id="logo">
-        <a href="/"><img src="@routes.Assets.at("images/logo.png")" width="280" height="100" alt="LOGO"></a>
+        <a href="@routes.Application.index"><img src="@routes.Assets.at("images/logo.png")" width="280" height="100" alt="LOGO"></a>
     </div><!-- end logo -->
     <div class="contact-info">
+        @if(user.uname == null){
+            @login_box()
+        }else {@loggedin_box(user)}
 
-        @loginbox
     </div><!-- end contact-info -->
     <div class="clearfloat"></div>
 </div>

@@ -1,4 +1,5 @@
-@(message: String)
-@main(title = message)(loginbox = views.html.login_box.render()){
+@(message: String)(implicit indexuser: Users)
 
+@main(title = message)(user = indexuser){
+        
 }

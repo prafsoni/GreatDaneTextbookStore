@@ -1,5 +1,7 @@
 package controllers;
 
+import models.UserOperations;
+import models.Users;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -11,7 +13,11 @@ import views.html.contact;
  */
 public class Contact extends Controller{
     public static Result contact(){
-        return ok(contact.render("contact"));
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
+        return ok(contact.render("contact",user));
     }
     //public static Result docontact(){
 

@@ -2,6 +2,8 @@ package controllers;
 
 import models.BookOperations;
 import models.Books;
+import models.UserOperations;
+import models.Users;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
@@ -17,13 +19,21 @@ import java.util.*;
  */
 public class Search extends Controller{
     public static Result search(){
-        return ok(search.render("search"));
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
+        return ok(search.render("search",user));
     }
 
     public static Result showAll(){
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
         BookOperations bo = new BookOperations();
         ArrayList<Books> list = bo.getall();
-        return ok(categories.render("Books in all categories", list));
+        return ok(categories.render("Books in all categories", list,user));
     }
 
     /**
@@ -32,6 +42,10 @@ public class Search extends Controller{
      * @todo should redirect back to where the request originated
      */
     public static Result doSearch(){
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
         // Retrieve the form from the POST
         DynamicForm requestData = Form.form().bindFromRequest();
         // Get the "booksearch" field"
@@ -45,13 +59,17 @@ public class Search extends Controller{
         ArrayList<Books> list = bookOperations.search(text);
 
         if (list.size() > 0) {
-            return ok(categories.render("Following books match your search.", list)); // TODO fix this too... why cant we pass both args?
+            return ok(categories.render("Following books match your search.", list,user)); // TODO fix this too... why cant we pass both args?
         }
         else{
-            return ok(categories.render("Not book found!", list));
+            return ok(categories.render("Not book found!", list,user));
         }
     }
     public static Result getbooks(){
+        String username = Util.getFromUserCache("uuid", "username");
+        Users user = new Users();
+        UserOperations uo = new UserOperations();
+        user = uo.getuserbyuname(username);
         DynamicForm requestData = Form.form().bindFromRequest();
         String id;
         String c;
@@ -65,9 +83,9 @@ public class Search extends Controller{
 
             System.out.println(book.title);
             if(book.title.length() > 0){
-                return ok(product.render("Here are the books matching your search", book));
+                return ok(product.render("Here are the books matching your search", book,user));
             }else {
-                return ok(product.render("No book found!", book));
+                return ok(product.render("No book found!", book,user));
             }
         }
         else if(c.length() > 0){
@@ -76,14 +94,14 @@ public class Search extends Controller{
             ArrayList<Books> list = bo.getcategory(c);
 
             if(list.size() > 0){
-                return ok(categories.render("Books in this category", list));
+                return ok(categories.render("Books in this category", list,user));
             }else {
-                return ok(categories.render("No book found in this category!", list));
+                return ok(categories.render("No book found in this category!", list,user));
             }
         }
         else {
             ArrayList<Books> list = null;
-            return ok(categories.render("No book found", list));
+            return ok(categories.render("No book found", list,user));
         }
 
     }

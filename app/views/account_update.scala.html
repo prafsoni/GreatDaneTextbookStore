@@ -1,5 +1,6 @@
-@(message: String)
-    @main(title = message)(loginbox = views.html.login_box.render()){
+@(message: String)(implicit indexuser: Users)
+
+    @main(title = message)(user = indexuser){
     <div class="main" style="height: 600px; float:none;">
         <div class="contact-column1">
             <form name="register" method="post" action="@routes.Account.register()" style="float:left" >
