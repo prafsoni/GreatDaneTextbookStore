@@ -150,7 +150,7 @@ public class Account extends Controller {
                 String uuid = session("uuid");
 
                 if (uuid == null) {
-                    uuid = java.util.UUID.randomUUID().toString();
+                    uuid = uo.getuserid(uname); //java.util.UUID.randomUUID().toString();
                     session("uuid", uuid);
                 }
                 user = uo.getuserbyuname(uname);

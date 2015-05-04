@@ -34,12 +34,12 @@ public class BookOperations extends Model {
 
     public Boolean addbook(Books book){
         try {
-            Http.Session session = Util.getCurrentSession();
-            String username = session.get("username");
-            Users user = new Users();
-            UserOperations uo = new UserOperations();
-            user = uo.getuserbyuname(username);
-            book.seller = user.uname;
+            //Http.Session session = Util.getCurrentSession();
+            //String username = session.get("username");
+            //Users user = new Users();
+            //UserOperations uo = new UserOperations();
+            //user = uo.getuserbyuname(username);
+            //book.seller = user.uname;
             Document doc = new Document("title", book.title)
                     .append("isbn", book.isbn)
                     .append("edition", book.edition)
