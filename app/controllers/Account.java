@@ -14,6 +14,7 @@ import play.cache.Cache;
 import play.mvc.Http.Session;
 import views.html.*;
 
+import java.io.File;
 import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -160,7 +161,21 @@ public class Account extends Controller {
             }
         }
         else {
-            return unauthorized(account.render("Account not verified. Please register first!",user));
+            return unauthorized(account.render("Account not verified. Please register first!", user));
+        }
+    }
+
+    public Result upload(){
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart picture = body.getFile("picture");
+        if (picture != null) {
+            String fileName = picture.getFilename();
+            String contentType = picture.getContentType();
+            File file = picture.getFile();
+            return ok("File uploaded");
+        } else {
+            flash("error", "Missing file");
+            return redirect("/");
         }
     }
 

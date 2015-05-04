@@ -11,6 +11,7 @@ import play.db.ebean.Model;
 import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.or;
 
 /**
  * Created by PKS on 4/22/15.
@@ -163,7 +164,8 @@ public class BookOperations extends Model {
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
         Document doc = new Document("text","Books").append("search", text);
-        Document result = database.runCommand(doc);
+        //Document result = database.runCommand(doc);
+        FindIterable<Document> results = collection.find(or(eq("title",text),eq("isbn",text),eq("authors",text),eq("description",text)));
         ArrayList<Books> list = new ArrayList<>();
         //com.mongodb.BasicDBObject searchCmd = new com.mongodb.BasicDBObject();
         //searchCmd.put("text", "Books");
@@ -171,7 +173,7 @@ public class BookOperations extends Model {
         //Document result = database.runCommand(searchCmd);
         //ArrayList<Books> list = new ArrayList<>();
 
-        //for(Document result: results) {
+        for(Document result: results) {
         Books book = new Books();
         book.id = result.getObjectId("_id");
         book.authors = result.getString("authors");
@@ -186,7 +188,7 @@ public class BookOperations extends Model {
         book.year = result.getInteger("year");
         book.category = result.getInteger("category");
         list.add(book);
-        //}
+        }
         return list;
     }
 
