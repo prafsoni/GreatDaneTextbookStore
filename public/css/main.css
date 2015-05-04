@@ -498,7 +498,7 @@ textarea {
 }
 
 .column-large {
-	width:70%;
+	width:75%;
 	float:right;
 	margin-left:40px;
 }
@@ -507,7 +507,7 @@ textarea {
 	margin-bottom:20px;	
 }
 .column-large img {
-	width:50%;
+	width:30%;
 	float:right;
 	margin-bottom:20px;
 }
@@ -587,7 +587,7 @@ textarea {
 }
 .side-left {
 	float:left;
-	width:10%;
+	width:15%;
 	margin-top:20px;
 	padding:10px 20px 10px;	
 	border:1px solid #d5d5d5;
