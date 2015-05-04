@@ -11,6 +11,7 @@ import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
 import views.html.addproduct;
+import views.html.error;
 import views.html.productadded;
 /**
  * Created by PKS on 4/22/15.
@@ -25,14 +26,24 @@ public class Products extends Controller {
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
+        //check if user is a seller
+        if(user.role.size()<2){
+            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",user));
+        }
         return ok(addproduct.render("add",user));
     }
 
     public static Result doAdd(){
-        String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
+        //check if user is a seller
+        if(user.role.size()<2){
+            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",user));
+        }
+
         // Get a book from the form
         Books book = Form.form(Books.class).bindFromRequest().get();
         // Try to add the book to the DB

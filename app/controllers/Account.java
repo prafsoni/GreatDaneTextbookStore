@@ -13,7 +13,6 @@ import play.mvc.Result;
 import play.cache.Cache;
 import play.mvc.Http.Session;
 import views.html.*;
-
 import java.io.File;
 import java.security.Timestamp;
 import java.util.ArrayList;
@@ -24,14 +23,14 @@ import java.util.Date;
  */
 public class Account extends Controller {
 
-    //private UserOperations useroperations = new UserOperations();
-
     public static Result register(){
-        String username = Util.getFromUserCache("uuid", "username");
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
         Users user = new Users();
         UserOperations uo = new UserOperations();
         user = uo.getuserbyuname(username);
-        return ok(register.render("",user));
+        System.out.println("Current user: " + username);
+        return ok(register.render("Register",user));
     }
 
     /**
@@ -86,8 +85,13 @@ public class Account extends Controller {
 
         if (UserOperations.createuser(user))
         {
-            // When successful, redirect user to the homepage
-            return ok(login.render("Please login your account.", user));
+            // When successful, redirect user to the account page
+
+            Util.insertIntoSession("username", user.uname);
+            if (user.role.size()==3){
+                return ok(views.html.adminindex.render("Welcome back!", user));
+            }
+            return ok(account.render("Welcome Back.", user));
         }else {
             // When unsuccessful, refresh the page and clear the form
             return ok(register.render("Creating account failed!",user));
@@ -153,6 +157,10 @@ public class Account extends Controller {
                 Cache.set(uuid + "username", uname);
                 Util.insertIntoSession("username", uname);
                 //System.out.println(user.uname);
+                if (user.role.size()==3){
+                    return ok(views.html.adminindex.render("Welcome back!", user));
+                }
+
                 return ok(account.render("Welcome back!",user));
             } else {
                 // check failed, let them try again

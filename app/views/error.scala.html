@@ -1,0 +1,12 @@
+@(message: String)(implicit indexuser: Users)
+
+  @main(title = message)(user = indexuser){
+  <div class="main">
+    <div class="thank-you-message">
+      <h2 class="page-heading"><span>You are not authorized for this action!</span></h2>
+      <h3>@message</h3>
+      <div class="column-button"><a href="/register">Register</a></div><!-- end button -->
+    </div><!-- end thank-you-message -->
+  </div><!-- end main -->
+
+}

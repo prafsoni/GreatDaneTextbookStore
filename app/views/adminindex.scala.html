@@ -1,11 +1,22 @@
-@(messages: String)
-<!DOCTYPE html>
-<html>
-<head lang="en">
-  <meta charset="UTF-8">
-  <title></title>
-</head>
-<body>
-This page is for admin only.
-</body>
-</html>
+@(message: String)(implicit indexuser: Users)
+
+@main(title = message)(user = indexuser){
+  <div class="main" style="height: 500px; float:none;">
+
+  @if(indexuser.uname == null) {
+
+    <h2>@message</h2> <br>
+    <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+      <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+      <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+      <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+      <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+      <br>
+      <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
+    </form>
+  }else{
+    <h2>This is admin page</h2>
+  }
+  </div><!-- end main -->
+
+}

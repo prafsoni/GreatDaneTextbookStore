@@ -4,7 +4,9 @@
                 <h2 class="page-heading"><span>User Profile</span></h2>
 
                 <p style="height : 100 px"><img src="@routes.Assets.at("images/user.png")" style="float : left ; height : auto ; width : 100px" /></p>
-                <p><button type="submit" name="updateaccount" value="updateaccount"> Update </button></p>
+                <form name="update" method="get" action="@routes.UpdateUser.update()">
+                    <button type="submit" name="update" value="update"> Update </button>
+                </form>
 
                 <table class="clearfloat" style="text-align : left">
                     <tr>

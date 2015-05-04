@@ -4,9 +4,11 @@ import com.mongodb.async.client.MongoClient;
 import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.client.FindIterable;
+import controllers.Util;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import play.db.ebean.Model;
+import play.mvc.Http;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,12 @@ public class BookOperations extends Model {
 
     public Boolean addbook(Books book){
         try {
+            Http.Session session = Util.getCurrentSession();
+            String username = session.get("username");
+            Users user = new Users();
+            UserOperations uo = new UserOperations();
+            user = uo.getuserbyuname(username);
+            book.seller = user.uname;
             Document doc = new Document("title", book.title)
                     .append("isbn", book.isbn)
                     .append("edition", book.edition)

@@ -1,0 +1,42 @@
+@(message: String)(implicit indexuser: Users)
+
+@main(title = message)(user = indexuser){
+    <div class="main" style="height: 600px; float:none;">
+        <div class="contact-column1">
+            <form name="update" method="post" action="@routes.UpdateUser.doupdate()" style="float:left" >
+
+                <h2 class="page-heading"><span>Update Account</span></h2>
+                <fieldset>
+                    <fieldset1>
+
+                        <label class="required"><span class="required_star"> * </span>Username</label>
+                        <input type="text" placeholder="@indexuser.uname" name="uname"maxlength="40">
+
+                        <label class="required"><span class="required_star">  </span>Password</label>
+                        <input type="password" name="password" maxlength="40">
+
+                        <label class="required"><span class="required_star">  </span>Confirm Password</label>
+                        <input type="password" name="cpwd" maxlength="40">
+                    </fieldset1>
+
+                    <fieldset1>
+                        <label class="required"><span class="required_star"> * </span>First Name</label>
+                        <input type="text" placeholder="@indexuser.fname" name="fname" maxlength="40">
+
+                        <label class="required"><span class="required_star"> * </span>Last Name</label>
+                        <input type="text" placeholder="@indexuser.lname" name="lname"maxlength="40">
+
+                        <label class="required"><span class="required_star"> * </span>Phone Number</label>
+                        <input type="tel" name="mob" placeholder="@indexuser.mob" maxlength="40">
+
+                        <label class="required"><span class="required_star"> * </span>E-mail</label>
+                        <input type="email" name="email" placeholder="@indexuser.email" maxlength="40">
+                    </fieldset1>
+                    <input type="submit" class="submit" value="update" style="float:left; width:80px">
+
+                </fieldset>
+            </form>
+        </div><!-- end contact-column1 -->
+
+    </div><!-- end main -->
+}
