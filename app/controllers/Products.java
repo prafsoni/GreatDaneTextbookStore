@@ -46,6 +46,7 @@ public class Products extends Controller {
 
         // Get a book from the form
         Books book = Form.form(Books.class).bindFromRequest().get();
+        book.seller = session.get("uuid");
         // Try to add the book to the DB
         BookOperations bookOperations = new BookOperations();
 
