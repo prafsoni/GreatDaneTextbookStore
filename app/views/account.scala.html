@@ -16,12 +16,12 @@
             </form>
         }else{
             <div class="side-left">
+                <a href="@routes.Account.login()">Profile</a><br>
                 @if(indexuser.role.size()==2){
-                    <a href="account_inventory.html">Inventory</a><br>
+                    <a href="/addproduct">Inventory</a><br>
                     <a href="account_currenttransactions.html">Current Transactions</a><br>
                     <a href="account_transactionhistory.html">Transaction History</a><br>
                 }
-                <a href="@routes.Account.login()">Profile</a><br>
                 <a href="account_order.html">Purchase History</a><br>
                 <a href="account_orderstatus.html">Order Status</a><br>
                 <a href="account_bank.htm.">Payment Options</a><br>
