@@ -12,8 +12,8 @@
 
                             <div class="flexslider-info" style="width: 409px; height: 297px">
                                 <div style="width: auto; height: 250px; overflow:hidden;">
-                                    <h3>@book.title</h3>
-                                    @book.description
+                                    <h3>Top Sellers</h3>
+                                    <h4>Title: @book.title</h4><p>Description: @book.description</p>
                                 </div>
                                 <div class="flexslider-button">
                                     <form method="post" action="@routes.Search.getbooks()">
