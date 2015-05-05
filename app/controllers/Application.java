@@ -19,23 +19,22 @@ public class Application extends Controller {
         String username = session.get("username");
         BookOperations bo = new BookOperations();
         ArrayList<Books> list = bo.getThree();
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
+
         if (username != null) {
             System.out.println("Current user: " + username);
-            user = uo.getuserbyuname(username);
-            return ok(index.render("GreatDane BookStore.",list,user));
+
+            return ok(index.render("GreatDane BookStore.",list,session));
 
         }
         System.out.println("Current user: " + username);
 
-        return ok(index.render("GreatDane BookStore.",list,user));
+        return ok(index.render("GreatDane BookStore.",list,session));
     }
     public static Result logout() {
+        Http.Session session = Util.getCurrentSession();
         session().clear();
         flash("success", "You've been logged out");
-        Users user = new Users();
-        return ok(login.render("Please login first!",user));
+        return ok(login.render("Please login first!",session));
     }
 
 }

@@ -15,14 +15,13 @@ import views.html.adminindex;
 public class Administrator extends Controller {
     public static Result index(){
         Http.Session session = Util.getCurrentSession();
+        String role = session.get("role");
         String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
-        if (username != null && user.role.size()==3) {
+
+        if (role.equals("3") && username != null) {
             System.out.println("Current user: " + username);
-            return ok(account.render("Welcome back!", user));
-        }else{return unauthorized(account.render("Please login first!", user));}
+            return ok(views.html.adminindex.render("Welcome back!", session));
+        }else{return unauthorized(account.render("Please login first!", session));}
 
     }
 }

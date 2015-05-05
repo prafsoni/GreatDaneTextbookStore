@@ -1,13 +1,13 @@
-@(implicit user: Users)
+@(implicit session: play.mvc.Http.Session)
 
 <div id= "header">
     <div id="logo">
         <a href="@routes.Application.index"><img src="@routes.Assets.at("images/logo.png")" width="280" height="100" alt="LOGO"></a>
     </div><!-- end logo -->
     <div class="contact-info">
-        @if(user.uname == null){
+        @if(session.get("username") == null){
             @login_box()
-        }else {@loggedin_box(user)}
+        }else {@loggedin_box(session.get("username"))}
 
     </div><!-- end contact-info -->
     <div class="clearfloat"></div>

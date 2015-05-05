@@ -1,9 +1,9 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-@main(title = message)(user = indexuser){
+  @main(title = message)(session){
   <div class="main" style="height: 500px; float:none;">
 
-  @if(indexuser.uname == null) {
+  @if(session.get("username") == null) {
 
     <h2>@message</h2> <br>
     <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">

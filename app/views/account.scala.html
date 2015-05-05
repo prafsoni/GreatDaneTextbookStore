@@ -1,9 +1,9 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-    @main(title = message)(user = indexuser){
+    @main(title = message)(session){
     <div class="main" style="height: 500px; float:none;">
 
-        @if(indexuser.uname == null) {
+        @if(session.get("username") == null) {
 
             <h2>@message</h2> <br>
             <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
@@ -17,7 +17,7 @@
         }else{
             <div class="side-left">
                 <a href="@routes.Account.login()">Profile</a><br>
-                @if(indexuser.role.size()==2){
+                @if(session.get("role")=="2"){
                     <a href="/addproduct">Inventory</a><br>
                     <a href="account_currenttransactions.html">Current Transactions</a><br>
                     <a href="account_transactionhistory.html">Transaction History</a><br>
@@ -28,7 +28,7 @@
                 <a href="account_shippingaddress,html">Address</a><br>
             </div>
             <div class="column-large">
-            @account_profile(indexuser)
+            @account_profile(session)
             </div>
         }
     </div><!-- end main -->

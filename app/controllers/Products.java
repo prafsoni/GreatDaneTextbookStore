@@ -23,25 +23,21 @@ public class Products extends Controller {
         //String username = Util.getFromUserCache("uuid", "username");
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
+        String role = session.get("role");
         //check if user is a seller
-        if(user.role.size()<2){
-            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",user));
+        if(role.equals("1") || username == null){
+            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",session));
         }
-        return ok(addproduct.render("add",user));
+        return ok(addproduct.render("add",session));
     }
 
     public static Result doAdd(){
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
+        String role = session.get("role");
         //check if user is a seller
-        if(user.role.size()<2){
-            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",user));
+        if(role.equals("1") || username == null){
+            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",session));
         }
 
         // Get a book from the form
@@ -51,11 +47,10 @@ public class Products extends Controller {
         BookOperations bookOperations = new BookOperations();
 
         if(bookOperations.addbook(book)){
-            return ok(productadded.render("You book was listed successfully!",user));
+            return ok(productadded.render("You book was listed successfully!",session));
         }else {
             // if adding failed, redirect to the addproduct page
-            // TODO this can happen is A) the form is incorrect or B) the DB failed. How does the user know?
-            return redirect("/addproduct");
+            return ok(productadded.render("Listing failed", session));
         }
     }
 }

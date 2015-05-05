@@ -1,6 +1,6 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-@main(title = message)(user = indexuser){
+@main(title = message)(session){
     <div class="main" style="height: 600px; float:none;">
         <div class="contact-column1">
             <form name="update" method="post" action="@routes.UpdateUser.doupdate()" style="float:left" >
@@ -10,7 +10,7 @@
                     <fieldset1>
 
                         <label class="required"><span class="required_star"> * </span>Username</label>
-                        <input type="text" placeholder="@indexuser.uname" name="uname"maxlength="40">
+                        <input type="text" placeholder="@session.get("username")" name="uname"maxlength="40">
 
                         <label class="required"><span class="required_star">  </span>Password</label>
                         <input type="password" name="password" maxlength="40">
@@ -21,16 +21,16 @@
 
                     <fieldset1>
                         <label class="required"><span class="required_star"> * </span>First Name</label>
-                        <input type="text" placeholder="@indexuser.fname" name="fname" maxlength="40">
+                        <input type="text" placeholder="@session.get("fname")" name="fname" maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>Last Name</label>
-                        <input type="text" placeholder="@indexuser.lname" name="lname"maxlength="40">
+                        <input type="text" placeholder="@session.get("lname")" name="lname"maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>Phone Number</label>
-                        <input type="tel" name="mob" placeholder="@indexuser.mob" maxlength="40">
+                        <input type="tel" name="mob" placeholder="@session.get("mob")" maxlength="40">
 
                         <label class="required"><span class="required_star"> * </span>E-mail</label>
-                        <input type="email" name="email" placeholder="@indexuser.email" maxlength="40">
+                        <input type="email" name="email" placeholder="@session.get("email")" maxlength="40">
                     </fieldset1>
                     <input type="submit" class="submit" value="update" style="float:left; width:80px">
 

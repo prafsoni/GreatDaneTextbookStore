@@ -1,5 +1,5 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-@main(title = message)(user = indexuser){
+@main(title = message)(session){
         
 }

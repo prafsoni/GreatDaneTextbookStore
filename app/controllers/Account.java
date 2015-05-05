@@ -9,6 +9,7 @@ import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Http;
+import play.mvc.Http.Session;
 import play.mvc.Result;
 import play.cache.Cache;
 import play.mvc.Http.Session;
@@ -24,13 +25,9 @@ import java.util.Date;
 public class Account extends Controller {
 
     public static Result register(){
-        Http.Session session = Util.getCurrentSession();
-        String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
-        System.out.println("Current user: " + username);
-        return ok(register.render("Register",user));
+        Session session = Util.getCurrentSession();
+        System.out.println("Current user: " + session.get("username"));
+        return ok(register.render("Register",session));
     }
 
     /**
@@ -45,6 +42,7 @@ public class Account extends Controller {
     public static Result doregister(){
         // create form object to represent the data from the
         // submitted form.
+        Session session = Util.getCurrentSession();
         DynamicForm requestData = Form.form().bindFromRequest();
 
         // Create a User instance from the form data
@@ -83,38 +81,30 @@ public class Account extends Controller {
         user.status = -1;
         // I can use the static function directly
 
-        if (UserOperations.createuser(user))
-        {
+        if (UserOperations.createuser(user)) {
             // When successful, redirect user to the account page
-
-            Util.insertIntoSession("username", user.uname);
-            if (user.role.size()==3){
-                return ok(views.html.adminindex.render("Welcome back!", user));
-            }
-            return ok(account.render("Welcome Back.", user));
+            return ok(account.render("Please login using the account just created.", session));
         }else {
             // When unsuccessful, refresh the page and clear the form
-            return ok(register.render("Creating account failed!",user));
+            return ok(register.render("Creating account failed!",session));
         }
     }
 
     public static Result login(){
         //String username = Util.getFromUserCache("uuid", "username");
-        Http.Session session = Util.getCurrentSession();
+        Session session = Util.getCurrentSession();
         String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
-        if (username != null) {
-            System.out.println("Current user: " + username);
-            return ok(account.render("Welcome back!", user));
-        }
 
-        return unauthorized(account.render("Please login first!", user));
+        if (username != null) {
+            // if there is already username in session
+            System.out.println("Current user: " + username);
+            return ok(account.render("Welcome back!", session));
+        }
+        // else return a login box in account page
+        return unauthorized(account.render("Please login first!", session));
     }
 
-    public static Result dologin()
-    {
+    public static Result dologin(){
         // Get the submitted form from the user
         DynamicForm requestData = Form.form().bindFromRequest();
 
@@ -132,12 +122,12 @@ public class Account extends Controller {
         String pwd = requestData.get("password");
         Users user = new Users();
         UserOperations uo = new UserOperations();
-
+        Session session = Util.getCurrentSession();
         if(uname.length()<=0){
-            return unauthorized(account.render("Please enter username!",user));
+            return unauthorized(account.render("Please enter username!",session));
         }
         else if(pwd.length()<=0){
-            return unauthorized(account.render("Please enter password!",user));
+            return unauthorized(account.render("Please enter password!",session));
         }
 
         // Test if the username/pass were correct, if so
@@ -155,21 +145,21 @@ public class Account extends Controller {
                 }
                 user = uo.getuserbyuname(uname);
                 Cache.set(uuid + "username", uname);
-                Util.insertIntoSession("username", uname);
-                //System.out.println(user.uname);
+
+                session = Util.setUserToSession(user);
                 if (user.role.size()==3){
-                    return ok(views.html.adminindex.render("Welcome back!", user));
+                    return ok(views.html.adminindex.render("Welcome back!", session));
                 }
 
-                return ok(account.render("Welcome back!",user));
+                return ok(account.render("Welcome back!",session));
             } else {
                 // check failed, let them try again
                 request().setUsername("");
-                return unauthorized(account.render("Login failed! Please try again.",user));
+                return unauthorized(account.render("Login failed! Please try again.",session));
             }
         }
         else {
-            return unauthorized(account.render("Account not verified. Please register first!", user));
+            return unauthorized(account.render("Account not verified. Please register first!", session));
         }
     }
 
