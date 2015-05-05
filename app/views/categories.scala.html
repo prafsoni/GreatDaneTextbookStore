@@ -5,37 +5,10 @@
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->
       <div class="archives">
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="1">
-          <button type="submit" class="linkbutton">Category 1</button>
-        </form>
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="2">
-          <button type="submit" class="linkbutton">Category 2</button>
-        </form>
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="3">
-          <button type="submit" class="linkbutton">Category 3</button>
-        </form>
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="4">
-          <button type="submit" class="linkbutton">Category 4</button>
-        </form>
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="5">
-          <button type="submit" class="linkbutton">Category 5</button>
-        </form>
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="6">
-          <button type="submit" class="linkbutton">Category 6</button>
-        </form>
-        <form action="@routes.Search.getbooks()" method="post">
-          <input name="category" type=hidden value="7">
-          <button type="submit" class="linkbutton">Category 7</button>
-        </form>
-
+        @category_sider(session)
       </div><!-- end archives -->
-      <div class="submit-s" ><a href="/search"><h4>Search</h4></a></div>
+      <div class="submit-s" ><li><a href="/search"><h4>Search</h4></a></li></div>
+
     </div><!-- end side-left -->
 
     <div class="column-large">
@@ -52,7 +25,7 @@
           <button type="submit" style="float:left; margin-left:10%">Details</button>
         </form>
 
-      </div><!-- end column-book -->
+      </div><!-- end column-book-short -->
       }
 
     </div> <!-- end column large -->

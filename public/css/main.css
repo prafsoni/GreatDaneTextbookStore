@@ -473,7 +473,8 @@ textarea {
 }
 .column-full h2 {
 	line-height:1;
-	margin-bottom:20px;	
+	margin-bottom:20px;
+	margin-left:20px;
 }
 .column-full img {
 	width:50%;
@@ -489,7 +490,7 @@ textarea {
 	 float:left;
 }
 .column-full table tr td {
-	padding:0 15px 0 15px;
+	padding:5px 5px 5px 5px;
 }
 .column-full form {
 	text-align:center;
@@ -514,14 +515,13 @@ textarea {
 .column-large p {
 	margin-bottom:20px;
 }
-.column-large table tr td {
-	padding:0 15px 0 15px;
-}
 .column-large table {
-	 text-align:center;
-	 border:1px;
+	text-align:center;
+	border:1px;
 }
-
+.column-large table tr td {
+	padding:5px 5px 5px 5px;
+}
 .column-book {
 	width:200px;
 	height:250px;
@@ -539,12 +539,7 @@ textarea {
 	margin-bottom:5px;
 	float:left;
 }
-.column-book-short {
-	width:auto;
-	height:150px;
-	margin:0 5px 5px 0;
-	overflow: hidden;
-}
+
 .column-book button, .submit {
 	width:60px;
 	margin:10px auto;
@@ -577,7 +572,12 @@ textarea {
 	background: linear-gradient(to bottom, #004793 0%,#0073b2 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004793', endColorstr='#0073b2',GradientType=0 ); /* IE6-9 */
 }
-
+.column-book-short {
+	width:auto;
+	height:150px;
+	margin:5px 2px 2px 2px;
+	overflow: hidden;
+}
 .side-right {
 	float:right;
 	width:258px;
@@ -587,9 +587,9 @@ textarea {
 }
 .side-left {
 	float:left;
-	width:15%;
+	width:13%;
 	margin-top:20px;
-	padding:10px 20px 10px;	
+	padding:10px 10px 10px;
 	border:1px solid #d5d5d5;
 }
 

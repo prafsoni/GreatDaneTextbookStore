@@ -10,9 +10,10 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
-import views.html.addproduct;
-import views.html.error;
-import views.html.productadded;
+import views.html.*;
+
+import java.util.ArrayList;
+
 /**
  * Created by PKS on 4/22/15.
  */
@@ -51,6 +52,74 @@ public class Products extends Controller {
         }else {
             // if adding failed, redirect to the addproduct page
             return ok(productadded.render("Listing failed", session));
+        }
+    }
+    public static Result getInventory(){
+        Http.Session session = Util.getCurrentSession();
+        //DynamicForm requestData = Form.form().bindFromRequest();
+
+        String seller = session.get("uuid");
+        System.out.println("seller is: "+seller);
+        if (seller == null){return ok(login.render("Please login first!", session));}
+
+        if (seller != null){
+            BookOperations bo = new BookOperations();
+            ArrayList<Books> list = bo.getInventory(seller);
+            if(list.size() > 0){
+                return ok(account_inventory.render("Your inventory", list, session));
+            }else {
+                return ok(account_inventory.render("You do not have any book yet. Please use the bellow link to list books.", list, session));
+            }
+        }
+        else {
+            ArrayList<Books> list = new ArrayList<>();
+            return ok(account_inventory.render("No book found", list,session));
+        }
+    }
+
+    //TODO This is a method copied from getInventory, please make it to update and render message, book, session into updateproduct
+    public static Result update(){
+        Http.Session session = Util.getCurrentSession();
+        //DynamicForm requestData = Form.form().bindFromRequest();
+        String seller = session.get("uuid");
+        System.out.println("seller is: "+seller);
+        if (seller == null){return ok(login.render("Please login first!", session));}
+
+        if (seller != null){
+            BookOperations bo = new BookOperations();
+            ArrayList<Books> list = bo.getInventory(seller);
+            if(list.size() > 0){
+                return ok(account_inventory.render("Your inventory", list, session));
+            }else {
+                return ok(account_inventory.render("You do not have any book yet. Please use the bellow link to list books.", list, session));
+            }
+        }
+        else {
+            ArrayList<Books> list = new ArrayList<>();
+            return ok(account_inventory.render("No book found", list,session));
+        }
+    }
+
+    //TODO This is a method copied from getInventory, please make it to delete and render message, list, session into account_inventory
+    public static Result delete(){
+        Http.Session session = Util.getCurrentSession();
+        //DynamicForm requestData = Form.form().bindFromRequest();
+        String seller = session.get("uuid");
+        System.out.println("seller is: "+seller);
+        if (seller == null){return ok(login.render("Please login first!", session));}
+
+        if (seller != null){
+            BookOperations bo = new BookOperations();
+            ArrayList<Books> list = bo.getInventory(seller);
+            if(list.size() > 0){
+                return ok(account_inventory.render("Your inventory", list, session));
+            }else {
+                return ok(account_inventory.render("You do not have any book yet. Please use the bellow link to list books.", list, session));
+            }
+        }
+        else {
+            ArrayList<Books> list = new ArrayList<>();
+            return ok(account_inventory.render("No book found", list,session));
         }
     }
 }
