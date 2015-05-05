@@ -138,19 +138,19 @@ public class Account extends Controller {
                 System.out.println("Logging in user: " + uname);
 
                 String uuid = session("uuid");
-
                 if (uuid == null) {
                     uuid = uo.getuserid(uname); //java.util.UUID.randomUUID().toString();
-                    session("uuid", uuid);
+                    Util.insertIntoSession("uuid", uuid);
+
                 }
                 user = uo.getuserbyuname(uname);
                 Cache.set(uuid + "username", uname);
-
                 session = Util.setUserToSession(user);
-                if (user.role.size()==3){
+
+                if (session.get("role").equals("3")){
                     return ok(views.html.adminindex.render("Welcome back!", session));
                 }
-
+                System.out.println("******************" + session.toString());
                 return ok(account.render("Welcome back!",session));
             } else {
                 // check failed, let them try again

@@ -102,7 +102,7 @@ public class Util {
         session.put("email", user.email);
         session.put("mob", String.valueOf(user.mob));
         session.put("role", String.valueOf(user.role.size()));
-        session.put("picid", user.picid);
+        //session.put("picid", user.picid);
         session.put("cdate", String.valueOf(user.cdate));
         return session;
     }
