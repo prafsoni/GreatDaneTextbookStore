@@ -93,7 +93,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
