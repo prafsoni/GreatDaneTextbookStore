@@ -3,7 +3,7 @@
 
                 <h2 class="page-heading"><span>User Profile</span></h2>
 
-                <p style="height : 100 px"><img src="@routes.Assets.at("images/user.png")" style="float : left ; height : auto ; width : 100px" /></p>
+                <p style="height : 100 px"><img src="@routes.Assets.at("images/profilepics/"+user.id.toString+".jpg")" style="float : left ; height : auto ; width : 100px" /></p>
                 <form name="update" method="get" action="@routes.UpdateUser.update()">
                     <button type="submit" name="update" value="update"> Update </button>
                 </form>
