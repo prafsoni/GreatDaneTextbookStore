@@ -47,7 +47,6 @@ public class BookOperations extends Model {
                     .append("authors", book.authors)
                     .append("stock", book.stock)
                     .append("seller", book.seller)
-                    .append("pic", book.picid)
                     .append("description", book.description)
                     .append("year", book.year)
                     .append("category", book.category);
@@ -77,7 +76,6 @@ public class BookOperations extends Model {
         book.authors = result.getString("authors");
         book.edition = result.getInteger("edition");
         book.isbn = result.getString("isbn");
-        book.picid = result.getString("picid");
         book.price = result.getDouble("price");
         book.seller = result.getString("seller");
         book.stock = result.getInteger("stock");
@@ -100,7 +98,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
@@ -132,7 +129,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
@@ -155,7 +151,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
@@ -187,7 +182,6 @@ public class BookOperations extends Model {
         book.authors = result.getString("authors");
         book.edition = result.getInteger("edition");
         book.isbn = result.getString("isbn");
-        book.picid = result.getString("picid");
         book.price = result.getDouble("price");
         book.seller = result.getString("seller");
         book.stock = result.getInteger("stock");
@@ -211,7 +205,6 @@ public class BookOperations extends Model {
                 .append("authors", book.authors)
                 .append("stock", book.stock)
                 .append("seller", book.seller)
-                .append("pic", book.picid)
                 .append("description", book.description)
                 .append("year", book.year)
                 .append("category", book.category);
