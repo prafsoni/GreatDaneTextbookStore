@@ -1,6 +1,6 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-  @main(title = message)(user = indexuser){
+  @main(title = message)(session){
   <div class="main" style="height: 500px; float:none;">
 
     <div class="side-left">
