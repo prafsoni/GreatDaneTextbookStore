@@ -21,6 +21,7 @@ GET         /update              controllers.UpdateUser.update()
 POST        /update              controllers.UpdateUser.doupdate()
 GET         /uploadpic           controllers.Account.upload()
 POST        /uploadpic           controllers.Account.doupload()
+GET         /admin/users         controllers.Administrator.viewallusers()
 
 
 # Map static resources from the /public folder to the /assets URL path

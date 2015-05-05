@@ -1,0 +1,25 @@
+@(userlist:java.util.ArrayList[Users])
+<!-- joe work on this view to get profile pics of the users-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  @for(user <- userlist){
+    <div class="column-book">
+      <h5>@user.uname</h5>
+      <div class="column-book-short">
+        <img src="@routes.Assets.at("images/profilepics/sa.jpg")" alt="Profile Pic">
+        @user.fname @user.lname @user.email <br>
+      </div>
+      <form method="post" action="@routes.Search.getbooks()">
+        <input name="id" type=hidden value=@user.id.toHexString()>
+        <button type="submit" style="float:left; margin-left:10%">Details</button>
+      </form>
+
+    </div><!-- end column-book -->
+  }
+</body>
+</html>

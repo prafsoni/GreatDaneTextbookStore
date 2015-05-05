@@ -82,7 +82,7 @@ public class Search extends Controller{
         if (id.length()>0){
             BookOperations bo = new BookOperations();
             Books book = bo.getone(id);
-            book.seller = uo.getuserbyid(book.seller).uname;
+            book.seller = uo.getuname(book.seller);
 
             System.out.println(book.title);
             if(book.title.length() > 0){

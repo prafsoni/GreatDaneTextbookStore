@@ -153,7 +153,7 @@ public class Account extends Controller {
                 session = Util.setUserToSession(user);
 
                 if (session.get("role").equals("3")){
-                    return ok(views.html.adminindex.render("Welcome back!", session));
+                    return ok(adminindex.render("Welcome back!",session));
                 }
                 System.out.println("******************" + session.toString());
                 return ok(account.render("Welcome back!",session));

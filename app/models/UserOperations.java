@@ -7,6 +7,7 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.async.client.MongoDatabase;
 //import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -132,7 +133,8 @@ public class UserOperations extends Model {
     public Users getuserbyid(String id){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
-        Document result = collection.find(eq("_id", id)).first();
+        ObjectId uid = new ObjectId(id);
+        Document result = collection.find(eq("_id", uid)).first();
         Users user = new Users();
         user.cdate = result.getDate("cdate");
         user.email = result.getString("email");
@@ -161,5 +163,35 @@ public class UserOperations extends Model {
             return -1;
         }
         else {return 1;}
+    }
+
+    public ArrayList<Users> getall(){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        FindIterable<Document> results = collection.find();
+        ArrayList<Users> list = new ArrayList<>();
+        for(Document result : results){
+            Users user = new Users();
+            user.cdate = result.getDate("cdate");
+            user.email = result.getString("email");
+            user.fname = result.getString("fname");
+            user.lname = result.getString("lname");
+            user.mob = result.getLong("mob");
+            user.status = result.getInteger("status");
+            user.id = result.getObjectId("_id");
+            user.role = result.get("role", a.class);
+            user.address = result.get("role",a.class);
+            user.uname = result.getString("uname");
+            list.add(user);
+        }
+        return list;
+    }
+
+    public String getuname(String id){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        ObjectId uid = new ObjectId(id);
+        Document result = collection.find(eq("_id", uid)).first();
+        return result.getString("uname");
     }
 }

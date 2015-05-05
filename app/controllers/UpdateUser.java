@@ -30,7 +30,7 @@ public class UpdateUser extends Controller{
         if (username.length()==0){
             return unauthorized(login.render("Please login first!", session));
         }else if(role.equals("3")){
-            return ok(views.html.adminindex.render("Update",session));
+            return ok(adminindex.render("Update",session));
         }else{
             return ok(update.render("Update",session));
         }
