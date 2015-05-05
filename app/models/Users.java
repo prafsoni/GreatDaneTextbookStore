@@ -26,7 +26,6 @@ public class Users {
     public ArrayList<String> role;
     public int status;
     public Date cdate;
-    public String picid;
 
 
     public Users(){}

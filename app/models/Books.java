@@ -20,7 +20,6 @@ public class Books {
     public int year;
     public int edition;
     public String seller;
-    public String picid;
     public int category;
     public String description;
 

@@ -74,6 +74,7 @@ public class Search extends Controller{
         DynamicForm requestData = Form.form().bindFromRequest();
         String id;
         String c;
+        UserOperations uo = new UserOperations();
         id = requestData.get("id");
         if (id == null){id = "";}
         c = requestData.get("category");
@@ -81,6 +82,7 @@ public class Search extends Controller{
         if (id.length()>0){
             BookOperations bo = new BookOperations();
             Books book = bo.getone(id);
+            book.seller = uo.getuserbyid(book.seller).uname;
 
             System.out.println(book.title);
             if(book.title.length() > 0){

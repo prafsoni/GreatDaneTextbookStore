@@ -50,7 +50,7 @@ public class UserOperations extends Model {
                     .append("password", user.password)
                     .append("mob", user.mob)
                     //.append("address", Arrays.asList(user.address))
-                    .append("cDate", user.cdate)
+                    .append("cdate", user.cdate)
                     .append("role", user.role)
                     .append("status", user.status);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
@@ -120,7 +120,6 @@ public class UserOperations extends Model {
         user.fname = result.getString("fname");
         user.lname = result.getString("lname");
         user.mob = result.getLong("mob");
-        user.picid = result.getString("picid");
         user.status = result.getInteger("status");
         user.id = result.getObjectId("_id");
         user.role = result.get("role", a.class);
@@ -140,7 +139,6 @@ public class UserOperations extends Model {
         user.fname = result.getString("fname");
         user.lname = result.getString("lname");
         user.mob = result.getLong("mob");
-        user.picid = result.getString("picid");
         user.status = result.getInteger("status");
         user.id = result.getObjectId("_id");
         user.role = result.get("role", a.class);

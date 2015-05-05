@@ -42,7 +42,6 @@ public class BookOperations extends Model {
                     .append("authors", book.authors)
                     .append("stock", book.stock)
                     .append("seller", book.seller)
-                    .append("pic", book.picid)
                     .append("description", book.description)
                     .append("year", book.year)
                     .append("shippingfee", book.shippingfee)
@@ -73,7 +72,6 @@ public class BookOperations extends Model {
         book.authors = result.getString("authors");
         book.edition = result.getInteger("edition");
         book.isbn = result.getString("isbn");
-        book.picid = result.getString("picid");
         book.price = result.getDouble("price");
         book.seller = result.getString("seller");
         book.stock = result.getInteger("stock");
@@ -121,7 +119,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
@@ -154,7 +151,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
@@ -178,7 +174,6 @@ public class BookOperations extends Model {
             book.authors = result.getString("authors");
             book.edition = result.getInteger("edition");
             book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
             book.price = result.getDouble("price");
             book.seller = result.getString("seller");
             book.stock = result.getInteger("stock");
@@ -206,21 +201,20 @@ public class BookOperations extends Model {
         //ArrayList<Books> list = new ArrayList<>();
 
         for(Document result: results) {
-            Books book = new Books();
-            book.id = result.getObjectId("_id");
-            book.authors = result.getString("authors");
-            book.edition = result.getInteger("edition");
-            book.isbn = result.getString("isbn");
-            book.picid = result.getString("picid");
-            book.price = result.getDouble("price");
-            book.seller = result.getString("seller");
-            book.stock = result.getInteger("stock");
-            book.title = result.getString("title");
-            book.description = result.getString("description");
-            book.year = result.getInteger("year");
-            book.shippingfee = result.getDouble("shippingfee");
-            book.category = result.getInteger("category");
-            list.add(book);
+        Books book = new Books();
+        book.id = result.getObjectId("_id");
+        book.authors = result.getString("authors");
+        book.edition = result.getInteger("edition");
+        book.isbn = result.getString("isbn");
+        book.price = result.getDouble("price");
+        book.seller = result.getString("seller");
+        book.stock = result.getInteger("stock");
+        book.title = result.getString("title");
+        book.description = result.getString("description");
+        book.year = result.getInteger("year");
+        book.shippingfee = result.getDouble("shippingfee");
+        book.category = result.getInteger("category");
+        list.add(book);
         }
         return list;
     }
@@ -236,7 +230,6 @@ public class BookOperations extends Model {
                 .append("authors", book.authors)
                 .append("stock", book.stock)
                 .append("seller", book.seller)
-                .append("pic", book.picid)
                 .append("description", book.description)
                 .append("year", book.year)
                 .append("shippingfee", book.shippingfee)

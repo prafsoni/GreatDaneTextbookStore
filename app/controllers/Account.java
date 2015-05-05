@@ -15,6 +15,11 @@ import play.cache.Cache;
 import play.mvc.Http.Session;
 import views.html.*;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -163,17 +168,35 @@ public class Account extends Controller {
         }
     }
 
-    public Result upload(){
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart picture = body.getFile("picture");
-        if (picture != null) {
-            String fileName = picture.getFilename();
-            String contentType = picture.getContentType();
-            File file = picture.getFile();
-            return ok("File uploaded");
-        } else {
-            flash("error", "Missing file");
-            return redirect("/");
+    public static  Result upload() {
+        return ok(uploadpic.render("Upload your Profile Pic"));
+    }
+
+    public static Result doupload(){
+        if(session().get("uuid")!=null) {
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart picture = body.getFile("picture");
+            if (picture != null) {
+                String fileName = picture.getFilename();
+                String contentType = picture.getContentType();
+
+                try {
+                    String current = new java.io.File(".").getCanonicalPath();
+                    System.out.println("Current dir:" + current);
+                    File file = new File(picture.getFile(), session().get("uuid") + ".jpg");
+                    byte[] data = Files.readAllBytes(picture.getFile().toPath());
+                    FileOutputStream fos = new FileOutputStream(current + "/public/images/profilepics/" + session().get("uuid") + ".jpg");
+                    fos.write(data);
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
+                return ok("File uploaded");
+            } else {
+                flash("error", "Missing file");
+                return redirect("/");
+            }
+        }else {
+            return unauthorized(uploadpic.render("you need to login first"));
         }
     }
 
