@@ -16,6 +16,7 @@ public class Books {
     public String authors;
     public int stock;
     public double price;
+    public double shippingfee;
     public int year;
     public int edition;
     public String seller;

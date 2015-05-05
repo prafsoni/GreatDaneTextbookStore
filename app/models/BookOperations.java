@@ -34,12 +34,7 @@ public class BookOperations extends Model {
 
     public Boolean addbook(Books book){
         try {
-            //Http.Session session = Util.getCurrentSession();
-            //String username = session.get("username");
-            //Users user = new Users();
-            //UserOperations uo = new UserOperations();
-            //user = uo.getuserbyuname(username);
-            //book.seller = user.uname;
+
             Document doc = new Document("title", book.title)
                     .append("isbn", book.isbn)
                     .append("edition", book.edition)
@@ -49,6 +44,7 @@ public class BookOperations extends Model {
                     .append("seller", book.seller)
                     .append("description", book.description)
                     .append("year", book.year)
+                    .append("shippingfee", book.shippingfee)
                     .append("category", book.category);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Books");
@@ -82,8 +78,32 @@ public class BookOperations extends Model {
         book.title = result.getString("title");
         book.description = result.getString("description");
         book.year = result.getInteger("year");
+        book.shippingfee = result.getDouble("shippingfee");
         book.category = result.getInteger("category");
         return book;
+    }
+    public ArrayList<Books> getInventory(String seller){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
+        FindIterable<Document> results = collection.find(eq("seller",seller)).limit(300);
+        ArrayList<Books> list = new ArrayList<>();
+        for(Document result: results){
+            Books book = new Books();
+            book.id = result.getObjectId("_id");
+            book.authors = result.getString("authors");
+            book.edition = result.getInteger("edition");
+            book.isbn = result.getString("isbn");
+            book.price = result.getDouble("price");
+            book.seller = result.getString("seller");
+            book.stock = result.getInteger("stock");
+            book.title = result.getString("title");
+            book.description = result.getString("description");
+            book.year = result.getInteger("year");
+            book.shippingfee = result.getDouble("shippingfee");
+            book.category = result.getInteger("category");
+            list.add(book);
+        }
+        return list;
     }
 
     public ArrayList<Books> getcategory(String category){
@@ -104,6 +124,7 @@ public class BookOperations extends Model {
             book.title = result.getString("title");
             book.description = result.getString("description");
             book.year = result.getInteger("year");
+            book.shippingfee = result.getDouble("shippingfee");
             book.category = result.getInteger("category");
             list.add(book);
         }
@@ -135,6 +156,7 @@ public class BookOperations extends Model {
             book.title = result.getString("title");
             book.description = result.getString("description");
             book.year = result.getInteger("year");
+            book.shippingfee = result.getDouble("shippingfee");
             book.category = result.getInteger("category");
             list.add(book);
         }
@@ -157,6 +179,7 @@ public class BookOperations extends Model {
             book.title = result.getString("title");
             book.description = result.getString("description");
             book.year = result.getInteger("year");
+            book.shippingfee = result.getDouble("shippingfee");
             book.category = result.getInteger("category");
             list.add(book);
         }
@@ -188,6 +211,7 @@ public class BookOperations extends Model {
         book.title = result.getString("title");
         book.description = result.getString("description");
         book.year = result.getInteger("year");
+        book.shippingfee = result.getDouble("shippingfee");
         book.category = result.getInteger("category");
         list.add(book);
         }
@@ -207,6 +231,7 @@ public class BookOperations extends Model {
                 .append("seller", book.seller)
                 .append("description", book.description)
                 .append("year", book.year)
+                .append("shippingfee", book.shippingfee)
                 .append("category", book.category);
         collection.updateOne(eq("_id", book.id), doc);
     }

@@ -1,10 +1,8 @@
 @(message: String)(implicit session: play.mvc.Http.Session)
 
-    @main(title = message)(session){
+@main(title = message)(session){
     <div class="main" style="height: 500px; float:none;">
-
         @if(session.get("username") == null) {
-
             <h2>@message</h2> <br>
             <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
                 <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
@@ -16,19 +14,10 @@
             </form>
         }else{
             <div class="side-left">
-                <a href="@routes.Account.login()">Profile</a><br>
-                @if(session.get("role")=="2"){
-                    <a href="/addproduct">Inventory</a><br>
-                    <a href="account_currenttransactions.html">Current Transactions</a><br>
-                    <a href="account_transactionhistory.html">Transaction History</a><br>
-                }
-                <a href="account_order.html">Purchase History</a><br>
-                <a href="account_orderstatus.html">Order Status</a><br>
-                <a href="account_bank.htm.">Payment Options</a><br>
-                <a href="account_shippingaddress,html">Address</a><br>
+                @account_sider(session)
             </div>
             <div class="column-large">
-            @account_profile(session)
+                @account_profile(session)
             </div>
         }
     </div><!-- end main -->

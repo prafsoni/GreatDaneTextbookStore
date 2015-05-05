@@ -1,0 +1,21 @@
+@(implicit session: play.mvc.Http.Session)
+
+
+<li><a href="@routes.Account.login()">Profile</a></li>
+@if(session.get("role")=="2"){
+    <li><a href="@routes.Products.getInventory()">Inventory</a></li>
+    <li><a href="account_currenttransactions.html">Current Transactions</a></li>
+    <li><a href="account_transactionhistory.html">Transaction History</a></li>
+}
+@if(session.get("role")=="2" || session.get("role")=="1"){
+    <li><a href="account_order.html">Purchase History</a></li>
+    <li><a href="account_orderstatus.html">Order Status</a></li>
+    <li><a href="account_bank.htm.">Payment Options</a></li>
+    <li><a href="account_shippingaddress,html">Address</a></li>
+}
+@if(session.get("role")=="3"){
+    <li><a href="account_order.html">All Books</a></li>
+    <li><a href="account_orderstatus.html">All Orders</a></li>
+    <li><a href="account_bank.htm.">Others</a></li>
+}
+
