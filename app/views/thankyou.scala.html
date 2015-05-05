@@ -1,6 +1,6 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-  @main(title = message)(user = indexuser){
+@main(title = message)(session){
   <div class="main">
     <div class="thank-you-message">
       <h2 class="page-heading"><span>ORDER PLACED SUCCESSFULLY</span></h2>

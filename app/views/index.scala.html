@@ -1,6 +1,6 @@
-@(message: String)(booklist: java.util.ArrayList[Books])(implicit indexuser: Users)
+@(message: String)(booklist: java.util.ArrayList[Books])(implicit session: play.mvc.Http.Session)
 
-    @main(title = message)(user = indexuser){
+    @main(title = message)(session){
         <div class="main" id="home">
             <div class="slider-holder">
                 <div class="flexslider" style="left: 131px; top: -2px; width: 692px; height: 311px">

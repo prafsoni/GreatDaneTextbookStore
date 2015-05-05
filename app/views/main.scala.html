@@ -1,20 +1,44 @@
-@(title: String)(user: Users)(content: Html)
+@(title: String)(session: play.mvc.Http.Session)(content: Html)
 
 <!doctype html>
 <html class="no-js">
     <head>
         @head(headtitle = title)
     </head>
-
     <body lang="en">
         <div class="wrapper1">
             <header>
-            @header(user)
+                <div id="header">
+                    <div id="logo">
+                        <a href="@routes.Application.index"><img src="@routes.Assets.at("images/logo.png")" width="280" height="100" alt="LOGO"></a>
+                    </div><!-- end logo -->
+                    <div class="contact-info">
+                    @if(session.get("username") == null){
+                        @login_box()
+                    }else {@loggedin_box(session.get("username"))}
+                    </div><!-- end contact-info -->
+                    <div class="clearfloat"></div>
+                </div>
             </header>
         </div><!-- end wrapper1 -->
 
         <nav>
-        @nav()
+            <ul class="menu" style="height: 31px" id="nav">
+                <li><a href="@routes.Application.index()">HOME</a></li>
+                <li><a href="@routes.Search.showAll()">CATEGORIES</a></li>
+                <li style="height: 21px">
+                    <form name="search" action="@routes.Search.doSearch()" method="post" style="width: 348px; position: relative; left: 0px; top: 0px; height: 25px;">
+                        <button type="submit" name="search" value="Find" style="float: right">
+                            <img src="@routes.Assets.at("images/booksearch.png")" height="23" width="23" class="auto-style1" /></button>
+                        <div style="overflow: hidden;">
+                            <input type="text" placeholder="Find your textbook here!" name="booksearch" style="position: relative; left: 0px; right: 0px; top: 0px; height: 19px" />
+                        </div>
+                    </form>
+                </li>
+                <li style="float: right; position: relative; height: 31px"><a href="shoppingcart.html">MY CART</a></li>
+                <li style="float: right; position: relative; height: 31px; left: 0px; top: 0px; width: 130px;"><a href="@routes.Account.login()">MY ACCOUNT</a></li>
+                <div class="clearfloat"></div>
+            </ul>
         </nav>
 
         @content

@@ -1,6 +1,6 @@
-@(message: String)(implicit indexuser: Users)
+@(message: String)(implicit session: play.mvc.Http.Session)
 
-    @main(title = message)(user = indexuser){
+    @main(title = message)(session){
     <div class="main" style="height: 600px; float:none;">
         <div class="contact-column1">
             <form name="register" method="post" action="@routes.Account.register()" style="float:left" >

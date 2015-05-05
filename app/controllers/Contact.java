@@ -17,10 +17,8 @@ public class Contact extends Controller{
         //String username = Util.getFromUserCache("uuid", "username");
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
-        return ok(contact.render("contact",user));
+
+        return ok(contact.render("contact",session));
     }
     //public static Result docontact(){
 

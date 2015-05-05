@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Users;
 import play.cache.Cache;
 import play.mvc.Http;
 
@@ -92,5 +93,17 @@ public class Util {
         if (val != null)
             return getFromCache(key, key2);
         return null;
+    }
+    public static Http.Session setUserToSession(Users user) {
+        Http.Session session = getCurrentSession();
+        session.put("username", user.uname);
+        session.put("fname", user.fname);
+        session.put("lname", user.lname);
+        session.put("email", user.email);
+        session.put("mob", String.valueOf(user.mob));
+        session.put("role", String.valueOf(user.role.size()));
+        //session.put("picid", user.picid);
+        session.put("cdate", String.valueOf(user.cdate));
+        return session;
     }
 }

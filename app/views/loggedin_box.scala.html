@@ -1,6 +1,6 @@
-@(implicit user: Users)
+@(uname: String)
     <div style="float: right" class="flexslider-button">
-    <h5> @user.uname is currently logged in</h5>
+    <h5> @uname is currently logged in</h5>
         <form action="@routes.Application.logout()" method="post">
           <input name="logout" type=hidden value="logout">
           <button type="submit" class="column-button-s">Logout</button>

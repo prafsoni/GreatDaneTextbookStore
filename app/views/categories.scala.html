@@ -1,6 +1,6 @@
-@(message: String)(booklist: java.util.ArrayList[Books])(implicit indexuser: Users)
+@(message: String)(booklist: java.util.ArrayList[Books])(implicit session: play.mvc.Http.Session)
 
-  @main(title = message)(user = indexuser){
+  @main(title = message)(session){
   <div class="main">
     <div class="side-left">
       <!--<h4>CATEGORIES</h4>-->

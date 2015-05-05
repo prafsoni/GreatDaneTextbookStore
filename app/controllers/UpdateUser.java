@@ -25,31 +25,26 @@ public class UpdateUser extends Controller{
     public static Result update(){
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
+        String role = session.get("role");
+
         if (username.length()==0){
-            return unauthorized(login.render("Please login first!", user));
-        }else if(user.role.size()==3){
-            return ok(views.html.adminindex.render("Update",user));
+            return unauthorized(login.render("Please login first!", session));
+        }else if(role.equals("3")){
+            return ok(views.html.adminindex.render("Update",session));
         }else{
-            return ok(update.render("Update",user));
+            return ok(update.render("Update",session));
         }
     }
     public static Result doupdate(){
         //DynamicForm requestData = Form.form().bindFromRequest();
         //Users user = Form.form(Users.class).bindFromRequest().get();
-        //TODO need to implement doupdate method.
+        //TODO need to implement doupdate method. Remeber to update session.
 
 
 
         Http.Session session = Util.getCurrentSession();
-        String username = session.get("username");
-        Users user = new Users();
-        UserOperations uo = new UserOperations();
-        user = uo.getuserbyuname(username);
 
 
-        return ok(account.render("Update Accepted",user));
+        return ok(account.render("Update Accepted",session));
     }
 }
