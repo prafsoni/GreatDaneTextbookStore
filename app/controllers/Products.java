@@ -12,6 +12,9 @@ import play.mvc.Result;
 import play.mvc.Results;
 import views.html.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 /**
@@ -73,7 +76,7 @@ public class Products extends Controller {
         }
         else {
             ArrayList<Books> list = new ArrayList<>();
-            return ok(account_inventory.render("No book found", list,session));
+            return ok(account_inventory.render("No book found", list, session));
         }
     }
 
@@ -122,4 +125,37 @@ public class Products extends Controller {
             return ok(account_inventory.render("No book found", list,session));
         }
     }
+
+    public static  Result upload() {
+        return ok(uploadpic.render("Upload your Profile Pic"));
+    }
+
+    public static Result doupload(String bookid){
+        if(session().get("uuid")!=null) {
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart picture = body.getFile("picture");
+            if (picture != null) {
+                String fileName = picture.getFilename();
+                String contentType = picture.getContentType();
+
+                try {
+                    String current = new java.io.File(".").getCanonicalPath();
+                    System.out.println("Current dir:" + current);
+                    File file = new File(picture.getFile(), session().get("uuid") + ".jpg");
+                    byte[] data = Files.readAllBytes(picture.getFile().toPath());
+                    FileOutputStream fos = new FileOutputStream(current + "/public/images/productpics/" + bookid + ".jpg");
+                    fos.write(data);
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
+                return ok("File uploaded");
+            } else {
+                flash("error", "Missing file");
+                return redirect("/");
+            }
+        }else {
+            return unauthorized(uploadpic.render("you need to login first"));
+        }
+    }
+
 }
