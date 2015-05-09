@@ -3,7 +3,8 @@
 @main(title = message)(session){
     <div class="main" style="height: 500px; float:none;">
     @if(session.get("username") == null) {
-        <h2>@message</h2> <br>
+        <h2 class="page-heading"><span>@message</span></h2>
+
         <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
             <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
             <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
@@ -34,7 +35,7 @@
                     @for(book <- booklist) {
                         <tr>
                             <td>
-                                <img src="@routes.Assets.at("images/productpics/" + book.id.toHexString() + ".jpg")" alt="Book Cover" style="width:40px; height:auto;">
+                                <img src="@routes.Assets.at("images/productpics/" + book.id.toHexString() + ".jpg")" alt="Book Cover" style="width:45px;">
                                 <form method="get" action="@routes.Products.upload()" style="width:30px">
                                     <input type="hidden" name="bookid" value=@book.id.toHexString >
                                     <button type="submit"> Change </button>
@@ -47,12 +48,12 @@
                             <td> $@book.shippingfee </td>
                             <td> @book.stock </td>
                             <td>
-                                <form method="post" action="@routes.Products.update()" style="width:30px">
-                                    <input type="hidden" name="id" value=@book.id.toHexString >
+                                <form method="get" action="@routes.Products.update()" style="width:30px">
+                                    <input type="hidden" name="bookid" value=@book.id.toHexString >
                                     <button type="submit"> Edit </button>
                                 </form>
                                 <form method="post" action="@routes.Products.delete()" style="width:30px">
-                                    <input type="hidden" name="id" value=@book.id.toHexString>
+                                    <input type="hidden" name="bookid" value=@book.id.toHexString>
                                     <button type="submit"> Delete </button>
                                 </form>
                             </td>

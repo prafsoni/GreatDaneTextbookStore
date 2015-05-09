@@ -6,9 +6,9 @@
 
         <div class="contact-column1">
 
-            <form method="post" action="@routes.Products.doAdd()">
+            <form method="post" action="@routes.Products.doupdate()">
 
-                <h2 class="page-heading"><span>List Textbook</span></h2>
+                <h2 class="page-heading"><span>@message</span></h2>
                 <fieldset>
                     <div style="float:left">
                         <label class="required"><span class="required_star"> * </span>Category</label>
@@ -47,15 +47,13 @@
                         <label class="required"><span class="required_star">  </span>Shipping Fee</label>
                         <input type="number" name="shippingfee" maxlength="40" placeholder=@book.shippingfee>
 
-                        <lable class="required"><span class="required_star">&nbsp;&nbsp;</span>Book Picture</lable>
-                        <input type="file" name="pic" accept="image/*" style="height: 30px">
                     </div>
                     <div class="clearfloat"></div>
                     <label class="required" ><span class="required_star"> * </span>Description</label>
 
-                    <textarea name="description" maxlength="2000" height="80"></textarea>
+                    <textarea name="description" placeholder=@book.description maxlength="2000" height="80"></textarea>
 
-                    <input type="submit" class="submit" value="Upadate" style="float:left">
+                    <input type="submit" class="submit" value="Upadate" style="float:left;width:auto;">
                 </fieldset>
             </form>
 

@@ -3,10 +3,9 @@
 @main(title = message)(session){
     <div class="main" style="height: 600px; float:none;">
         <div class="contact-column1">
-            <form name="update" method="post" action="@routes.UpdateUser.doupdate()" style="float:left" >
-
-                <h2 class="page-heading"><span>Update Account</span></h2>
+            <h2 class="page-heading"><span>@message</span></h2>
                 <fieldset>
+                    <form name="update" method="post" action="@routes.Account.doupdate()" style="float:left" >
                     <fieldset1>
 
                         <label class="required"><span class="required_star"> * </span>Username</label>
@@ -33,9 +32,9 @@
                         <input type="email" name="email" placeholder="@session.get("email")" maxlength="40">
                     </fieldset1>
                     <input type="submit" class="submit" value="update" style="float:left; width:80px">
-
+                    </form>
                 </fieldset>
-            </form>
+
         </div><!-- end contact-column1 -->
 
     </div><!-- end main -->

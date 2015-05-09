@@ -1,7 +1,7 @@
 @(implicit session: play.mvc.Http.Session)
 
 
-<h2 class="page-heading"><span>User Profile</span></h2>
+<h2 class="page-heading"><span>Account Profiles</span></h2>
 
 <img src="@routes.Assets.at("images/profilepics/"+session.get("uuid")+".jpg")" style="float : left ; height : auto ; width : 100px" />
 
@@ -43,7 +43,7 @@
 
 </table>
 
-<form name="update" method="get" action="@routes.UpdateUser.update()">
+<form name="update" method="get" action="@routes.Account.update()">
     <button type="submit" name="update" value="update" class="submit" style="float:left;width:auto;margin-left:5px"> Update Profile </button>
 </form>
 

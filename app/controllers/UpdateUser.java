@@ -42,9 +42,6 @@ public class UpdateUser extends Controller{
 
 
 
-        Http.Session session = Util.getCurrentSession();
-
-
-        return ok(account.render("Update Accepted",session));
+        return ok(account.render("Update Accepted",session()));
     }
 }

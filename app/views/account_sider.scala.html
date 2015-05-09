@@ -1,7 +1,7 @@
 @(implicit session: play.mvc.Http.Session)
 
 
-<li><a href="@routes.Account.login()">Profile</a></li>
+<li><a href="@routes.Account.login()">Profiles</a></li>
 @if(session.get("role")=="2"){
     <li><a href="@routes.Products.getInventory()">Inventory</a></li>
     <li><a href="account_currenttransactions.html">Current Transactions</a></li>

@@ -34,7 +34,7 @@ public class Application extends Controller {
         Http.Session session = Util.getCurrentSession();
         session().clear();
         flash("success", "You've been logged out");
-        return ok(login.render("Please login first!",session));
+        return redirect("/login"); //ok(login.render("Please login first!",session));
     }
 
 }

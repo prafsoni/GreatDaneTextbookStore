@@ -80,8 +80,16 @@ public class Products extends Controller {
         }
     }
 
-    //TODO This is a method copied from getInventory, please make it to update and render message, book, session into updateproduct
+    // Redirect to the update page
     public static Result update(){
+        String bookid = Form.form().bindFromRequest().get("bookid");
+        BookOperations bo = new BookOperations();
+        Books book = bo.getone(bookid);
+        return ok(updateproduct.render("Update Book Info", book, session()));
+    }
+
+    //TODO This is a method copied from getInventory, please make it to update and render message, book, session into updateproduct
+    public static Result doupdate(){
         Http.Session session = Util.getCurrentSession();
         //DynamicForm requestData = Form.form().bindFromRequest();
         String seller = session.get("uuid");

@@ -15,20 +15,21 @@
     <div class="column-large">
 
       <h3 class="page-heading"><span>BOOK DETAILS</span></h3>
-
-      <div class="postee">Authors: @book.authors</div>
-      <div class="date">Edition: $@book.edition</div>
-      <div class="date">ISBN: @book.isbn</div>
-      <div class="date">Price: $@book.price</div>
-      <div class="date">Sold by @book.seller</div>
       <div class="category">
         <img src="@routes.Assets.at("images/_icons/icon-tags.png")" width="20" height="20">
         Category @book.category.toString()
       </div>
+      <div class="postee">Authors: @book.authors</div>
+      <div class="date">Edition: @book.edition</div>
+      <div class="date">ISBN: @book.isbn</div>
+      <div class="date">Price: $@book.price</div>
+      <div class="date">Shipping: $@book.shippingfee</div>
+      <div class="date">Sold by @book.seller</div>
+
 
       <div class="clearfloat"></div>
 
-      <a href="#" class="thumbs"><img src="@routes.Assets.at("images/productpics/" + book.id.toHexString() + ".jpg")" alt="Book image"></a>
+      <a class="thumbs"><img src="@routes.Assets.at("images/productpics/" + book.id.toHexString() + ".jpg")" alt="Book Picture" style="float:right;margin-bottom:20px;"></a>
       <h3>BOOK TITLE</h3>
       <p>@book.description</p>
 

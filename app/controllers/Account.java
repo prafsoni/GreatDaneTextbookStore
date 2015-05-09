@@ -103,7 +103,7 @@ public class Account extends Controller {
         if (username != null) {
             // if there is already username in session
             System.out.println("Current user: " + username);
-            return ok(account.render("Welcome back!", session));
+            return ok(account.render("Account Profiles", session));
         }
         // else return a login box in account page
         return unauthorized(account.render("Please login first!", session));
@@ -151,7 +151,7 @@ public class Account extends Controller {
                 user = uo.getuserbyuname(uname);
                 Cache.set(uuid + "username", uname);
                 session = Util.setUserToSession(user);
-                Util.insertIntoSession("userpic", "images/profilepics/" + session().get("uuid") + ".jpg");
+                //Util.insertIntoSession("userpic", "images/profilepics/" + session().get("uuid") + ".jpg");
                 if (session.get("role").equals("3")){
                     return ok(adminindex.render("Welcome back!",session));
                 }
@@ -169,7 +169,7 @@ public class Account extends Controller {
     }
 
     public static  Result upload() {
-        return ok(adduserpic.render("Upload your Profile Picture",session()));
+        return ok(adduserpic.render("Upload your Profile Picture", session()));
     }
 
     public static Result doupload(){
@@ -198,6 +198,29 @@ public class Account extends Controller {
         }else {
             return unauthorized(login.render("Please login first!", session()));
         }
+    }
+
+    public static Result update(){
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
+        String role = session.get("role");
+
+        if (username.length()==0){
+            return unauthorized(login.render("Please login first!", session));
+        }else if(role.equals("3")){
+            return ok(adminindex.render("Update Account Profiles",session));
+        }else{
+            return ok(update.render("Update Account Profiles",session));
+        }
+    }
+    public static Result doupdate(){
+        //DynamicForm requestData = Form.form().bindFromRequest();
+        //Users user = Form.form(Users.class).bindFromRequest().get();
+        //TODO need to implement doupdate method. Remeber to update session.
+
+
+
+        return ok(account.render("Update Accepted",session()));
     }
 
 
