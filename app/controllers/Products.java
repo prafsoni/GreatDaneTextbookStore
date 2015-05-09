@@ -32,7 +32,7 @@ public class Products extends Controller {
         if(role.equals("1") || username == null){
             return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",session));
         }
-        return ok(addproduct.render("add",session));
+        return ok(addproduct.render("Add a book to inventory",session));
     }
 
     public static Result doAdd(){
@@ -127,10 +127,14 @@ public class Products extends Controller {
     }
 
     public static  Result upload() {
-        return ok(uploadpic.render("Upload your Profile Pic"));
+        String bookid = Form.form().bindFromRequest().get("bookid");
+        Util.insertIntoSession("bookid", bookid);
+        System.out.println("bookid: "+bookid);
+        return ok(addproductpic.render("Upload your Profile Cover",session()));
     }
 
     public static Result doupload(String bookid){
+
         if(session().get("uuid")!=null) {
             Http.MultipartFormData body = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart picture = body.getFile("picture");
@@ -145,16 +149,17 @@ public class Products extends Controller {
                     byte[] data = Files.readAllBytes(picture.getFile().toPath());
                     FileOutputStream fos = new FileOutputStream(current + "/public/images/productpics/" + bookid + ".jpg");
                     fos.write(data);
+                    System.out.println("File uploaded to: " + current + "/public/images/productpics/" + bookid + ".jpg");
                 } catch (Exception e) {
                     System.out.print(e);
                 }
-                return ok("File uploaded");
+                return ok(uploaded.render("Uploaded Successfully!", session()));
             } else {
                 flash("error", "Missing file");
                 return redirect("/");
             }
         }else {
-            return unauthorized(uploadpic.render("you need to login first"));
+            return unauthorized(login.render("Please login first!", session()));
         }
     }
 

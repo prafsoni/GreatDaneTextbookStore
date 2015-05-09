@@ -17,7 +17,7 @@
       <div class="column-book">
         <h5>@book.title</h5>
         <div class="column-book-short">
-          <img src="@routes.Assets.at("images/_slides/5640_wpm_hires.jpg")" alt="Book Cover">
+          <img src="@routes.Assets.at("images/productpics/" + book.id.toHexString() + ".jpg")" alt="Book Cover">
           @book.description <br>
         </div>
         <form method="post" action="@routes.Search.getbooks()">

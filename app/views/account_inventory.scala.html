@@ -20,9 +20,9 @@
             <h3 class="page-heading"><span>@message</span></h3>
             <br>
             @if(booklist.size() > 0){
-                <table class="clearfloat" style="text-align : center" border="1px">
+                <table style="text-align : center" border="1px">
                     <tr>
-
+                        <td><h5>Picture</h5></td>
                         <td><h5>Title</h5></td>
                         <td><h5>Author</h5></td>
                         <td><h5>ISBN</h5></td>
@@ -33,7 +33,13 @@
                     </tr>
                     @for(book <- booklist) {
                         <tr>
-
+                            <td>
+                                <img src="@routes.Assets.at("images/productpics/" + book.id.toHexString() + ".jpg")" alt="Book Cover" style="width:40px; height:auto;">
+                                <form method="get" action="@routes.Products.upload()" style="width:30px">
+                                    <input type="hidden" name="bookid" value=@book.id.toHexString >
+                                    <button type="submit"> Change </button>
+                                </form>
+                            </td>
                             <td> @book.title </td>
                             <td> @book.authors </td>
                             <td> @book.isbn </td>

@@ -509,8 +509,8 @@ textarea {
 }
 .column-large img {
 	width:30%;
-	float:right;
-	margin-bottom:20px;
+	/*float:right;
+	margin-bottom:20px;*/
 }
 .column-large p {
 	margin-bottom:20px;

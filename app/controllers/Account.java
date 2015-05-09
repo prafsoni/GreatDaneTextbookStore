@@ -151,7 +151,7 @@ public class Account extends Controller {
                 user = uo.getuserbyuname(uname);
                 Cache.set(uuid + "username", uname);
                 session = Util.setUserToSession(user);
-
+                Util.insertIntoSession("userpic", "images/profilepics/" + session().get("uuid") + ".jpg");
                 if (session.get("role").equals("3")){
                     return ok(adminindex.render("Welcome back!",session));
                 }
@@ -196,7 +196,7 @@ public class Account extends Controller {
                 return redirect("/");
             }
         }else {
-            return unauthorized(uploadpic.render("you need to login first"));
+            return unauthorized(login.render("Please login first!", session()));
         }
     }
 

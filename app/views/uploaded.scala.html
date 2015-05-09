@@ -1,0 +1,10 @@
+@(message: String)(implicit session: play.mvc.Http.Session)
+
+@main(title = message)(session){
+  <div class="main">
+    <div class="thank-you-message">
+      <h2 class="page-heading"><span>@message</span></h2>
+    </div><!-- end thank-you-message -->
+  </div><!-- end main -->
+
+}
