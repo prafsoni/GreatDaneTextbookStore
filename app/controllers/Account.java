@@ -169,7 +169,7 @@ public class Account extends Controller {
     }
 
     public static  Result upload() {
-        return ok(uploadpic.render("Upload your Profile Pic"));
+        return ok(adduserpic.render("Upload your Profile Picture",session()));
     }
 
     public static Result doupload(){
@@ -190,7 +190,7 @@ public class Account extends Controller {
                 } catch (Exception e) {
                     System.out.print(e);
                 }
-                return ok("File uploaded");
+                return ok(uploaded.render("Uploaded Successfully!", session()));
             } else {
                 flash("error", "Missing file");
                 return redirect("/");

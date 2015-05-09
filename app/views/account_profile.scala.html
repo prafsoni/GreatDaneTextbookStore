@@ -1,50 +1,56 @@
 @(implicit session: play.mvc.Http.Session)
 
 
-                <h2 class="page-heading"><span>User Profile</span></h2>
+<h2 class="page-heading"><span>User Profile</span></h2>
 
-                <p style="height : 100 px"><img src="@routes.Assets.at("images/profilepics/"+session.get("uuid")+".jpg")" style="float : left ; height : auto ; width : 100px" /></p>
-                <form name="update" method="get" action="@routes.UpdateUser.update()">
-                    <button type="submit" name="update" value="update" class="column-button-s"> Update </button>
-                </form>
+<img src="@routes.Assets.at("images/profilepics/"+session.get("uuid")+".jpg")" style="float : left ; height : auto ; width : 100px" />
 
-                <table class="clearfloat" style="text-align : left">
-                    <tr>
-                        <td>First Name:</td>
-                        <td>@session.get("fname")</td>
-                    </tr>
+<table class="clearfloat" style="text-align : left">
+    <tr>
+        <td>First Name:</td>
+        <td>@session.get("fname")</td>
+    </tr>
 
-                    <tr>
-                        <td>Last Name:</td>
-                        <td>@session.get("lname")</td>
-                    </tr>
+    <tr>
+        <td>Last Name:</td>
+        <td>@session.get("lname")</td>
+    </tr>
 
-                    <tr>
-                        <td>Username:</td>
-                        <td>@session.get("username")</td>
-                    </tr>
+    <tr>
+        <td>Username:</td>
+        <td>@session.get("username")</td>
+    </tr>
 
-                    <tr>
-                        <td>Account created on:</td>
-                        <td>@session.get("cdate")</td>
-                    </tr>
+    <tr>
+        <td>Account created on:</td>
+        <td>@session.get("cdate")</td>
+    </tr>
 
-                    <tr>
-                        <td>Phone Number:</td>
-                        <td>@session.get("mob")</td>
-                    </tr>
+    <tr>
+        <td>Phone Number:</td>
+        <td>@session.get("mob")</td>
+    </tr>
 
-                    <tr>
-                        <td>E-mail Address:</td>
-                        <td>@session.get("email")</td>
-                    </tr>
+    <tr>
+        <td>E-mail Address:</td>
+        <td>@session.get("email")</td>
+    </tr>
 
-                    <tr>
-                        <td>Address:</td>
-                        <td>@session.get("address")</td>
-                    </tr>
+    <tr>
+        <td>Address:</td>
+        <td>@session.get("address")</td>
+    </tr>
 
-                </table>
-                <div lass="clearfloat"></div>
+</table>
+
+<form name="update" method="get" action="@routes.UpdateUser.update()">
+    <button type="submit" name="update" value="update" class="submit" style="float:left;width:auto;margin-left:5px"> Update Profile </button>
+</form>
+
+<form name="update" method="get" action="@routes.Account.upload()">
+    <button type="submit" name="upload" value="upload" class="submit" style="float:left;width:auto;margin-left:5px"> Change Picture </button>
+</form>
+
+<div lass="clearfloat"></div>
 
 
