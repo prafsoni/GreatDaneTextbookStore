@@ -1,0 +1,91 @@
+@(message: String)(cart: Carts)(implicit session: play.mvc.Http.Session)
+
+  @main(title = message)(session){
+  <div class="main" style="height: 500px; float:none;">
+
+    <div class="column-full">
+      @if(cart.list.size()>0){
+      <h2 class="page-heading"><span>@message</span></h2>
+      <div>
+        <table style="text-align:center" border="1">
+          <tr>
+            <td  style="width:150px; overflow:hidden;"><h5>Item</h5></td>
+            <td><h5>Quantity</h5></td>
+            <td><h5>Price</h5></td>
+            <td><h5>Shipping</h5></td>
+            <td style="width:80px;"><h5>Action</h5></td>
+          </tr>
+
+            @for(book <- cart.list){
+              <tr>
+
+                <td>@book.title</td>
+                <td>@book.stock</td>
+                <td>$@book.price</td>
+                <td> $@book.shippingfee</td>
+                <td>
+                <form method="post" action="@routes.Cart.update()"style="width:80px">
+                  <input type="hidden" name="bookid" value=@book.id.toHexString >
+                  <input type="text" name="quantity" style="width:20px;" >
+                  <button type="submit" style="float:left;"> Update </button>
+                </form>
+
+                <form method="post" action="@routes.Cart.delete()" style="width:30px">
+                  <input type="hidden" name="bookid" value=@book.id.toHexString>
+                  <button type="submit" style="float:left;"> Delete </button>
+                </form>
+                </td>
+
+              </tr>
+            }
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td><h5>Subtotal</h5></td>
+            <td>$@cart.subtotal</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><h5>Tax</h5></td>
+            <td>$@cart.tax</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><h5>Shipping</h5></td>
+            <td>$@cart.shippingfee</td>
+            <td>&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td><h5>Total</h5></td>
+            <td>$@cart.total</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        </div>
+
+        <span>
+
+          <form method="post" name="clear" action="@routes.Cart.clear()">
+            <input type="submit" class="submit" method="@routes.Cart.clear()" value="Clear" style="float:left">
+          </form>
+          <input type="submit" class="submit" value="Checkout" style="float:left;width:auto;">
+        </span>
+      }else{
+        <h2 class="page-heading"><span>Your cart is empty!</span></h2>
+      }
+    </div> <!-- end column-full -->
+
+
+  </div><!-- end main -->
+
+}

@@ -1,7 +1,7 @@
 @(message: String)(book: Books)(implicit session: play.mvc.Http.Session)
 
   @main(title = message)(session){
-  <div class="main">
+  <div class="main" style="height:500px;">
 
     <div class="side-left">
         <!--<h4>CATEGORIES</h4>-->
@@ -37,8 +37,9 @@
 
 
     <div class="clearfloat">
-      <form action="shoppingcard.java" method="post">
-        <input name="buy" type=hidden value=@book.id>
+      <form action="@routes.Cart.add()" method="post">
+        <input name="quantity" type="text" placeholder="1" style="float:left; margin-left:50%;width:30px;">
+        <input name="bookid" type="hidden" value=@book.id>
         <button type="submit" class="submit" style="float:left; margin-left:50%">Buy</button>
 
       </form>

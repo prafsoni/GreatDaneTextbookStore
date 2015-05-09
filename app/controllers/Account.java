@@ -1,9 +1,6 @@
 package controllers;
 
-import models.BookOperations;
-import models.Books;
-import models.UserOperations;
-import models.Users;
+import models.*;
 import org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -151,6 +148,9 @@ public class Account extends Controller {
                 user = uo.getuserbyuname(uname);
                 Cache.set(uuid + "username", uname);
                 session = Util.setUserToSession(user);
+                Carts cart = new Carts();
+                Cache.set(uuid + "cart", cart);
+
                 //Util.insertIntoSession("userpic", "images/profilepics/" + session().get("uuid") + ".jpg");
                 if (session.get("role").equals("3")){
                     return ok(adminindex.render("Welcome back!",session));
