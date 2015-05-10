@@ -89,7 +89,7 @@ public class Cart extends Controller {
             cart.update();
             Cache.set(uuid + "cart", cart);
         }
-
+        cart.buyer = uuid;
         Cache.set(uuid + "cart", cart);
         return ok(shoppingcart.render("Your Shopping Cart",cart, session));
     }

@@ -1,8 +1,7 @@
 package controllers;
 
-import models.Books;
-import models.OrderOperations;
-import models.Orders;
+import models.*;
+import play.cache.Cache;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -10,6 +9,7 @@ import play.mvc.Result;
 import play.mvc.Results;
 import views.html.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Rahul Srivastava on 5/6/15.
@@ -18,11 +18,17 @@ public class Order extends Controller{
 
     public static Result getOrder(){
         Http.Session session = Util.getCurrentSession();
-        String userid = session.get("uuid");
+        String username = session.get("username");
+        UserOperations uo = new UserOperations();
+        String uuid = session.get("uuid");
+        if (uuid == null) {
+            uuid = uo.getuserid(username); //java.util.UUID.randomUUID().toString();
+            Util.insertIntoSession("uuid", uuid);
+        }
 
-        if (userid != null){
+        if (uuid != null){
             OrderOperations oo = new OrderOperations();
-            ArrayList<Orders> list = oo.getallplaced(userid);
+            ArrayList<Orders> list = oo.getallplaced(uuid);
             if(list.size() > 0){
                 return ok(account_orders.render("Your orders", list, session));
             }
@@ -34,17 +40,52 @@ public class Order extends Controller{
             return ok(login.render("Please login first!", session));
         }
     }
+    private static Date now()
+    {
+        return new Date();
+    }
     public static Result add(){
+
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
-        String role = session.get("role");
-        if(role.equals("1") && username != null) {
-
-            return ok(addproduct.render("add", session));
+        if(username == null){
+            return ok(login.render("Please login first!",session));
         }
-        else
-        {
-            return unauthorized(error.render("You must have a seller account to list book! You may register as a seller using the following link.",session));
+        UserOperations uo = new UserOperations();
+        String uuid = session("uuid");
+        if (uuid == null) {
+            uuid = uo.getuserid(username); //java.util.UUID.randomUUID().toString();
+            Util.insertIntoSession("uuid", uuid);
+        }
+        Carts cart = new Carts();
+        OrderOperations oo = new OrderOperations();
+        Orders o = new Orders();
+
+        if(Cache.get(uuid + "cart") != null){
+            cart = (Carts) Cache.get(uuid + "cart");
+            ArrayList<Books> list = cart.list;
+            if(list.size()>0) {
+                for (Books book : list) {
+                    o.Books.put(book.title, book.stock);
+                    o.price = cart.total;
+                    o.status = "processing";
+                    o.quantity = cart.number;
+                    o.Shippingid = "";
+                    o.orderdate = now();
+                    o.sellerid = "";
+                    o.userid = uuid;
+                }
+            }else{
+                return ok(shoppingcart.render("Cart is empty!", cart, session));
+            }
+        }else{
+            return ok(shoppingcart.render("Cart is empty!", cart, session));
+        }
+        if(oo.save(o)){
+            return ok(thankyou.render("Order placed successfully!",session));
+        }
+        else{
+            return ok(uploaded.render("Failed! Please try again.",session));
         }
     }
 

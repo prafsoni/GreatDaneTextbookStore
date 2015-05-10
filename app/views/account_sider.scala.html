@@ -7,7 +7,7 @@
     <li><a href="account_transactions.html">Transactions</a></li>
 }
 @if(session.get("role")=="2" || session.get("role")=="1"){
-    <li><a href="account_order.html">Purchase History</a></li>
+    <li><a href="@routes.Order.getOrder()">Purchase History</a></li>
     <li><a href="@routes.Bank.getBank()">Payment Options</a></li>
     <li><a href="account_shippingaddress,html">Address</a></li>
 }
