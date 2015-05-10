@@ -4,6 +4,7 @@ package controllers;
 
 import models.ContactMsg;
 import models.ContactMsgOperations;
+import models.UserOperations;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -11,58 +12,64 @@ import play.mvc.Result;
 import views.html.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Rahul Srivastava on 5/5/15.
  */
 public class Contacts extends Controller{
+    private static Date now() {return new Date();}
     public static Result contact(){
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
+        String uuid = session.get("uuid");
+        String receiver = Form.form().bindFromRequest().get("receiver");
+        if(username == null){
+            return unauthorized(login.render("Please login first!",session));
+        }
 
-        return ok(contact.render("Send a message to user",session));
+        return ok(contact.render("Send a message to user", receiver,session));
+
     }
     public static Result contactAdmin(){
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
-
-        return ok(contact.render("Send a message to Admin",session));
-    }
-
-    public static Result add(){
-
-        Http.Session session = Util.getCurrentSession();
-        String username = session.get("username");
-        String role = session.get("role");
-        if(role.equals("1") && username != null) {
-
-            return ok(contact.render("add", session));
+        if(username == null){
+            return unauthorized(login.render("Please login first!", session));
         }
-
-        return unauthorized(error.render("Buyer can send message to seller", session));
+        return ok(contactAdmin.render("Send a message to user", session));
     }
 
 
     public static Result savemsg(){
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
+        String uuid = session.get("uuid");
         String role = session.get("role");
-        //check if user is a buyer
-        if(role.equals(username == null || role.equals("2"))){
-            return unauthorized(error.render("You must have a buyer account if you want to communicate with seller.",session));
+
+        if(username == null){
+            return unauthorized(login.render("Please login first!",session));
         }
 
+        String receiver = Form.form().bindFromRequest().get("receiver");
+        UserOperations uo = new UserOperations();
+        String rid = uo.getuserid(receiver);
 
-        ContactMsg conmsg = Form.form(ContactMsg.class).bindFromRequest().get();
-        // book.seller = session.get("uuid");
-        // Try to add the book to the DB
+        ContactMsg msg = new ContactMsg();
+
+        msg.receiverid = rid;
+        msg.senderid = uuid;
+        msg.sdate = now();
+        msg.subject = Form.form().bindFromRequest().get("reason") + "from " + username;
+        msg.msg = Form.form().bindFromRequest().get("message");
+
         ContactMsgOperations cmo = new ContactMsgOperations();
 
-        if(cmo.save(conmsg)){
-            return ok(msgsent.render("Successfuly sent", session));
+        if(cmo.save(msg)){
+            return ok(uploaded.render("Message successfully sent", session));
         }else {
             // if adding failed, redirect to the addproduct page
-            return ok(error.render("Message failed,Please go back and try again", session));
+            return ok(uploaded.render("Failed! Please try again.", session));
         }
     }
     public static Result getall() {

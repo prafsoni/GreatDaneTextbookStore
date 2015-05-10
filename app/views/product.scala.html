@@ -24,7 +24,13 @@
       <div class="date">ISBN: @book.isbn</div>
       <div class="date">Price: $@book.price</div>
       <div class="date">Shipping: $@book.shippingfee</div>
-      <div class="date">Sold by @book.seller</div>
+      <div class="date">
+        Sold by &nbsp;
+          <form action="@routes.Contacts.contact()" method="get" style="width:20px;float:right;">
+            <input name="receiver" type=hidden value="@book.seller">
+            <button type="submit" class="linkbutton">@book.seller</button>
+          </form>
+      </div>
 
 
       <div class="clearfloat"></div>
