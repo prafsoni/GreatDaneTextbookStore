@@ -1,0 +1,21 @@
+@(message: String)(clist: java.util.ArrayList[String])(implicit session: play.mvc.Http.Session)
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  @for(c <- clist){
+    <div class="column-book">
+      <h5>@c</h5>
+      <div class="column-book-short">
+        @c
+      </div>
+
+
+    </div><!-- end column-book -->
+  }
+</body>
+</html>

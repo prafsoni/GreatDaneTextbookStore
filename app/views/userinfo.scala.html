@@ -15,7 +15,7 @@
         }else{
 
             <div class="column-full">
-                <h2 class="page-heading"><span>Account Profiles</span></h2>
+                <h2 class="page-heading"><span>@message</span></h2>
                 <img src="@routes.Assets.at("images/profilepics/" + user.id.toHexString + ".jpg")" style="float : left ; height : auto ; width : 100px" />
 
                 <table class="clearfloat" style="text-align : left">
@@ -54,7 +54,7 @@
                         <td>Hidden</td>
                     </tr>
                 </table>
-                <form name="contact" method="get" action="">
+                <form name="contact" method="get" action="@routes.Contacts.contact()">
                     <button type="submit" name="contact" value="contact" class="submit" style="float:left;width:auto;margin-left:5px"> Contact </button>
                 </form>
                 <div lass="clearfloat"></div>

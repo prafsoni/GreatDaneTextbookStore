@@ -221,7 +221,7 @@ public class Account extends Controller {
         String username = session.get("username");
         String role = session.get("role");
 
-        if (username.length()==0){
+        if (username==null){
             return unauthorized(login.render("Please login first!", session));
         }else if(role.equals("3")){
             return ok(adminindex.render("Update Account Profiles",session));
@@ -236,6 +236,20 @@ public class Account extends Controller {
         uo.update(user);
         return ok(account.render("Update Accepted",session()));
     }
-
+    public static Result userinfo(){
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
+        if (username==null){
+            return unauthorized(login.render("Please login first!", session));
+        }
+        String seller = Form.form().bindFromRequest().get("seller");
+        // should use a try/catch here to eliminate null pointer
+        UserOperations uo = new UserOperations();
+        Users user = uo.getuserbyuname(seller);
+        if(user.role.size()>2){
+            return ok(uploaded.render("You need higher permission!",session));
+        }
+        return ok(userinfo.render("User Information", user, session));
+    }
 
 }

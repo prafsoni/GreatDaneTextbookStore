@@ -40,7 +40,6 @@ public class Contacts extends Controller{
         return ok(contactAdmin.render("Send a message to user", session));
     }
 
-
     public static Result savemsg(){
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");

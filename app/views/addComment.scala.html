@@ -1,4 +1,4 @@
-@(message: String)(implicit session: play.mvc.Http.Session)
+@(message: String)(bookid: String)(implicit session: play.mvc.Http.Session)
 
   @main(title = message)(session){
   <div class="main" style="left:50%">
@@ -15,6 +15,7 @@
             <option value="4">4 Stars</option>
             <option value="5">5 Stars</option>
           </select>
+          <input type="hidden" name="bookid" value="@bookid">
           <label for="Your_Message" class="required" ><span class="required_star"> * </span>Comments</label>
           <textarea title="comment" name="comment" maxlength="1000" height="80"></textarea>
           <input type="submit" class="submit" value="SEND">

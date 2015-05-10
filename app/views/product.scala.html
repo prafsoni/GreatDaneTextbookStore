@@ -26,8 +26,8 @@
       <div class="date">Shipping: $@book.shippingfee</div>
       <div class="date">
         Sold by &nbsp;
-          <form action="@routes.Contacts.contact()" method="get" style="width:20px;float:right;">
-            <input name="receiver" type=hidden value="@book.seller">
+          <form action="@routes.Account.userinfo()" method="get" style="width:20px;float:right;">
+            <input name="seller" type=hidden value="@book.seller">
             <button type="submit" class="linkbutton">@book.seller</button>
           </form>
       </div>
@@ -51,7 +51,7 @@
 
       <form action="/rate" method="post">
         <input name="bookid" type="hidden" value=@book.id>
-        <button type="submit" class="submit" style="float:right;width:auto;margin-left:5px;">Leave Comments</button>
+        <button type="submit" class="submit" style="float:right;width:auto;margin-left:5px;">Add Comments</button>
       </form>
 
       <form action="/rate" method="get">
