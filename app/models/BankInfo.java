@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 @Entity
 public class BankInfo {
     public String bankid;
+    public String bname;
     public long routing;
     public long acc;
     public String acctype;
@@ -18,4 +19,5 @@ public class BankInfo {
     public ObjectId id;
     public String userid;
     public String billaddr;
+
 }

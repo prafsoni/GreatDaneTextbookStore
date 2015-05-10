@@ -1,0 +1,71 @@
+@(message: String)(bank: BankInfo)(implicit session: play.mvc.Http.Session)
+
+@main(title = message)(session){
+    <div class="main" style="height: 600px; float:none;">
+    @if(session.get("username") == null) {
+        <h2 class="page-heading"><span>@message</span></h2>
+
+        <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+            <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+            <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+            <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+            <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+            <br>
+            <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
+        </form>
+    }else{
+        <div class="side-left">
+            @if(session.get("role")=="2" || session.get("role")=="1"){
+                <li><a href="@routes.Bank.getBank()">Banks</a></li>
+                <li><a href="@routes.Bank.getBank()">Credit Cards</a></li>
+                <li><a href="@routes.Bank.getBank()">Paypal</a></li>
+            }
+            @if(session.get("role")=="3"){
+
+            }
+        </div>
+        <div class="column-large">
+
+                <h2 class="page-heading"><span>@message</span></h2>
+
+                <fieldset>
+
+                    <form method="post" action="@routes.Bank.doupdate()">
+                        <div style="float:left">
+                            <label class="required"><span class="required_star"> * </span>Account Type</label>
+                            <select name="acctype" style="margin-left:5%; width: 280px; height: 30px">
+                                <option value="Saving">Saving</option>
+                                <option value="Checking">Checking</option>
+                            </select>
+                            <label class="required"><span class="required_star"> * </span>Bank Name</label>
+                            <input type="text" name="bname" maxlength="80" placeholder="@bank.bname">
+
+                            <input type="hidden" name="bankid" value="@bank.id.toHexString">
+
+                        </div>
+                        <div style="float:left">
+                            <label class="required"><span class="required_star"> * </span>Routing Number</label>
+                            <input type="number" name="routing" maxlength="20" placeholder="@bank.routing">
+
+                            <label class="required"><span class="required_star"> * </span>Account Number</label>
+                            <input type="number" name="acc" maxlength="40" placeholder="@bank.acc">
+
+                            <label class="required"><span class="required_star"> * </span>Flow</label>
+                            <input type="number" name="edition" maxlength="40" placeholder="@bank.flow">
+
+
+                        </div>
+                        <div class="clearfloat"></div>
+                        <label class="required" ><span class="required_star"> * </span>Billing Address</label>
+                        <textarea name="billaddr" maxlength="2000" height="50px" placeholder="@bank.billaddr"></textarea>
+
+                        <input type="submit" class="submit" value="Update" style="float:left;width:auto;" >
+                    </form>
+
+                </fieldset>
+
+        </div>
+    }
+    </div><!-- end main -->
+
+}

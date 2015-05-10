@@ -33,6 +33,12 @@ POST        /shoppingcart            controllers.Cart.add()
 POST        /deletefromcart          controllers.Cart.delete()
 POST        /updatecart              controllers.Cart.update()
 POST        /clearcart               controllers.Cart.clear()
+GET         /bank                    controllers.Bank.getBank()
+GET         /addbank                 controllers.Bank.add()
+POST        /addbank                 controllers.Bank.doAdd()
+POST        /deletebank              controllers.Bank.delete()
+GET         /updatebank              controllers.Bank.update()
+POST        /updatebank              controllers.Bank.doupdate()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file            controllers.Assets.at(path="/public", file)

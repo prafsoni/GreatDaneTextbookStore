@@ -96,6 +96,7 @@ public class Util {
     }
     public static Http.Session setUserToSession(Users user) {
         Http.Session session = getCurrentSession();
+        session.put("userid", user.id.toHexString());
         session.put("username", user.uname);
         session.put("fname", user.fname);
         session.put("lname", user.lname);

@@ -1,0 +1,68 @@
+@(message: String)(banklist: java.util.ArrayList[BankInfo])(implicit session: play.mvc.Http.Session)
+
+@main(title = message)(session){
+    <div class="main" style="height: 500px; float:none;">
+    @if(session.get("username") == null) {
+        <h2 class="page-heading"><span>@message</span></h2>
+
+        <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+            <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+            <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+            <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+            <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+            <br>
+            <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
+        </form>
+    }else{
+        <div class="side-left">
+            @if(session.get("role")=="2" || session.get("role")=="1"){
+                <li><a href="@routes.Bank.getBank()">Banks</a></li>
+                <li><a href="@routes.Bank.getBank()">Credit Cards</a></li>
+                <li><a href="@routes.Bank.getBank()">Paypal</a></li>
+            }
+            @if(session.get("role")=="3"){
+
+            }
+        </div>
+        <div class="column-large">
+            <h3 class="page-heading"><span>@message</span></h3>
+            <br>
+            @if(banklist.size() > 0){
+                <table style="text-align : center" border="1px">
+                    <tr>
+                        <td><h5>Bank</h5></td>
+                        <td><h5>Account Type</h5></td>
+                        <td><h5>Account Number</h5></td>
+                        <td><h5>Billing Address</h5></td>
+                        <td><h5>Action</h5></td>
+                    </tr>
+                    @for(bank <- banklist) {
+                        <tr>
+                            <td>@bank.bname</td>
+                            <td>@bank.acctype</td>
+                            <td>@bank.acc</td>
+                            <td>@bank.billaddr</td>
+                            <td>
+                                <form method="get" action="@routes.Bank.update()" style="width:30px">
+                                    <input type="hidden" name="bankid" value=@bank.id.toHexString() >
+                                    <button type="submit"> Edit </button>
+                                </form>
+                                <form method="post" action="@routes.Bank.delete()" style="width:30px">
+                                    <input type="hidden" name="bankid" value=@bank.id.toHexString>
+                                    <button type="submit"> Delete </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    }
+
+
+                </table>
+            }
+            <div class="column-button-s"><a href="@routes.Bank.add()" style="float:right">Add</a></div>
+            <div lass="clearfloat"></div>
+        </div>
+    }
+    </div><!-- end main -->
+
+}
