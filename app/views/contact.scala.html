@@ -12,13 +12,13 @@
         <fieldset>
           <label for="Reason" class="required"><span class="required_star"> * </span>Reason</label>
           <select name="reason" style="width: 280px; height: 30px; margin-bottom: 2%; margin-left:2%;">
-            <option value="bookinformation">Questions for book information</option>
-            <option value="existingorders">Questions for existing orders</option>
-            <option value="ordershipment">Questions for order shipment</option>
-            <option value="otherquestions">Other questions</option>
+            <option value="Questions for book information">Questions for book information</option>
+            <option value="Questions for existing orders">Questions for existing orders</option>
+            <option value="Questions for order shipment">Questions for order shipment</option>
+            <option value="Other questions">Other questions</option>
           </select>
           <label for="userID" class="required"><span class="required_star"> * </span>Receiver</label>
-          <input type="text" name="receiver" value=@receiver maxlength="40">
+          <input type="text" name="receiver" maxlength="40" value=@receiver>
 
           <label for="Title"> <span class="required_star"> * </span>Title</label>
           <input type="text" name="title" maxlength="60" style="width: 280px">

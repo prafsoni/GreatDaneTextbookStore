@@ -24,7 +24,7 @@
                 <table style="text-align : center" border="1px">
                     <tr>
                         <td style="width:200px;overflow: hidden;"><h5>Message</h5></td>
-                        <td style="width:80px;"><h5>Sender</h5></td>
+                        <td style="width:80px;"><h5>Receiver</h5></td>
                         <td style="width:150px;"><h5>Date</h5></td>
                         <td style="width:35px"><h5>Action</h5></td>
 
@@ -35,15 +35,15 @@
                             <td>@msg.subject</td>
                             <td>
                                 <form action="@routes.Account.userinfo()" method="get" style="width:70px;float:left;">
-                                    <input name="seller" type=hidden value="@msg.senderid">
-                                    <button type="submit" class="linkbutton">@msg.senderid</button>
+                                    <input name="seller" type=hidden value="@msg.receiverid">
+                                    <button type="submit" class="linkbutton">@msg.receiverid</button>
                                 </form>
                             </td>
                             <td>@msg.sdate</td>
                             <td>
                                 <form method="get" action="@routes.Contacts.contact()" style="width:30px">
-                                    <input type="hidden" name="receiver" value=@msg.senderid >
-                                    <button type="submit"> Reply </button>
+                                    <input type="hidden" name="receiver" value=@msg.receiverid >
+                                    <button type="submit"> Contact </button>
                                 </form>
                                 <form method="post" action="@routes.Contacts.delete()" style="width:30px">
                                     <input type="hidden" name="id" value=@msg.id.toString>

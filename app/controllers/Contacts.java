@@ -28,7 +28,7 @@ public class Contacts extends Controller{
             return unauthorized(login.render("Please login first!",session));
         }
 
-        return ok(contact.render("Send a message to user", receiver,session));
+        return ok(contact.render("Send a message to user", receiver, session));
 
     }
     public static Result contactAdmin(){
@@ -52,14 +52,14 @@ public class Contacts extends Controller{
 
         String receiver = Form.form().bindFromRequest().get("receiver");
         UserOperations uo = new UserOperations();
-        String rid = uo.getuserid(receiver);
+        //String rid = uo.getuserid(receiver);
 
         ContactMsg msg = new ContactMsg();
 
-        msg.receiverid = rid;
-        msg.senderid = uuid;
+        msg.receiverid = receiver;
+        msg.senderid = username;
         msg.sdate = now();
-        msg.subject = Form.form().bindFromRequest().get("reason") + "from " + username;
+        msg.subject = Form.form().bindFromRequest().get("reason") + ": " + Form.form().bindFromRequest().get("title");
         msg.msg = Form.form().bindFromRequest().get("message");
 
         ContactMsgOperations cmo = new ContactMsgOperations();
@@ -73,53 +73,39 @@ public class Contacts extends Controller{
     }
     public static Result getall() {
         Http.Session session = Util.getCurrentSession();
-        String u = session.get("uuid");
-        System.out.println("Buyer is: " + u);
+        String u = session.get("username");
         if (u == null) {
             return ok(login.render("Please login first!", session));
-        }
-
-        if (u != null) {
+        }else {
             ContactMsgOperations cmo = new ContactMsgOperations();
             ArrayList<ContactMsg> list = cmo.getall(u);
             if (list.size() > 0) {
-                return ok(messagebox.render("Your messages", list, session));
+                return ok(messagebox.render("Your Messages", list, session));
             } else {
                 return ok(messagebox.render("No Messages.", list, session));
             }
-        } else {
-            ArrayList<ContactMsg> list = new ArrayList<>();
-            return ok(messagebox.render("No message found", list, session));
         }
     }
     public static Result getallsentmsg() {
         Http.Session session = Util.getCurrentSession();
-        String u = session.get("uuid");
-        System.out.println("Buyer is: " + u);
-        if (u == null) {
-            return ok(login.render("Please login first!", session));
-        }
+        String u = session.get("username");
 
         if (u != null) {
             ContactMsgOperations cmo = new ContactMsgOperations();
+
             ArrayList<ContactMsg> list = cmo.getallsent(u);
             if (list.size() > 0) {
-                return ok(messagebox.render("Your messages", list, session));
+                return ok(messagesent.render("Message Sent", list, session));
             } else {
-                return ok(messagebox.render("No Messages.", list, session));
+                return ok(messagesent.render("No Messages.", list, session));
             }
         } else {
-            ArrayList<ContactMsg> list = new ArrayList<>();
-            return ok(messagebox.render("No message found", list, session));
+            return ok(login.render("Please login first!", session));
         }
     }
     public static Result getallreceived() {
         Http.Session session = Util.getCurrentSession();
-        String u = session.get("uuid");
-        System.out.println("Buyer is: " + u);
-        if (u == null) {
-            return ok(login.render("Please login first!", session));
-        }
+        String u = session.get("username");
 
         if (u != null) {
             ContactMsgOperations cmo = new ContactMsgOperations();
@@ -130,8 +116,7 @@ public class Contacts extends Controller{
                 return ok(messagebox.render("No Messages.", list, session));
             }
         } else {
-            ArrayList<ContactMsg> list = new ArrayList<>();
-            return ok(messagebox.render("No message found", list, session));
+            return ok(login.render("Please login first!", session));
         }
     }
 

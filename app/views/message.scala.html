@@ -14,6 +14,9 @@
             <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
         </form>
     }else{
+        <div class="side-left">
+        @account_sider(session)
+        </div>
 
     }
     </div><!-- end main -->

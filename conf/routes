@@ -43,7 +43,9 @@ GET         /updatebank              controllers.Bank.update()
 POST        /updatebank              controllers.Bank.doupdate()
 GET         /getorder                controllers.Order.getOrder()
 POST        /placeorder              controllers.Order.add()
-GET         /message                 controllers.Contacts.getall()
+GET         /getreceiveddmsg         controllers.Contacts.getallreceived()
+GET         /getsentmsg              controllers.Contacts.getallsentmsg()
+POST        /deletemsg               controllers.Contacts.delete()
 GET         /userinfo                controllers.Account.userinfo()
 
 # Map static resources from the /public folder to the /assets URL path
