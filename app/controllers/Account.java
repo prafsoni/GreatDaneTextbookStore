@@ -230,12 +230,10 @@ public class Account extends Controller {
         }
     }
     public static Result doupdate(){
-        //DynamicForm requestData = Form.form().bindFromRequest();
-        //Users user = Form.form(Users.class).bindFromRequest().get();
-        //TODO need to implement doupdate method. Remeber to update session.
-
-
-
+        DynamicForm requestData = Form.form().bindFromRequest();
+        Users user = Form.form(Users.class).bindFromRequest().get();
+        UserOperations uo=new UserOperations();
+        uo.update(user);
         return ok(account.render("Update Accepted",session()));
     }
 

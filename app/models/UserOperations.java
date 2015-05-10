@@ -194,4 +194,27 @@ public class UserOperations extends Model {
         Document result = collection.find(eq("_id", uid)).first();
         return result.getString("uname");
     }
+
+    public boolean update(Users user){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document doc = collection.find(eq("_id",user.id)).first();
+        try {
+            Document doc1 = new Document("fname", user.fname)
+                    .append("lname", user.lname)
+                    .append("uname", user.uname)
+                    .append("email", user.email)
+                    .append("password", user.password)
+                    .append("mob", user.mob)
+                            //.append("address", Arrays.asList(user.address))
+                    .append("cdate", user.cdate)
+                    .append("role", user.role)
+                    .append("status", user.status);
+            collection.updateOne(doc,doc1);
+                    return true;
+        }catch(Exception ex){ // TODO catch proper exceptions
+            System.out.println(ex);
+            return false;
+        }
+    }
 }
