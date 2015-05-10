@@ -1,0 +1,66 @@
+@(message: String)(orderlist: java.util.ArrayList[Orders])(implicit session: play.mvc.Http.Session)
+
+@main(title = message)(session){
+    <div class="main" style="height: 500px; float:none;">
+    @if(session.get("username") == null) {
+        <h2 class="page-heading"><span>@message</span></h2>
+
+        <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+            <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+            <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+            <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+            <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+            <br>
+            <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
+        </form>
+    }else{
+        <div class="side-left">
+        @account_sider(session)
+        </div>
+        <div class="column-large">
+            <h3 class="page-heading"><span>@message</span></h3>
+            <br>
+            @if(orderlist.size() > 0){
+                <table style="text-align : center" border="1px">
+                    <tr>
+                        <td><h5>Quantity</h5></td>
+                        <td><h5>Price</h5></td>
+                        <td><h5>Order Date</h5></td>
+                        <td><h5>Status</h5></td>
+                        <td><h5>Shipping</h5></td>
+                        <td><h5>Buyer</h5></td>
+                        <td><h5>Action</h5></td>
+                    </tr>
+                    @for(order <- orderlist) {
+                        <tr>
+
+                            <td> @order.quantity </td>
+                            <td> @order.price </td>
+                            <td> $@order.orderdate </td>
+                            <td> @order.status </td>
+                            <td> $@order.Shippingid </td>
+                            <td> @order.sellerid </td>
+                            <td>
+                                <form method="get" action="@routes.Products.update()" style="width:30px">
+                                    <input type="hidden" name="bookid" value=@order.id.toHexString >
+                                    <button type="submit"> Edit </button>
+                                </form>
+                                <form method="post" action="@routes.Products.delete()" style="width:30px">
+                                    <input type="hidden" name="bookid" value=@order.id.toHexString>
+                                    <button type="submit"> Cancel </button>
+                                </form>
+                            </td>
+
+                        </tr>
+                    }
+
+
+                </table>
+            }
+            <div class="column-button-s"><a href="@routes.Products.add()" style="float:right">Add</a></div>
+            <div lass="clearfloat"></div>
+        </div>
+    }
+    </div><!-- end main -->
+
+}

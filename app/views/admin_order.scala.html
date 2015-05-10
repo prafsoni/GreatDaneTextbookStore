@@ -1,4 +1,4 @@
-@(message: String)(implicit session: play.mvc.Http.Session)
+@(message: String)(orderlist: java.util.ArrayList[Orders])(implicit session: play.mvc.Http.Session)
 
   @main(title = message)(session){
   <div class="main" style="height: 500px; float:none;">
@@ -15,12 +15,7 @@
       <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
     </form>
   }else{
-    <div class="side-left">
-    @account_sider(session)
-    </div>
-    <div class="column-large">
-    @account_profile(session)
-    </div>
+    //TODO here will insert a list of all orders from all users. A orderlist must be rendered to this page. Buttons will be added for each order for cancelling
   }
   </div><!-- end main -->
 

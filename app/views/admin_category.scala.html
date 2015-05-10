@@ -1,4 +1,4 @@
-@(message: String)(implicit session: play.mvc.Http.Session)
+@(message: String)(categorylist: java.util.ArrayList[Departments])(implicit session: play.mvc.Http.Session)
 
   @main(title = message)(session){
   <div class="main" style="height: 500px; float:none;">
@@ -15,12 +15,7 @@
       <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
     </form>
   }else{
-    <div class="side-left">
-    @account_sider(session)
-    </div>
-    <div class="column-large">
-    @account_profile(session)
-    </div>
+    //TODO here will insert a list of all categories. A categorylist must be rendered to this page. A botton will be added to delete each category and add new category.
   }
   </div><!-- end main -->
 
