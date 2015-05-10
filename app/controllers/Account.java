@@ -28,7 +28,6 @@ public class Account extends Controller {
 
     public static Result register(){
         Session session = Util.getCurrentSession();
-        System.out.println("Current user: " + session.get("username"));
         return ok(register.render("Register",session));
     }
 
@@ -46,9 +45,26 @@ public class Account extends Controller {
         // submitted form.
         Session session = Util.getCurrentSession();
         DynamicForm requestData = Form.form().bindFromRequest();
+        String cpwd = Form.form().bindFromRequest().get("cpwd");
 
         // Create a User instance from the form data
-        Users user = Form.form(Users.class).bindFromRequest().get();
+        Users user = new Users();
+        try{
+             user = Form.form(Users.class).bindFromRequest().get();
+        }catch(Exception ex){
+            System.out.println(ex);
+            return ok(register.render("Please fill all fields!", session));
+        }
+
+        UserOperations uo = new UserOperations();
+        if (!uo.checkunameavailability(user.uname)){
+            return ok(register.render("Username is not available!", session));
+        }
+        System.out.println(cpwd + user.password);
+        if (!cpwd.equals(user.password)){
+            return ok(register.render("Confirm password does not match!", session));
+        }
+
 
         // Set the User instance cData (creation date) to now
         user.cdate = now();

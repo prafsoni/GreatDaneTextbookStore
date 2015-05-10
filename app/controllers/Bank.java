@@ -56,7 +56,15 @@ public class Bank extends Controller {
         if(username != null)
         {
             // Get a bank info from the form
-            BankInfo bank = Form.form(BankInfo.class).bindFromRequest().get();
+            BankInfo bank;
+            try{
+                bank = Form.form(BankInfo.class).bindFromRequest().get();
+            }catch(Exception ex){
+                System.out.println(ex);
+                return ok(account_addbank.render("Please fill all fields!", session));
+            }
+
+
             bank.userid = session("uuid");
             // Try to add the info to the DB
             BankInfoOperations bankinfoperations = new BankInfoOperations();
@@ -97,11 +105,23 @@ public class Bank extends Controller {
         Http.Session session = Util.getCurrentSession();
         String username = session.get("username");
         UserOperations uo = new UserOperations();
+        BankInfoOperations bankinfoperations = new BankInfoOperations();
         if(username != null){
             // Get a bank info from the form
-            BankInfo bank = Form.form(BankInfo.class).bindFromRequest().get();
-            //String bankid = Form.form().bindFromRequest().get("bankid");
-            //bank.bankid = bankid;
+            String bankid;
+            try{bankid = Form.form().bindFromRequest().get("bankid");
+            }catch(Exception ex){
+                return ok(uploaded.render("System error occurred. Please try again!",session));
+            }
+            BankInfo bank;
+            try{
+                bank = Form.form(BankInfo.class).bindFromRequest().get();
+            }catch(Exception ex){
+                System.out.println(ex);
+                bank = bankinfoperations.getone(bankid);
+                return ok(account_updatebank.render("Please fill all fields!", bank, session));
+            }
+
             System.out.println(bank.bankid + " " + bank.bname);
             String uuid = session("uuid");
             if (uuid == null) {
@@ -110,7 +130,7 @@ public class Bank extends Controller {
             }
             bank.userid = uuid;
             // Try to add the info to the DB
-            BankInfoOperations bankinfoperations = new BankInfoOperations();
+
             if(bankinfoperations.update(bank)){
                 return ok(uploaded.render("Your bank information has been updated!", session));
             }else {

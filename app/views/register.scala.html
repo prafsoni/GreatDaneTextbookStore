@@ -3,9 +3,8 @@
 @main(title = message)(session){
     <div class="main" style="height: 600px; float:none;">
         <div class="contact-column1">
+            <h2 class="page-heading"><span>@message</span></h2>
             <form name="register" method="post" action="@routes.Account.register()" style="float:left" >
-
-                <h2 class="page-heading"><span>Register</span></h2>
                 <fieldset>
                     <fieldset1>
                         <label class="required"><span class="required_star"> * </span>User Type</label>

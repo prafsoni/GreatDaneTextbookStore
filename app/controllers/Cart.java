@@ -24,9 +24,20 @@ public class Cart extends Controller {
     public static Result add(){
         Http.Session session = Util.getCurrentSession();
         String uname = session.get("username");
-        String bookid = Form.form().bindFromRequest().get("bookid");
-        System.out.println("bookid: " + bookid);
-        String q = Form.form().bindFromRequest().get("quantity");
+        String bookid;
+        try{ bookid = Form.form().bindFromRequest().get("bookid");
+        }catch(Exception ex){
+            System.out.println(ex);
+            return ok(addproduct.render("System error occurred. Please try again!", session));
+        }
+
+        String q;
+        try{ q = Form.form().bindFromRequest().get("quantity");
+        }catch(Exception ex){
+            System.out.println(ex);
+            return ok(addproduct.render("System error occurred. Please try again!", session));
+        }
+
         if(uname == null){
             return unauthorized(login.render("Please login first!", session));
         }
@@ -35,7 +46,6 @@ public class Cart extends Controller {
         if (uuid == null) {
             uuid = uo.getuserid(uname); //java.util.UUID.randomUUID().toString();
             Util.insertIntoSession("uuid", uuid);
-
         }
         Carts cart = new Carts();
         if(Cache.get(uuid + "cart") != null){
