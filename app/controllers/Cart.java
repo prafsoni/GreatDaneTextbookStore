@@ -28,14 +28,14 @@ public class Cart extends Controller {
         try{ bookid = Form.form().bindFromRequest().get("bookid");
         }catch(Exception ex){
             System.out.println(ex);
-            return ok(addproduct.render("System error occurred. Please try again!", session));
+            return ok(uploaded.render("System error occurred. Please try again!", session));
         }
 
         String q;
         try{ q = Form.form().bindFromRequest().get("quantity");
         }catch(Exception ex){
             System.out.println(ex);
-            return ok(addproduct.render("System error occurred. Please try again!", session));
+            return ok(uploaded.render("Please enter quantity", session));
         }
 
         if(uname == null){
@@ -52,10 +52,13 @@ public class Cart extends Controller {
             cart = (Carts) Cache.get(uuid + "cart");
         }
         int quantity = 0;
-        if (q!=null){
+        try{
+            if (q!=null){
             quantity = Integer.valueOf(q);
-        }else{
-            return ok(shoppingcart.render("Please input new quantity!", cart, session));
+            }
+        }catch(Exception ex){
+            System.out.println(ex);
+            return ok(uploaded.render("Please enter quantity", session));
         }
         BookOperations bo = new BookOperations();
         Books book = bo.getone(bookid);

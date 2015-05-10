@@ -38,7 +38,7 @@
 
     <div class="clearfloat">
       <form action="@routes.Cart.add()" method="post">
-        <input name="quantity" type="text" placeholder="1" style="float:left; margin-left:50%;width:30px;">
+        <input name="quantity" type="text" value="1" style="float:left; margin-left:50%;width:30px;">
         <input name="bookid" type="hidden" value=@book.id>
         <button type="submit" class="submit" style="float:left; margin-left:50%">Buy</button>
 

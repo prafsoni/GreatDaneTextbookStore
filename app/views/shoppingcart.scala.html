@@ -71,7 +71,9 @@
           <form method="post" name="clear" action="@routes.Cart.clear()">
             <input type="submit" class="submit" method="@routes.Cart.clear()" value="Clear" style="float:left">
           </form>
+          <form method="post" name="clear" action="@routes.Order.add()">
           <input type="submit" class="submit" value="Checkout" style="float:left;width:auto;">
+          </form>
         </span>
       }else{
         <h2 class="page-heading"><span>Your cart is empty!</span></h2>
