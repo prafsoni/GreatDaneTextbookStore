@@ -13,8 +13,8 @@ import java.util.HashMap;
  */
 @Entity
 public class Orders {
-    public HashMap<String,Integer> Banks;
-    public ObjectId id;
+    public HashMap<String,Integer> Books;
+    public ObjectId id;;
     public int quantity;
     public double price;
     public String status;
@@ -22,4 +22,5 @@ public class Orders {
     public Date orderdate;
     public String userid;
     public String sellerid;
+
 }
