@@ -42,14 +42,24 @@
     </div>
 
 
-    <div class="clearfloat">
+    <span>
       <form action="@routes.Cart.add()" method="post">
         <input name="quantity" type="text" value="1" style="float:left; margin-left:50%;width:30px;">
         <input name="bookid" type="hidden" value=@book.id>
         <button type="submit" class="submit" style="float:left; margin-left:50%">Buy</button>
-
       </form>
-    </div>
+
+      <form action="/rate" method="post">
+        <input name="bookid" type="hidden" value=@book.id>
+        <button type="submit" class="submit" style="float:right;width:auto;margin-left:5px;">Leave Comments</button>
+      </form>
+
+      <form action="/rate" method="get">
+        <input name="bookid" type="hidden" value=@book.id>
+        <button type="submit" class="submit" style="float:right;width:auto;margin-left:5px;">Comments</button>
+      </form>
+    </span>
+
   </div><!-- end main -->
 
 
