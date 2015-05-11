@@ -260,4 +260,20 @@ public class Account extends Controller {
         return ok(account_address.render("address",al,session));
     }
 
+    public static Result addaddress(){
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
+        return ok(addaddr.render("add address",session));
+    }
+
+    public static Result doaddaddress(){
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
+        Addresses addr = new Addresses();
+        addr = Form.form(Addresses.class).bindFromRequest().get();
+        AddressOperations ao = new AddressOperations();
+        ao.save(addr);
+        return redirect("/address");
+    }
+
 }

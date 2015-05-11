@@ -253,11 +253,30 @@ public class UserOperations extends Model {
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
         ObjectId uid = new ObjectId(userid);
-        Document doc = collection.find(eq("_id",uid)).first();
-        Document newDoc = new Document(doc);
-        newDoc.put("status",0);
-        newDoc.remove("_id");
-        collection.updateOne(doc, newDoc);
+        Document result = collection.find(eq("_id",uid)).first();
+        Users user = new Users();
+        user.cdate = result.getDate("cdate");
+        user.email = result.getString("email");
+        user.fname = result.getString("fname");
+        user.lname = result.getString("lname");
+        user.mob = result.getLong("mob");
+        user.status = 0;
+        user.id = result.getObjectId("_id");
+        user.password = result.getString("password");
+        user.role = result.get("role", a.class);
+        user.address = result.get("address", a.class);
+        user.uname = result.getString("uname");
+        Document newDoc = new Document("fname",user.fname)
+                .append("lname", user.lname)
+                .append("uname", user.uname)
+                .append("email", user.email)
+                .append("password", user.password)
+                .append("mob", user.mob)
+                .append("cdate", user.cdate)
+                .append("role", user.role)
+                .append("address",user.address)
+                .append("status", user.status);
+        collection.updateOne(result,newDoc);
         return true;
     }
 
@@ -265,11 +284,30 @@ public class UserOperations extends Model {
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
         ObjectId uid = new ObjectId(userid);
-        Document doc = collection.find(eq("_id",uid)).first();
-        Document newDoc = new Document(doc);
-        newDoc.put("status",-1);
-        newDoc.remove("_id");
-        collection.updateOne(doc,newDoc);
+        Document result = collection.find(eq("_id",uid)).first();
+        Users user = new Users();
+        user.cdate = result.getDate("cdate");
+        user.email = result.getString("email");
+        user.fname = result.getString("fname");
+        user.lname = result.getString("lname");
+        user.password = result.getString("password");
+        user.mob = result.getLong("mob");
+        user.status = -1;
+        user.id = result.getObjectId("_id");
+        user.role = result.get("role", a.class);
+        user.address = result.get("address", a.class);
+        user.uname = result.getString("uname");
+        Document newDoc = new Document("fname",user.fname)
+                .append("lname", user.lname)
+                .append("uname", user.uname)
+                .append("email", user.email)
+                .append("password", user.password)
+                .append("mob", user.mob)
+                .append("cdate", user.cdate)
+                .append("role", user.role)
+                .append("address",user.address)
+                .append("status", user.status);
+        collection.updateOne(result,newDoc);
         return true;
     }
 
@@ -281,11 +319,29 @@ public class UserOperations extends Model {
         ArrayList<String> al = new ArrayList<>();
         al = doc.get("address", a.class);
         al.add(addressid);
-        Document ndoc = new Document();
-        ndoc = doc;
-        ndoc.put("address",al);
-        ndoc.remove("_id");
-        collection.updateOne(doc,ndoc);
+        Document result = collection.find(eq("_id",uid)).first();
+        Users user = new Users();
+        user.cdate = result.getDate("cdate");
+        user.email = result.getString("email");
+        user.fname = result.getString("fname");
+        user.lname = result.getString("lname");
+        user.mob = result.getLong("mob");
+        user.status = result.getInteger("status");
+        user.id = result.getObjectId("_id");
+        user.role = result.get("role", a.class);
+        user.address = al;
+        user.uname = result.getString("uname");
+        Document newDoc = new Document("fname",user.fname)
+                .append("lname", user.lname)
+                .append("uname", user.uname)
+                .append("email", user.email)
+                .append("password", user.password)
+                .append("mob", user.mob)
+                .append("cdate", user.cdate)
+                .append("role", user.role)
+                .append("address",user.address)
+                .append("status", user.status);
+        collection.updateOne(result, newDoc);
     }
 
     public void delete(String userid){
