@@ -1,0 +1,28 @@
+@(orderlist:java.util.ArrayList[Orders])
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    @for(order <- orderlist){
+      <div class="column-book">
+        <h5>@order.orderdate</h5>
+        <div class="column-book-short">
+          @order.sellerid<br> @order.userid <br>@order.status
+          @for(o <- order.Books){
+          @o
+        }
+        <br>@order.price
+        <br>
+        </div>
+        <form method="post" action="@routes.Order.getOrder()>
+          <input name="id" type=hidden value=@order.id.toString()>
+          <button type="submit" style="float:left; margin-left:10%">Details</button>
+        </form>
+
+      </div><!-- end column-book -->
+    }
+  </body>
+</html>

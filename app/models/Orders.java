@@ -22,5 +22,4 @@ public class Orders {
     public Date orderdate;
     public String userid;
     public String sellerid;
-
 }

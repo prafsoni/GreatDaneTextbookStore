@@ -1,14 +1,14 @@
 package controllers;
 
+import models.OrderOperations;
+import models.Orders;
 import models.UserOperations;
 import models.Users;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Results;
-import views.html.account;
-import views.html.adminindex;
-import views.html.userslist;
+import views.html.*;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,6 @@ public class Administrator extends Controller {
         Http.Session session = Util.getCurrentSession();
         String role = session.get("role");
         String username = session.get("username");
-
         if (role.equals("3") && username != null) {
             System.out.println("Current user: " + username);
             return ok(adminindex.render("Welcome back!", session));
@@ -29,14 +28,36 @@ public class Administrator extends Controller {
     }
 
     public static Result viewallusers(){
-        UserOperations uo = new UserOperations();
-        ArrayList<Users> users = uo.getall();
-        return ok(userslist.render(users));
+        Http.Session session = Util.getCurrentSession();
+        String role = session.get("role");
+        String username = session.get("username");
+        if (role.equals("3") && username != null) {
+            UserOperations uo = new UserOperations();
+            ArrayList<Users> users = uo.getall();
+            return ok(admin_user.render("users", users, session));
+        }else{return unauthorized(account.render("Please login first!", session));}
+
     }
 
     public static Result viewallsellers(){
-        UserOperations uo = new UserOperations();
-        ArrayList<Users> users = uo.getallsellers();
-        return ok(userslist.render(users));
+        Http.Session session = Util.getCurrentSession();
+        String role = session.get("role");
+        String username = session.get("username");
+        if (role.equals("3") && username != null) {
+            UserOperations uo = new UserOperations();
+            ArrayList<Users> users = uo.getallsellers();
+            return ok(admin_user.render("sellers",users,session));
+        }else{return unauthorized(account.render("Please login first!", session));}
+    }
+
+    public static Result viewallorders(){
+        Http.Session session = Util.getCurrentSession();
+        String role = session.get("role");
+        String username = session.get("username");
+        if (role.equals("3") && username != null) {
+            OrderOperations oo = new OrderOperations();
+            ArrayList<Orders> orders = oo.getall();
+            return ok(admin_order.render("All Orders",orders,session));
+        }else{return unauthorized(account.render("Please login first!", session));}
     }
 }

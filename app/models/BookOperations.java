@@ -45,7 +45,6 @@ public class BookOperations extends Model {
                     .append("description", book.description)
                     .append("year", book.year)
                     .append("shippingfee", book.shippingfee)
-                    .append("shippingfee", book.shippingfee)
                     .append("category", book.category);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Books");
@@ -110,7 +109,7 @@ public class BookOperations extends Model {
     public ArrayList<Books> getcategory(String category){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
-        String c = category;
+        int c = Integer.parseInt(category);
         FindIterable<Document> results = collection.find(eq("category",c)).limit(300);
         ArrayList<Books> list = new ArrayList<>();
         for(Document result: results){

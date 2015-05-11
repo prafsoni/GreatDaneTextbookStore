@@ -48,7 +48,10 @@ GET         /getsentmsg              controllers.Contacts.getallsentmsg()
 GET         /getmsg                  controllers.Contacts.getone()
 POST        /deletemsg               controllers.Contacts.delete()
 GET         /userinfo                controllers.Account.userinfo()
-GET         /sellers                 controllers.Administrator.viewallsellers()
+GET         /admin/sellers           controllers.Administrator.viewallsellers()
+GET         /admin/orders            controllers.Administrator.viewallorders()
+GET         /address                 controllers.Account.address()
+
 
 
 # Map static resources from the /public folder to the /assets URL path

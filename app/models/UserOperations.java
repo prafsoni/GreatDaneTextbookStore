@@ -44,13 +44,15 @@ public class UserOperations extends Model {
      */
     public static Boolean createuser(Users user ){
         try {
+            ArrayList<String> al = new ArrayList<>();
+            user.address = al;
             Document doc = new Document("fname", user.fname)
                     .append("lname", user.lname)
                     .append("uname", user.uname)
                     .append("email", user.email)
                     .append("password", user.password)
                     .append("mob", user.mob)
-                    //.append("address", Arrays.asList(user.address))
+                    .append("address",user.address)
                     .append("cdate", user.cdate)
                     .append("role", user.role)
                     .append("status", user.status);
@@ -202,7 +204,7 @@ public class UserOperations extends Model {
             user.status = result.getInteger("status");
             user.id = result.getObjectId("_id");
             user.role = result.get("role", a.class);
-            user.address = result.get("role",a.class);
+            user.address = result.get("address", a.class);
             user.uname = result.getString("uname");
             if(user.role.contains("seller")){
                 list.add(user);
@@ -230,7 +232,6 @@ public class UserOperations extends Model {
                     .append("email", user.email)
                     .append("password", user.password)
                     .append("mob", user.mob)
-                            //.append("address", Arrays.asList(user.address))
                     .append("cdate", user.cdate)
                     .append("role", user.role)
                     .append("status", user.status);
@@ -240,5 +241,41 @@ public class UserOperations extends Model {
             System.out.println(ex);
             return false;
         }
+    }
+
+    public boolean approve(String userid){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        ObjectId uid = new ObjectId(userid);
+        Document doc = collection.find(eq("_id",uid)).first();
+        Document newDoc = new Document(doc);
+        newDoc.put("status",0);
+        collection.updateOne(doc,newDoc);
+        return true;
+    }
+
+    public boolean disapprove(String userid){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        ObjectId uid = new ObjectId(userid);
+        Document doc = collection.find(eq("_id",uid)).first();
+        Document newDoc = new Document(doc);
+        newDoc.put("status",-1);
+        collection.updateOne(doc,newDoc);
+        return true;
+    }
+
+    public void address(String addressid, String userid){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        ObjectId uid = new ObjectId(userid);
+        Document doc = collection.find(eq("_id",uid)).first();
+        ArrayList<String> al = new ArrayList<>();
+        al = doc.get("address",a.class);
+        al.add(addressid);
+        Document ndoc = new Document();
+        ndoc = doc;
+        ndoc.put("address",al);
+        collection.updateOne(doc,ndoc);
     }
 }

@@ -252,4 +252,8 @@ public class Account extends Controller {
         return ok(userinfo.render("User Information", user, session));
     }
 
+    public static Result address(){
+        return ok();
+    }
+
 }

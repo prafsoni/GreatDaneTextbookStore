@@ -39,6 +39,7 @@ public class AddressOperations extends Model{
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Addresses");
             collection.insertOne(doc, (Void result, final Throwable t) -> System.out.println("Inserted!"));
+            addidtouser(addr.userid,doc);
             return true;
         }
         catch(Exception ex){
@@ -129,5 +130,13 @@ public class AddressOperations extends Model{
         addr.state = result.getString("state");
         addr.zip = result.getInteger("zip");
         return addr;
+    }
+
+    public void addidtouser(String userid, Document document){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Addresses");
+        Document result = collection.find(document).first();
+        UserOperations uo = new UserOperations();
+        uo.address(result.getObjectId("_id").toString(),userid);
     }
 }
