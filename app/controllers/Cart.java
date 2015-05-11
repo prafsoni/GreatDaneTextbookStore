@@ -78,6 +78,7 @@ public class Cart extends Controller {
                 book.stock = cart.list.get(idx).stock + quantity;
                 cart.list.remove(idx);
                 cart.list.add(book);
+                cart.sellerid = book.seller;
                 cart.update();
                 Cache.set(uuid+"cart", cart);
             }else{ // list doesn't contain the book

@@ -122,44 +122,31 @@ public class Order extends Controller {
         }
     }
 
-    public static Result doAdd() {
-        Http.Session session = Util.getCurrentSession();
-        String username = session.get("username");
-        String role = session.get("role");
-        String uuid = session.get("uuid");
-        //check if user is a seller
-        if (username == null) {
-            return unauthorized(error.render("You must have buyer account to place the order.", session));
-        }
-
-        // Get a order from the form
-        Orders or = Form.form(Orders.class).bindFromRequest().get();
-        // Try to add the book to the DB
-        OrderOperations oo = new OrderOperations();
-        ArrayList<Orders> list = oo.getallplaced(uuid);
-        if (oo.save(or)) {
-            return ok(account_orders.render("successfully Ordered!", list, session));
-        } else {
-            // if adding failed, redirect to the addproduct page
-            return ok(account_orders.render("Order failed,Try again", list, session));
-        }
-    }
-
     public static Result delete() {
         Http.Session session = Util.getCurrentSession();
 
         String uuid = session.get("uuid");
         System.out.println("The user is: " + uuid);
 
+        Carts cart = new Carts();
+        cart = (Carts) Cache.get(uuid + "cart");
+        //System.out.println(cart.list.get(0).title + "  " + String.valueOf(cart.list.get(0).stock));
+        //System.out.println(String.valueOf(cart.total));
 
         OrderOperations oo = new OrderOperations();
+        String orderid = Form.form().bindFromRequest().get("orderid");
         ArrayList<Orders> list = oo.getallplaced(uuid);
-
         if (uuid == null) {
             return ok(login.render("Please login first!", session));
         } else {
-            if (list.size() > 0) {
-                return ok(account_orders.render("Your order", list, session));
+            if (orderid!=null) {
+                if(oo.delete2(orderid)) {
+                    list = oo.getallplaced(uuid);
+                    return ok(account_orders.render("Order updated", list, session));
+                }else{
+                    list = oo.getallplaced(uuid);
+                    return ok(account_orders.render("Deletion Failed", list, session));
+                }
             } else {
                 return ok(account_orders.render("No order found", list, session));
             }
@@ -170,6 +157,7 @@ public class Order extends Controller {
         Http.Session session = Util.getCurrentSession();
         String id = session.get("id");
         String userid = session.get("uuid");
+        String orderid = Form.form().bindFromRequest().get("orderid");
         System.out.println("userid is: " + userid);
         if (userid != null) {
             OrderOperations oo = new OrderOperations();

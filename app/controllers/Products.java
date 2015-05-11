@@ -52,7 +52,10 @@ public class Products extends Controller {
             System.out.println(ex);
             return ok(addproduct.render("Please fill all fields!", session));
         }
-        book.seller = session.get("uuid");
+
+        UserOperations uo = new UserOperations();
+        String sellerid = uo.getUserHexId(username);
+        book.seller = sellerid;
         // Try to add the book to the DB
         BookOperations bookOperations = new BookOperations();
 

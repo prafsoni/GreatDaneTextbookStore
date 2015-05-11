@@ -20,6 +20,7 @@ public class Carts {
     public double subtotal;
     public double total;
     public double shippingfee;
+    public String sellerid;
     public ArrayList<Books> list;
 
     public Carts(){
@@ -38,6 +39,7 @@ public class Carts {
         this.total = 0;
         this.shippingfee = 0;
         this.list = new ArrayList<>();
+        this.sellerid = null;
     }
     public void update(){
         this.number = 0;

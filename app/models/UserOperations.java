@@ -95,6 +95,12 @@ public class UserOperations extends Model {
         Document result = collection.find(eq("uname", uname)).first();
         return result.getObjectId("_id").toString();
     }
+    public String getUserHexId(String uname){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        Document result = collection.find(eq("uname", uname)).first();
+        return result.getObjectId("_id").toHexString();
+    }
 
     //for changing the password for user
     public boolean changepasswd(String userid, String password){
@@ -216,9 +222,9 @@ public class UserOperations extends Model {
     public String getuname(String id){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
-        ObjectId uid = new ObjectId(id);
-        Document result = collection.find(eq("_id", uid)).first();
-        return result.getString("uname");
+        Users user = getuserbyid(id);
+        //Document result = collection.find(eq("_id", id)).first();
+        return user.id.toHexString();
     }
 
     public boolean update(Users user){
@@ -251,7 +257,7 @@ public class UserOperations extends Model {
         Document newDoc = new Document(doc);
         newDoc.put("status",0);
         newDoc.remove("_id");
-        collection.updateOne(doc,newDoc);
+        collection.updateOne(doc, newDoc);
         return true;
     }
 
@@ -273,7 +279,7 @@ public class UserOperations extends Model {
         ObjectId uid = new ObjectId(userid);
         Document doc = collection.find(eq("_id",uid)).first();
         ArrayList<String> al = new ArrayList<>();
-        al = doc.get("address",a.class);
+        al = doc.get("address", a.class);
         al.add(addressid);
         Document ndoc = new Document();
         ndoc = doc;

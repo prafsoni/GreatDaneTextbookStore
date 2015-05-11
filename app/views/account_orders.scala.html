@@ -27,7 +27,7 @@
                         <td><h5>Price</h5></td>
                         <td><h5>Order Date</h5></td>
                         <td><h5>Status</h5></td>
-                        <td><h5>Shipping</h5></td>
+                        <td><h5>Shipping Method</h5></td>
                         <td><h5>Seller</h5></td>
                         <td><h5>Action</h5></td>
                     </tr>
@@ -35,18 +35,18 @@
                         <tr>
 
                             <td> @order.quantity </td>
-                            <td> @order.price </td>
-                            <td> $@order.orderdate </td>
+                            <td> $@order.price </td>
+                            <td> @order.orderdate </td>
                             <td> @order.status </td>
-                            <td> $@order.Shippingid </td>
+                            <td> @order.Shippingid </td>
                             <td> @order.sellerid </td>
                             <td>
-                                <form method="get" action="@routes.Products.update()" style="width:30px">
-                                    <input type="hidden" name="bookid" value=@order.id.toHexString >
+                                <form method="get" action="@routes.Order.update()" style="width:30px">
+                                    <input type="hidden" name="orderid" value=@order.id.toHexString >
                                     <button type="submit"> Edit </button>
                                 </form>
-                                <form method="post" action="@routes.Products.delete()" style="width:30px">
-                                    <input type="hidden" name="bookid" value=@order.id.toHexString>
+                                <form method="post" action="@routes.Order.delete()" style="width:30px">
+                                    <input type="hidden" name="orderid" value=@order.id.toHexString>
                                     <button type="submit"> Cancel </button>
                                 </form>
                             </td>

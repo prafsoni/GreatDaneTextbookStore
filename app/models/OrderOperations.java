@@ -6,6 +6,7 @@ import com.mongodb.async.client.MongoCollection;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import play.db.ebean.Model;
 
 import java.util.ArrayList;
@@ -67,12 +68,19 @@ public class OrderOperations extends Model {
             }
         }
 
-        public void delete(String id) {
+    public boolean delete2(String id) {
+        try {
             com.mongodb.client.MongoDatabase database = getdatabase();
             com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Orders");
-            Document doc = collection.find(eq("_id", id)).first();
+            ObjectId oid = new ObjectId(id);
+            Document doc = collection.find(eq("_id", oid)).first();
             collection.deleteOne(doc);
+            return true;
+        }catch (Exception ex) { // TODO catch proper exceptions
+            System.out.println(ex);
+            return false;
         }
+    }
 
         public Orders getone(String id) {
             com.mongodb.client.MongoDatabase database = getdatabase();
@@ -96,8 +104,8 @@ public class OrderOperations extends Model {
             order.status = doc.getString("status");
             order.userid = doc.getString("userid");
             order.sellerid = doc.getString("sellerid");
-            order.sellerid = uo.getuname(order.sellerid);
-            order.userid = uo.getuname(order.userid);
+            //order.sellerid = uo.getuname(order.sellerid);
+            //order.userid = uo.getuname(order.userid);
             return order;
         }
 
@@ -125,8 +133,8 @@ public class OrderOperations extends Model {
                 order.status = doc.getString("status");
                 order.userid = doc.getString("userid");
                 order.sellerid = doc.getString("sellerid");
-                order.sellerid = uo.getuname(order.sellerid);
-                order.userid = uo.getuname(order.userid);
+
+                //order.userid = uo.getuname(order.userid);
                 list.add(order);
             }
             return list;
@@ -156,8 +164,8 @@ public class OrderOperations extends Model {
                 order.status = doc.getString("status");
                 order.userid = doc.getString("userid");
                 order.sellerid = doc.getString("sellerid");
-                order.sellerid = uo.getuname(order.sellerid);
-                order.userid = uo.getuname(order.userid);
+
+                //order.userid = uo.getuname(order.userid);
                 list.add(order);
             }
             return list;
@@ -187,8 +195,8 @@ public class OrderOperations extends Model {
                 order.status = doc.getString("status");
                 order.userid = doc.getString("userid");
                 order.sellerid = doc.getString("sellerid");
-                order.sellerid = uo.getuname(order.sellerid);
-                order.userid = uo.getuname(order.userid);
+
+                //order.userid = uo.getuname(order.userid);
                 list.add(order);
             }
             return list;
