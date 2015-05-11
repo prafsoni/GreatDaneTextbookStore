@@ -15,7 +15,60 @@
       <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
     </form>
   }else{
-    //TODO here will insert a list of all users. A userlist must be rendered to this page. A botton will be added to delete each user account.
+    <div class="side-left">
+    @account_sider(session)
+    </div>
+    <div class="column-large">
+      <h3 class="page-heading"><span>@message</span></h3>
+      <br>
+      @if(userlist.size() > 0){
+        <table style="text-align : center" border="1px">
+          <tr>
+            <td><h5>User ID</h5></td>
+            <td><h5>User Name</h5></td>
+            <td><h5>First Name</h5></td>
+            <td><h5>Last Name</h5></td>
+            <td><h5>Phone</h5></td>
+            <td><h5>E-mail</h5></td>
+            <td><h5>Created on</h5></td>
+            <td><h5>Action</h5></td>
+          </tr>
+          @for(user <- userlist) {
+            <tr>
+
+              <td> @user.id.toString </td>
+              <td> @user.uname </td>
+              <td> @user.fname </td>
+              <td> @user.lname </td>
+              <td> @user.mob </td>
+              <td> @user.email </td>
+              <td> @user.cdate </td>
+              <td>
+                <form method="post" action="" style="width:30px">
+                  <input type="hidden" name="userid" value=@user.id.toHexString >
+                  <button type="submit"> Edit </button>
+                </form>
+                <form method="post" action="" style="width:30px">
+                  <input type="hidden" name="userid" value=@user.id.toHexString>
+                  <button type="submit"> Delete </button>
+                </form>
+                <form method="get" action="@routes.Contacts.contact()" style="width:30px">
+                  <input type="hidden" name="receiver" value=@user.uname>
+                  <button type="submit"> Contact </button>
+                </form>
+              </td>
+
+            </tr>
+          }
+
+
+        </table>
+      }else{
+        <h2>No user found!</h2>
+      }
+
+      <div lass="clearfloat"></div>
+    </div>
   }
   </div><!-- end main -->
 

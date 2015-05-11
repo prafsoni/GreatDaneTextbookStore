@@ -15,7 +15,57 @@
       <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
     </form>
   }else{
-    //TODO here will insert a list of all orders from all users. A orderlist must be rendered to this page. Buttons will be added for each order for cancelling
+
+    <div class="side-left">
+    @account_sider(session)
+    </div>
+    <div class="column-large">
+      <h3 class="page-heading"><span>@message</span></h3>
+      <br>
+      @if(orderlist.size() > 0){
+        <table style="text-align : center" border="1px">
+          <tr>
+            <td><h5>Quantity</h5></td>
+            <td><h5>Price</h5></td>
+            <td><h5>Order Date</h5></td>
+            <td><h5>Status</h5></td>
+            <td><h5>Shipping</h5></td>
+            <td><h5>Buyer</h5></td>
+            <td><h5>Seller</h5></td>
+            <td><h5>Action</h5></td>
+          </tr>
+          @for(order <- orderlist) {
+            <tr>
+
+              <td> @order.quantity </td>
+              <td> @order.price </td>
+              <td> $@order.orderdate </td>
+              <td> @order.status </td>
+              <td> $@order.Shippingid </td>
+              <td> @order.sellerid </td>
+              <td> @order.userid </td>
+              <td>
+                <form method="get" action="@routes.Products.update()" style="width:30px">
+                  <input type="hidden" name="bookid" value=@order.id.toHexString >
+                  <button type="submit"> Edit </button>
+                </form>
+                <form method="post" action="@routes.Products.delete()" style="width:30px">
+                  <input type="hidden" name="bookid" value=@order.id.toHexString>
+                  <button type="submit"> Cancel </button>
+                </form>
+              </td>
+
+            </tr>
+          }
+
+        </table>
+      }else{
+        <h2>No order found!</h2>
+      }
+
+      <div lass="clearfloat"></div>
+    </div>
+
   }
   </div><!-- end main -->
 
