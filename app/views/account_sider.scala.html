@@ -2,21 +2,25 @@
 
 
 <li><a href="@routes.Account.login()">Profiles</a></li>
-@if(session.get("role")=="2"){
-    <li><a href="@routes.Products.getInventory()">Inventory</a></li>
-    <li><a href="account_transactions.html">Transactions</a></li>
-}
-@if(session.get("role")=="2" || session.get("role")=="1"){
-    <li><a href="@routes.Order.getOrder()">Purchase History</a></li>
-    <li><a href="@routes.Bank.getBank()">Payment Options</a></li>
-    <li><a href="account_shippingaddress,html">Address</a></li>
-}
-@if(session.get("role")=="3"){
-    <li><a href="@routes.Products.getInventory()">Inventory</a></li>
-    <li><a href="">All Orders</a></li>
-    <li><a href="">All Buyers</a></li>
-    <li><a href="">All Sellers</a></li>
-}
+    @if(session.get("role")=="2"){
+        <li><a href="@routes.Products.getInventory()">Inventory</a></li>
+        <li><a href="account_transactions.html">Transactions</a></li>
+    }
+    @if(session.get("role")=="2" || session.get("role")=="1"){
+        <li><a href="@routes.Order.getOrder()">Purchase History</a></li>
+        <li><a href="@routes.Bank.getBank()">Payment Options</a></li>
+        <li><a href="account_shippingaddress,html">Address</a></li>
+    }
+    @if(session.get("role")=="3"){
+        <li><a href="@routes.Products.getInventory()">Inventory</a></li>
+        <li><a href="@routes.Order.getOrder()">Purchase History</a></li>
+        <li><a href="@routes.Bank.getBank()">Payment Options</a></li>
+        <li><a href="">Address</a></li>
+        <li><a href="">All Buyers</a></li>
+        <li><a href="">All Orders</a></li>
+        <li><a href="">Transactions</a></li>
+        <li><a href="">All Sellers</a></li>
+    }
 <li><a href="/getreceiveddmsg">Messages Received</a></li>
 <li><a href="/getsentmsg">Messages Sent</a></li>
 
