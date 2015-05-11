@@ -98,7 +98,20 @@ public class ContactMsgOperations extends Model {
         }
         return list;
     }
+    public ContactMsg getone(String id) {
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Messages");
+        Document doc = collection.find(eq("_id", id)).first();
+        ContactMsg contactMsg = new ContactMsg();
+        contactMsg.msg = doc.getString("msg");
+        contactMsg.sdate = doc.getDate("sdate");
+        contactMsg.id = doc.getObjectId("_id");
+        contactMsg.receiverid = doc.getString("receiverid");
+        contactMsg.senderid = doc.getString("senderid");
+        contactMsg.subject = doc.getString("subject");
+        return contactMsg;
 
+    }
     public void delete(String id){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Messages");

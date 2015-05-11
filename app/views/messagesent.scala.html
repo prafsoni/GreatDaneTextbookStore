@@ -32,7 +32,13 @@
                     @for(msg <- msglist) {
                         <tr>
 
-                            <td>@msg.subject</td>
+                            <td>
+                                <form action="@routes.Contacts.getone()" method="get" style="width:190px;">
+
+                                    <button type="submit" class="linkbutton" style="float: left">@msg.subject</button>
+                                    <input name="msgid" type=hidden value="@msg.id.toString">
+                                </form>
+                            </td>
                             <td>
                                 <form action="@routes.Account.userinfo()" method="get" style="width:70px;float:left;">
                                     <input name="seller" type=hidden value="@msg.receiverid">

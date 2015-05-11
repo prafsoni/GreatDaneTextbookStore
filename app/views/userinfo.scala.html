@@ -55,6 +55,7 @@
                     </tr>
                 </table>
                 <form name="contact" method="get" action="@routes.Contacts.contact()">
+                    <input type="hidden" name="receiver" value=@user.uname>
                     <button type="submit" name="contact" value="contact" class="submit" style="float:left;width:auto;margin-left:5px"> Contact </button>
                 </form>
                 <div lass="clearfloat"></div>

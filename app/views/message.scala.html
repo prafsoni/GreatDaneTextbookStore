@@ -17,6 +17,20 @@
         <div class="side-left">
         @account_sider(session)
         </div>
+        <div class="contact-column1" style="width:500px">
+
+        </div>
+
+        <form name="contact" method="get" action="@routes.Contacts.contact()">
+            <input type="hidden" name="receiver" value=@msg.senderid>
+            <button type="submit" name="contact" value="contact" class="submit" style="float:left;width:auto;margin-left:5px"> Reply </button>
+        </form>
+
+        <form name="delete" method="post" action="@routes.Contacts.delete()">
+            <input type="hidden" name="id" value=@msg.id.toString>
+            <button type="submit" name="contact" value="contact" class="submit" style="float:left;width:auto;margin-left:5px"> Delete </button>
+        </form>
+
 
     }
     </div><!-- end main -->

@@ -89,13 +89,12 @@ public class Contacts extends Controller{
     public static Result getallsentmsg() {
         Http.Session session = Util.getCurrentSession();
         String u = session.get("username");
-
         if (u != null) {
             ContactMsgOperations cmo = new ContactMsgOperations();
 
             ArrayList<ContactMsg> list = cmo.getallsent(u);
             if (list.size() > 0) {
-                return ok(messagesent.render("Message Sent", list, session));
+                return ok(messagesent.render("Messages Sent", list, session));
             } else {
                 return ok(messagesent.render("No Messages.", list, session));
             }
@@ -106,12 +105,17 @@ public class Contacts extends Controller{
     public static Result getallreceived() {
         Http.Session session = Util.getCurrentSession();
         String u = session.get("username");
-
+        String role = session.get("role");
+        ArrayList<ContactMsg> list = new ArrayList<>();
         if (u != null) {
             ContactMsgOperations cmo = new ContactMsgOperations();
-            ArrayList<ContactMsg> list = cmo.getallreceived(u);
+            if(role.equals("3")) {
+                list = cmo.getallreceived("admin");
+            }else{
+                list = cmo.getallreceived(u);
+            }
             if (list.size() > 0) {
-                return ok(messagebox.render("Received messages", list, session));
+                return ok(messagebox.render("Messages Received", list, session));
             } else {
                 return ok(messagebox.render("No Messages.", list, session));
             }
@@ -119,7 +123,23 @@ public class Contacts extends Controller{
             return ok(login.render("Please login first!", session));
         }
     }
+    public static Result getone() {
+        Http.Session session = Util.getCurrentSession();
+        String u = session.get("username");
+        String msgid = Form.form().bindFromRequest().get("msgid");
+        if (u != null) {
+            ContactMsgOperations cmo = new ContactMsgOperations();
 
+            ContactMsg msg = cmo.getone(msgid);
+            if (msg!=null) {
+                return ok(message.render("Messages Sent", msg, session));
+            } else {
+                return ok(message.render("Failed to retrieve the message!", msg, session));
+            }
+        } else {
+            return ok(login.render("Please login first!", session));
+        }
+    }
     public static Result delete(){
         Http.Session session = Util.getCurrentSession();
         //DynamicForm requestData = Form.form().bindFromRequest();

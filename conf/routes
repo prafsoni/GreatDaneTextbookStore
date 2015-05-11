@@ -45,6 +45,7 @@ GET         /getorder                controllers.Order.getOrder()
 POST        /placeorder              controllers.Order.add()
 GET         /getreceiveddmsg         controllers.Contacts.getallreceived()
 GET         /getsentmsg              controllers.Contacts.getallsentmsg()
+GET         /getmsg                  controllers.Contacts.getone()
 POST        /deletemsg               controllers.Contacts.delete()
 GET         /userinfo                controllers.Account.userinfo()
 
