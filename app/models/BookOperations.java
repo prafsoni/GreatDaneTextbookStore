@@ -45,6 +45,7 @@ public class BookOperations extends Model {
                     .append("description", book.description)
                     .append("year", book.year)
                     .append("shippingfee", book.shippingfee)
+                    .append("shippingfee", book.shippingfee)
                     .append("category", book.category);
             com.mongodb.async.client.MongoDatabase database = getdatabaseasync();
             MongoCollection<Document> collection = database.getCollection("Books");

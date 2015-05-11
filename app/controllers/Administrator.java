@@ -33,4 +33,10 @@ public class Administrator extends Controller {
         ArrayList<Users> users = uo.getall();
         return ok(userslist.render(users));
     }
+
+    public static Result viewallsellers(){
+        UserOperations uo = new UserOperations();
+        ArrayList<Users> users = uo.getallsellers();
+        return ok(userslist.render(users));
+    }
 }

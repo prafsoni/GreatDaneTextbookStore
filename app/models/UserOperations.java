@@ -187,6 +187,30 @@ public class UserOperations extends Model {
         return list;
     }
 
+    public ArrayList<Users> getallsellers(){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        FindIterable<Document> results = collection.find();
+        ArrayList<Users> list = new ArrayList<>();
+        for(Document result : results){
+            Users user = new Users();
+            user.cdate = result.getDate("cdate");
+            user.email = result.getString("email");
+            user.fname = result.getString("fname");
+            user.lname = result.getString("lname");
+            user.mob = result.getLong("mob");
+            user.status = result.getInteger("status");
+            user.id = result.getObjectId("_id");
+            user.role = result.get("role", a.class);
+            user.address = result.get("role",a.class);
+            user.uname = result.getString("uname");
+            if(user.role.contains("seller")){
+                list.add(user);
+            }
+        }
+        return list;
+    }
+
     public String getuname(String id){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
