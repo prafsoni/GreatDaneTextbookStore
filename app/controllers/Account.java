@@ -253,7 +253,11 @@ public class Account extends Controller {
     }
 
     public static Result address(){
-        return ok();
+        Http.Session session = Util.getCurrentSession();
+        String username = session.get("username");
+        AddressOperations ao = new AddressOperations();
+        ArrayList<Addresses> al=ao.getall(session("uuid"));
+        return ok(account_address.render("address",al,session));
     }
 
 }

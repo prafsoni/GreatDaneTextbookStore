@@ -250,6 +250,7 @@ public class UserOperations extends Model {
         Document doc = collection.find(eq("_id",uid)).first();
         Document newDoc = new Document(doc);
         newDoc.put("status",0);
+        newDoc.remove("_id");
         collection.updateOne(doc,newDoc);
         return true;
     }
@@ -261,6 +262,7 @@ public class UserOperations extends Model {
         Document doc = collection.find(eq("_id",uid)).first();
         Document newDoc = new Document(doc);
         newDoc.put("status",-1);
+        newDoc.remove("_id");
         collection.updateOne(doc,newDoc);
         return true;
     }
@@ -276,6 +278,15 @@ public class UserOperations extends Model {
         Document ndoc = new Document();
         ndoc = doc;
         ndoc.put("address",al);
+        ndoc.remove("_id");
         collection.updateOne(doc,ndoc);
+    }
+
+    public void delete(String userid){
+        com.mongodb.client.MongoDatabase database = getdatabase();
+        com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Users");
+        ObjectId uid = new ObjectId(userid);
+        Document doc = collection.find(eq("_id",uid)).first();
+        collection.deleteOne(doc);
     }
 }

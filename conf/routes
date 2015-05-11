@@ -51,8 +51,11 @@ GET         /userinfo                controllers.Account.userinfo()
 GET         /admin/sellers           controllers.Administrator.viewallsellers()
 GET         /admin/orders            controllers.Administrator.viewallorders()
 GET         /address                 controllers.Account.address()
+POST        /admin/approve           controllers.Administrator.approve(userid: String ?="")
 GET         /addcomment              controllers.Comment.add()
 GET         /getcomment              controllers.Comment.getComments()
+POST        /admin/delete            controllers.Administrator.delete(userid: String ?="")
+
 
 
 

@@ -60,4 +60,26 @@ public class Administrator extends Controller {
             return ok(admin_order.render("All Orders",orders,session));
         }else{return unauthorized(account.render("Please login first!", session));}
     }
+
+    public static Result approve(String userid){
+        Http.Session session = Util.getCurrentSession();
+        String role = session.get("role");
+        String username = session.get("username");
+        if (role.equals("3") && username != null) {
+            UserOperations uo = new UserOperations();
+            uo.approve(userid);
+            return ok();
+        }else{return unauthorized(account.render("Please login first!", session));}
+    }
+
+    public static Result delete(String userid){
+        Http.Session session = Util.getCurrentSession();
+        String role = session.get("role");
+        String username = session.get("username");
+        if (role.equals("3") && username != null) {
+            UserOperations uo = new UserOperations();
+            uo.delete(userid);
+            return ok();
+        }else{return unauthorized(account.render("Please login first!", session));}
+    }
 }

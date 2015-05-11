@@ -47,13 +47,17 @@
                   <input type="hidden" name="userid" value=@user.id.toHexString >
                   <button type="submit"> Edit </button>
                 </form>
-                <form method="post" action="" style="width:30px">
+                <form method="post" action="@routes.Administrator.delete(user.id.toString())" style="width:30px">
                   <input type="hidden" name="userid" value=@user.id.toHexString>
                   <button type="submit"> Delete </button>
                 </form>
                 <form method="get" action="@routes.Contacts.contact()" style="width:30px">
                   <input type="hidden" name="receiver" value=@user.uname>
                   <button type="submit"> Contact </button>
+                </form>
+                <form method="post" action="@routes.Administrator.approve(user.id.toString())" style="width:30px">
+                  <input type="hidden" name="userid" value=@user.id.toHexString>
+                  <button type="submit"> Approve </button>
                 </form>
               </td>
             </tr>
