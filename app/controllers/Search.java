@@ -82,7 +82,8 @@ public class Search extends Controller{
         if (id.length()>0){
             BookOperations bo = new BookOperations();
             Books book = bo.getone(id);
-            book.seller = uo.getuname(book.seller);
+            Users seller = uo.getuserbyid(book.seller);
+            book.seller = seller.uname;
 
             System.out.println(book.title);
             if(book.title.length() > 0){
