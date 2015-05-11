@@ -109,7 +109,7 @@ public class BookOperations extends Model {
     public ArrayList<Books> getcategory(String category){
         com.mongodb.client.MongoDatabase database = getdatabase();
         com.mongodb.client.MongoCollection<Document> collection = database.getCollection("Books");
-        int c = Integer.parseInt(category);
+        String c = category;
         FindIterable<Document> results = collection.find(eq("category",c)).limit(300);
         ArrayList<Books> list = new ArrayList<>();
         for(Document result: results){

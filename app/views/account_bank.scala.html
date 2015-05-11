@@ -15,11 +15,11 @@
         </form>
     }else{
         <div class="side-left">
-            @if(session.get("role")=="2" || session.get("role")=="1"){
+
                 <li><a href="@routes.Bank.getBank()">Banks</a></li>
                 <li><a href="@routes.Bank.getBank()">Credit Cards</a></li>
                 <li><a href="@routes.Bank.getBank()">Paypal</a></li>
-            }
+
             @if(session.get("role")=="3"){
 
             }
