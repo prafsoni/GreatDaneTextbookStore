@@ -1,0 +1,60 @@
+@(message: String)(alist: java.util.ArrayList[Addresses])(implicit session: play.mvc.Http.Session)
+
+@main(title = message)(session){
+    <div class="main" style="height: 500px; float:none;">
+    @if(session.get("username") == null) {
+        <h2 class="page-heading"><span>@message</span></h2>
+
+        <form action="@routes.Account.dologin()" method="post" style="width: 250px; height: 70px; float: none;">
+            <input type="text" placeholder="username" name="uname" style="height: 15px; width: 150px;" />
+            <input type="password" placeholder="password" name="password" style="height: 15px; width: 150px;" />
+            <button type="submit" name="login" value="login" style="margin-left:10%; height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/login-button.png")" height="25" width="70" /></button>
+            <a href="@routes.Account.register()" style="height: 25px; width: 70px; border: 0px;"><img src="@routes.Assets.at("images/register-button.png")" height="25" width="70" /></a>
+            <br>
+            <a href="javascript:void(0);" onclick="window.location.href = jsRoutes.controllers.Signup.forgotPassword($('#email').val() || null).absoluteURL();">@Messages("")</a>
+        </form>
+    }else{
+        <div class="side-left">
+        @account_sider(session)
+        </div>
+        <div class="column-large">
+            <h3 class="page-heading"><span>@message</span></h3>
+            <br>
+            @if(alist.size() > 0){
+                <table style="text-align : center" border="1px">
+                    <tr>
+                        <td><h5>Type</h5></td>
+                        <td><h5>Street and City</h5></td>
+                        <td><h5>State</h5></td>
+                        <td><h5>Zip</h5></td>
+                        <td><h5>Action</h5></td>
+                    </tr>
+                    @for(a <- alist) {
+                        <tr>
+
+                            <td> @a.addrtype </td>
+                            <td> @a.addr </td>
+                            <td> @a.state </td>
+                            <td> @a.zip </td>
+
+                            <td>
+                                <form method="get" action="" style="width:30px">
+                                    <input type="hidden" name="bookid" value=@a.id.toHexString >
+                                    <button type="submit"> Edit </button>
+                                </form>
+                                <form method="post" action="" style="width:30px">
+                                    <input type="hidden" name="bookid" value=@a.id.toHexString>
+                                    <button type="submit"> Delete </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            <div lass="clearfloat"></div>
+        </div>
+    }
+    </div><!-- end main -->
+
+}
