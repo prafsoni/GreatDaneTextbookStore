@@ -1,0 +1,40 @@
+@(message: String)(implicit session: play.mvc.Http.Session)
+
+    @main(title = message)(session){
+    <div class="main" style="height: 800px; float:none;">
+
+        <div class="contact-column1">
+            <h2 class="page-heading"><span>@message</span></h2>
+
+                <fieldset>
+
+                    <form method="post" action="">
+
+                        <label class="required"><span class="required_star"> * </span>Address Type</label>
+                        <select name="addrtype" style="margin-left:5%; width: 280px; height: 30px">
+                            <option value="billing">Billing</option>
+                            <option value="shipping">Shipping</option>
+                        </select>
+                        <label class="required"><span class="required_star"> * </span>Street and City</label>
+                        <textarea name="street" maxlength="200" height="40"></textarea>
+
+                        <label class="required"><span class="required_star"> * </span>State</label>
+                        <input type="text" name="state" maxlength="40">
+
+                        <label class="required"><span class="required_star"> * </span>zip</label>
+                        <input type="number" name="zip" maxlength="40">
+
+                        <input type="hidden" name="userid" value="@session.get("uuid")">
+
+
+                    <input type="submit" class="submit" value="ADD" style="float:left" >
+                    </form>
+
+                </fieldset>
+
+
+        </div>
+
+
+    </div><!-- end main -->
+}
