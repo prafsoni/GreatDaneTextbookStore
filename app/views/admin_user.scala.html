@@ -35,7 +35,6 @@
           </tr>
           @for(user <- userlist) {
             <tr>
-
               <td> @user.id.toString </td>
               <td> @user.uname </td>
               <td> @user.fname </td>
@@ -57,11 +56,8 @@
                   <button type="submit"> Contact </button>
                 </form>
               </td>
-
             </tr>
           }
-
-
         </table>
       }else{
         <h2>No user found!</h2>

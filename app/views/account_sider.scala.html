@@ -12,9 +12,10 @@
     <li><a href="account_shippingaddress,html">Address</a></li>
 }
 @if(session.get("role")=="3"){
-    <li><a href="admin_book.html">All Books</a></li>
-    <li><a href="admin_order.html">All Orders</a></li>
-    <li><a href="admin_user.htm.">All Users</a></li>
+    <li><a href="@routes.Products.getInventory()">Inventory</a></li>
+    <li><a href="">All Orders</a></li>
+    <li><a href="">All Buyers</a></li>
+    <li><a href="">All Sellers</a></li>
 }
 <li><a href="/getreceiveddmsg">Messages Received</a></li>
 <li><a href="/getsentmsg">Messages Sent</a></li>
