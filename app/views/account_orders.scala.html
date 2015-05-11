@@ -41,10 +41,6 @@
                             <td> @order.Shippingid </td>
                             <td> @order.sellerid </td>
                             <td>
-                                <form method="get" action="@routes.Order.update()" style="width:30px">
-                                    <input type="hidden" name="orderid" value=@order.id.toHexString >
-                                    <button type="submit"> Edit </button>
-                                </form>
                                 <form method="post" action="@routes.Order.delete()" style="width:30px">
                                     <input type="hidden" name="orderid" value=@order.id.toHexString>
                                     <button type="submit"> Cancel </button>
