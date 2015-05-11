@@ -80,7 +80,7 @@ public class BookOperations extends Model {
         book.description = result.getString("description");
         book.year = result.getInteger("year");
         book.shippingfee = result.getDouble("shippingfee");
-        book.category = result.getInteger("category");
+        book.category = result.getString("category");
         return book;
     }
     public ArrayList<Books> getInventory(String seller){
@@ -101,7 +101,7 @@ public class BookOperations extends Model {
             book.description = result.getString("description");
             book.year = result.getInteger("year");
             book.shippingfee = result.getDouble("shippingfee");
-            book.category = result.getInteger("category");
+            book.category = result.getString("category");
             list.add(book);
         }
         return list;
@@ -126,7 +126,7 @@ public class BookOperations extends Model {
             book.description = result.getString("description");
             book.year = result.getInteger("year");
             book.shippingfee = result.getDouble("shippingfee");
-            book.category = result.getInteger("category");
+            book.category = result.getString("category");
             list.add(book);
         }
         return list;
@@ -158,7 +158,7 @@ public class BookOperations extends Model {
             book.description = result.getString("description");
             book.year = result.getInteger("year");
             book.shippingfee = result.getDouble("shippingfee");
-            book.category = result.getInteger("category");
+            book.category = result.getString("category");
             list.add(book);
         }
         return list;
@@ -181,7 +181,7 @@ public class BookOperations extends Model {
             book.description = result.getString("description");
             book.year = result.getInteger("year");
             book.shippingfee = result.getDouble("shippingfee");
-            book.category = result.getInteger("category");
+            book.category = result.getString("category");
             list.add(book);
         }
         return list;
@@ -213,7 +213,7 @@ public class BookOperations extends Model {
         book.description = result.getString("description");
         book.year = result.getInteger("year");
         book.shippingfee = result.getDouble("shippingfee");
-        book.category = result.getInteger("category");
+        book.category = result.getString("category");
         list.add(book);
         }
         return list;
