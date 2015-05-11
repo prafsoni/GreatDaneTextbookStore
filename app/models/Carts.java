@@ -40,9 +40,11 @@ public class Carts {
         this.list = new ArrayList<>();
     }
     public void update(){
+        this.number = 0;
         this.tax = 0;
         this.subtotal = 0;
         this.total = 0;
+        this.shippingfee = 0;
         for (Books book: list){
             this.tax = this.tax + book.price * 0.08 * book.stock;
             this.subtotal = this.subtotal + book.price * book.stock;

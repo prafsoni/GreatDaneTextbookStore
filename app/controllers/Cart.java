@@ -220,16 +220,23 @@ public class Cart extends Controller {
                         break;
                     }
                 }
-                book.stock = cart.list.get(idx).stock + quantity;
+                System.out.println("updated q: " + quantity + cart.list.get(idx).title + String.valueOf(cart.list.size()));
+                book = cart.list.get(idx);
+                book.stock = quantity;
                 cart.list.remove(idx);
                 cart.list.add(book);
                 cart.update();
                 Cache.set(uuid+"cart", cart);
+                if (cart.number <=0){
+                    cart.clear();
+                    Cache.set(uuid+"cart", cart);
+                    return ok(shoppingcart.render("Your Shopping Cart Is Empty!",cart, session));
+                }
             }else{ // list doesn't contain the book
                 return ok(shoppingcart.render("Updating failed!",cart, session));
             }
         }else{ // list is empty
-            return ok(shoppingcart.render("Your car is Empty!",cart, session));
+            return ok(shoppingcart.render("Your Shopping Cart Is Empty!",cart, session));
         }
 
         Cache.set(uuid + "cart", cart);
