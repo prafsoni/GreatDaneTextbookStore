@@ -49,12 +49,12 @@
         <button type="submit" class="submit" style="float:left; margin-left:50%">Buy</button>
       </form>
 
-      <form action="/rate" method="post">
+      <form action="@routes.Comment.add()" method="get">
         <input name="bookid" type="hidden" value=@book.id>
         <button type="submit" class="submit" style="float:right;width:auto;margin-left:5px;">Add Comments</button>
       </form>
 
-      <form action="/rate" method="get">
+      <form action="@routes.Comment.getComments()" method="get">
         <input name="bookid" type="hidden" value=@book.id>
         <button type="submit" class="submit" style="float:right;width:auto;margin-left:5px;">Comments</button>
       </form>

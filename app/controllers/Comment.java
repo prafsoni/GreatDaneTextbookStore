@@ -28,7 +28,7 @@ public class Comment extends Controller{
         if (username == null){
             return ok(login.render("Please login first!", session));
         }
-        return ok(comments.render("Comments",clist,session));
+        return ok(comments.render("Add Comments",clist,session));
     }
     public static Result add(){
         Http.Session session = Util.getCurrentSession();
