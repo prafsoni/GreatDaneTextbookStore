@@ -57,6 +57,9 @@ POST        /admin/approve           controllers.Administrator.approve(userid: S
 GET         /addcomment              controllers.Comment.add()
 GET         /getcomment              controllers.Comment.getComments()
 POST        /admin/delete            controllers.Administrator.delete(userid: String ?="")
+GET         /address/add             controllers.Account.addaddress()
+POST        /address/add             controllers.Account.doaddaddress()
+
 
 
 
